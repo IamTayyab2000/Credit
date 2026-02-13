@@ -1,4 +1,3 @@
-<?php include_once('functionality/components/session_chk_admin.php') ?>
 <?php include_once('functionality/components/session_chk_admin.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,191 +7,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/cdn.datatables.net_1.13.6_css_jquery.dataTables.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery.js"></script>
     <script src="js/cdn.datatables.net_1.13.6_js_jquery.dataTables.min.js"></script>
-    <title>Welcome Admin</title>
+    <title>Enter DSR | Credit Management</title>
 </head>
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">DSR</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="adminpanel.php">Credit Management</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="adminpanel.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="creditReport.php">Credit Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="insertDSR.php">Enter DSR</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="IssueBills.php" >Issue Bills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="generate_recovery_sheet.php">Recovery Sheets</a>
-                        </li>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="adminpanel.php">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="creditReport.php">Reports</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="insertDSR.php">DSR</a></li>
+                        <li class="nav-item"><a class="nav-link" href="insertCustomers.php">Customers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="IssueBills.php">Issue Bills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="generate_recovery_sheet.php">Recovery</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <main>
-        <div class="container">
-            <div class="row m-2 p-3 border rounded">
-                <div class="col-12 col-md-8">
-                    <h5>Insert DSR</h5>
-                </div>
 
-                <div class="row m-1">
-                    <div class="col-12 col-md-6">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Picklist ID</span>
-                            <input type="text" class="form-control" id="picklist_id" placeholder="Picklist ID" aria-describedby="inputGroupPrepend">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="input-group m-3">
-                            <span class="input-group-text">Sector</span>
-                            <select class="form-select" id="saleman_name_selector">
+    <main class="container">
+        <h2 class="page-heading">Daily Sales Report (DSR) Entry</h2>
 
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row m-1">
-                    <div class="col col-md-4">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Date</span>
-                            <input type="date" class="form-control" id="picklist_date" aria-describedby="inputGroupPrepend">
-                        </div>
-                    </div>
-
-                    <div class="col col-md-4">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Amount</span>
-                            <input type="number" class="form-control" id="picklist_amount" aria-describedby="inputGroupPrepend">
-                        </div>
-                    </div>
-
-                    <div class="col col-md-4">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Return</span>
-                            <input type="number" class="form-control" id="picklist_return" aria-describedby="inputGroupPrepend">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row m-1">
-                    <div class="col col-md-4">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Scheme</span>
-                            <input type="number" class="form-control" id="picklist_scheme" aria-describedby="inputGroupPrepend">
-                        </div>
-                    </div>
-
-                    <div class="col col-md-4">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Credit</span>
-                            <input type="number" class="form-control" id="picklist_credit" aria-describedby="inputGroupPrepend" readonly>
-                        </div>
-                    </div>
-
-                    <div class="col col-md-4">
-                        <div class="input-group m-3">
-                            <span class="input-group-text" id="inputGroupPrepend">Recovery</span>
-                            <input type="text" class="form-control" id="picklist_recovery" aria-describedby="inputGroupPrepend" readonly>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="row m-2 p-3 border rounded">
-            <div class="row mb-1">
-            <div class="col-12 col-md-3">
-                    <div class="input-group ">
-                        <span class="input-group-text">Invoice ID</span>
-                        <input type="text" class="form-control" id="customer_invoice_id">
-                    </div>
-                </div>
-                <div class="col col-md-3">
-                    <div class="input-group col col-md-3">
-                        <span class="input-group-text">ID</span>
-                        <input type="text" class="form-control" id='customer_id' list="customer_data_list">
-                    </div>
-                    <datalist id="customer_data_list"></datalist>
-                </div>
-                <div class="col-12 col-md-3">
-                    <div class="input-group ">
-                        <span class="input-group-text">Name</span>
-                        <input type="text" class="form-control" id="customer_name" readonly>
-                    </div>
-                </div>
-                <div class="col col-md-3">
-                    <div class="input-group ">
-                        <span class="input-group-text">Amount</span>
-                        <input type="number" class="form-control" id="credit_amount">
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-1">
-            
-                    <button class="btn btn-success m-1" id="btn_add_creditor_to_table">Add</button>
-            
-            </div>
-            <div class="row mb-1">
-                <div class="d-flex justify-content-center">
-                    <h3>Customer Credit</h3>
-                </div>
-                <hr>
-                <div class="table-responsive">
-                <table class="table" id="creditors_table">
-                    <thead>
-                        <th>Inv ID</th>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Amount</th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-                </div>
-            </div>
         <div class="row">
-            <button class="btn btn-success" id="btn_process_picklist">Process</button>
-        </div>
-        </div>
-
-        </div>
-        
-        
-        <!-- Debugging -->
-        <div class='m-3 row' id="messageBox">
-            <div class="col bg-danger bg-gradient">
-                <div class=" d-flex justify-content-between ">
-                    <div class=" h3">Message:</div>
-                    <a class="h3 text-light btn" style="text-decoration: none;" id='close_messageBox'>X</a>
+            <!-- DSR Header Info -->
+            <div class="col-lg-12 mb-4">
+                <div class="card shadow-sm border-start border-primary border-5">
+                    <div class="card-header bg-white font-weight-bold">Primary Picklist Information</div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label small">Picklist ID</label>
+                                <input type="text" class="form-control" id="picklist_id" placeholder="Enter ID">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small">Date</label>
+                                <input type="date" class="form-control" id="picklist_date">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small">Salesman / Sector</label>
+                                <select class="form-select" id="saleman_name_selector"></select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Total Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" class="form-control" id="picklist_amount">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Return Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" class="form-control" id="picklist_return">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Scheme / Discount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">Rs.</span>
+                                    <input type="number" class="form-control" id="picklist_scheme">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small">Net Credit</label>
+                                <input type="number" class="form-control bg-light font-weight-bold" id="picklist_credit" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small">Total Recovery</label>
+                                <input type="text" class="form-control bg-light font-weight-bold text-success" id="picklist_recovery" readonly>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div id="messageBody" class="col h3 text-light p-2" style="background-color:#f08080;">
+            </div>
+
+            <!-- Customer Credit Entry -->
+            <div class="col-lg-12 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white font-weight-bold">Add Customer Credit / Outstanding</div>
+                    <div class="card-body">
+                        <div class="row g-2 align-items-end">
+                            <div class="col-md-2">
+                                <label class="form-label small">Inv ID</label>
+                                <input type="text" class="form-control form-control-sm" id="customer_invoice_id">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Cust ID</label>
+                                <input type="text" class="form-control form-control-sm" id='customer_id' list="customer_data_list">
+                                <datalist id="customer_data_list"></datalist>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small">Customer Name</label>
+                                <input type="text" class="form-control form-control-sm bg-light" id="customer_name" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Amount</label>
+                                <input type="number" class="form-control form-control-sm" id="credit_amount">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary btn-sm w-100" id="btn_add_creditor_to_table">Add to List</button>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h6 class="font-weight-bold small uppercase letter-spacing-1 mb-3">Credit Summary</h6>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-sm" id="creditors_table">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th>Inv ID</th>
+                                            <th>Cust ID</th>
+                                            <th>Customer Name</th>
+                                            <th class="text-end">Amount</th>
+                                            <th class="text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white p-0">
+                        <button class="btn btn-success btn-lg w-100 rounded-0 rounded-bottom py-3 font-weight-bold" id="btn_process_picklist">
+                            Submit and Process DSR
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- Debugging End -->
-    </main>
-    <footer>
 
-    </footer>
+        <!-- Feedback UI -->
+        <div id="messageBox" class="mt-4" style="display:none;">
+            <div class="alert alert-danger d-flex justify-content-between align-items-center">
+                <div id="messageBody"></div>
+                <button type="button" class="btn-close" id="close_messageBox"></button>
+            </div>
+        </div>
+    </main>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script type="Module" src="js/dsr.js"></script>
 </body>

@@ -1,5 +1,3 @@
-<?php include_once('functionality/components/session_chk_admin.php') ?>
-<?php include_once('functionality/components/session_chk_admin.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,88 +6,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/cdn.datatables.net_1.13.6_css_jquery.dataTables.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery.js"></script>
     <script src="js/cdn.datatables.net_1.13.6_js_jquery.dataTables.min.js"></script>
-    <title>Generate Recovery Sheets</title>
+    <title>Recovery Sheets | Credit Management</title>
 </head>
 
 <body>
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Admin Panel</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="adminpanel.php">Credit Management</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="creditReport.php">Credit Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="insertDSR.php">Enter DSR</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="IssueBills.php" >Issue Bills</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="generate_recovery_sheet.php" >Recovery Sheets</a>
-                        </li>
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="adminpanel.php">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="creditReport.php">Reports</a></li>
+                        <li class="nav-item"><a class="nav-link" href="insertDSR.php">DSR</a></li>
+                        <li class="nav-item"><a class="nav-link" href="insertCustomers.php">Customers</a></li>
+                        <li class="nav-item"><a class="nav-link" href="IssueBills.php">Issue Bills</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="generate_recovery_sheet.php">Recovery</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
-        
     </header>
-    <main>
-        <!-- main -->
-        <div class="container">
-            <div class="row text-center">
-                <h3>Recovery Sheets</h3>
-            </div>
-            <div class="row">
-                <div class="table-responsive">
-                <table class="table" id="rec_sheet_table">
-                    <thead>
-                        <th>ID</th>
-                        <th>Saleman</th>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Recovery</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </thead>
-                    <tbody>
-                        
-                    </tbody>
-                </table>
-                </div>
-            </div>
-        </div>
-        <!-- main End -->
-        <!-- Debugging -->
-        <div class='m-3 row' id="messageBox">
-            <div class="col bg-danger bg-gradient">
-                <div class=" d-flex justify-content-between ">
-                    <div class=" h3">Message:</div>
-                    <a class="h3 text-light btn" style="text-decoration: none;" id='close_messageBox'>X</a>
-                </div>
-                <div id="messageBody" class="col h3 text-light p-2" style="background-color:#f08080;">
-                </div>
-            </div>
-        </div>
-        <!-- Debugging End -->
-    </main>
-    <footer>
 
-    </footer>
+    <main class="container">
+        <h2 class="page-heading">Recovery Sheet Management</h2>
+
+        <!-- Recovery Sheet Table Card -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="font-weight-bold text-primary">Generated Sheets</span>
+                    <i class="text-muted small">Manage and track recovery progress</i>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive p-3">
+                    <table class="table table-hover w-100" id="rec_sheet_table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Salesman</th>
+                                <th>Date Issued</th>
+                                <th class="text-end">Total Amount</th>
+                                <th class="text-end">Recovered</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data populated via generate_rec_sheet.js -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feedback UI -->
+        <div id="messageBox" class="mt-4" style="display:none;">
+            <div class="alert alert-danger d-flex justify-content-between align-items-center">
+                <div id="messageBody"></div>
+                <button type="button" class="btn-close" id="close_messageBox"></button>
+            </div>
+        </div>
+    </main>
+
     <script src="js/bootstrap.bundle.min.js"></script>
     <script type="module" src="js/generate_rec_sheet.js"></script>
 </body>

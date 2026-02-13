@@ -6,7 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
-    <title>Full Credit Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Full Credit Report | Credit Management</title>
     <style>
         @media print {
             @page {
@@ -15,10 +17,14 @@
             }
             body { 
                 font-size: 11px; 
-                background: white;
+                background: white !important;
+                font-family: 'Times New Roman', serif;
             }
             .no-print { 
                 display: none !important; 
+            }
+            .container-fluid {
+                padding: 0 !important;
             }
             .table td, .table th { 
                 padding: 2px 4px !important; 
@@ -50,27 +56,25 @@
             vertical-align: middle;
         }
         .area-total-row {
-            background-color: #e2e3e5;
+            background-color: #f8f9fc;
             font-weight: bold;
         }
     </style>
 </head>
-<body>
-<div class="container-fluid py-3">
+<body class="bg-light">
+<div class="container py-4">
 <?php
 $saleman_id = isset($_GET['saleman_id']) ? $_GET['saleman_id'] : '';
 $saleman_name = isset($_GET['saleman_name']) ? $_GET['saleman_name'] : '';
 
-// Default warning cutoff to 30 days ago if not set
 $default_date = date('Y-m-d', strtotime('-30 days'));
 $warning_date = isset($_GET['warning_date']) ? $_GET['warning_date'] : $default_date;
 
 if(empty($saleman_id)){
-    echo "<div class='alert alert-danger'>Salesman id missing.</div>";
+    echo "<div class='alert alert-danger'>Salesman ID missing.</div>";
     exit;
 }
 
-// Query bills
 $query = "SELECT COALESCE(s.sector_name,'Unknown') AS area, c.customer_name AS shop_name, b.bill_id, b.bill_date, b.bill_amount, COALESCE(bl.remaining_amount, b.bill_amount) AS remaining_amount, DATEDIFF(CURRENT_DATE, b.bill_date) AS bill_age
           FROM bill b
           LEFT JOIN bill_ledger bl ON bl.bill_id = b.bill_id
@@ -98,38 +102,45 @@ while($row = $res->fetch_assoc()){
     $total_outstanding += floatval($row['remaining_amount']);
 }
 
-// UI Controls
-echo "<div class='row mb-3 no-print align-items-center'>";
+// UI Header Section
+echo "<div class='row mb-4 no-print align-items-center bg-white p-3 rounded shadow-sm mx-0'>";
 echo "<div class='col-md-5'>";
-echo "<h3>Full Credit Report: " . htmlspecialchars($saleman_name ?: $saleman_id) . "</h3>";
+echo "<h4 class='mb-0 font-weight-bold'>Report: " . htmlspecialchars($saleman_name ?: $saleman_id) . "</h4>";
+echo "<p class='text-muted small mb-0'>Detailed credit analysis for selected salesman</p>";
 echo "</div>";
-echo "<div class='col-md-7 text-end'>";
-echo "<form method='GET' class='d-inline-flex gap-2 align-items-center'>";
+echo "<div class='col-md-7'>";
+echo "<form method='GET' class='row g-2 justify-content-end align-items-center'>";
 echo "<input type='hidden' name='saleman_id' value='" . htmlspecialchars($saleman_id) . "'>";
 echo "<input type='hidden' name='saleman_name' value='" . htmlspecialchars($saleman_name) . "'>";
-echo "<div class='input-group input-group-sm' style='width:auto;'>";
-echo "<span class='input-group-text'>Highlight older than:</span>";
+echo "<div class='col-auto'>";
+echo "<div class='input-group input-group-sm'>";
+echo "<span class='input-group-text bg-light'>Aging cut-off</span>";
 echo "<input type='date' name='warning_date' class='form-control' value='" . htmlspecialchars($warning_date) . "' onchange='this.form.submit()'>";
 echo "</div>";
-echo "<button type='button' class='btn btn-primary btn-sm' onclick='window.print()'>Print Report</button>";
-echo "<a class='btn btn-secondary btn-sm' href='adminpanel.php'>Back</a>";
+echo "</div>";
+echo "<div class='col-auto'>";
+echo "<button type='button' class='btn btn-primary btn-sm' onclick='window.print()'>Print</button>";
+echo "</div>";
+echo "<div class='col-auto'>";
+echo "<a class='btn btn-outline-secondary btn-sm' href='creditReport.php'>Back</a>";
+echo "</div>";
 echo "</form>";
 echo "</div>";
 echo "</div>";
 
-// Print Header
-echo "<h3 class='d-none d-print-block text-center'>Credit Report: " . htmlspecialchars($saleman_name ?: $saleman_id) . "</h3>";
+echo "<h3 class='d-none d-print-block text-center mt-3 mb-4'>Credit Report: " . htmlspecialchars($saleman_name ?: $saleman_id) . "</h3>";
 
-// Render Table
+echo "<div class='card shadow-sm border-0 mb-4 no-print'>";
+echo "<div class='card-body p-0'>";
 echo "<div class='table-responsive'>";
-echo "<table class='table table-bordered table-sm table-striped table-custom'>";
-echo "<thead class='table-dark'>";
+echo "<table class='table table-hover mb-0 table-custom'>";
+echo "<thead>";
 echo "<tr>";
 echo "<th>Area</th>";
 echo "<th>Shop</th>";
 echo "<th>Bill ID</th>";
-echo "<th>Bill Date</th>";
-echo "<th class='text-end'>Bill Amount</th>";
+echo "<th>Date</th>";
+echo "<th class='text-end'>Amount</th>";
 echo "<th class='text-end'>Remaining</th>";
 echo "<th class='text-center'>Age (Days)</th>";
 echo "</tr>";
@@ -137,7 +148,7 @@ echo "</thead>";
 echo "<tbody>";
 
 if(empty($report)){
-    echo "<tr><td colspan='7' class='text-center'>No outstanding bills found.</td></tr>";
+    echo "<tr><td colspan='7' class='text-center py-4 text-muted'>No outstanding bills found for this salesman.</td></tr>";
 } else {
     foreach($report as $areaName => $shops){
         $area_total = 0;
@@ -145,41 +156,58 @@ if(empty($report)){
             foreach($bills as $bill){
                 $rem = floatval($bill['remaining_amount']);
                 $area_total += $rem;
-                
-                // Color code age based on warning date
                 $is_overdue = ($bill['bill_date'] < $warning_date);
-                $ageClass = $is_overdue ? 'text-danger fw-bold' : '';
+                $ageClass = $is_overdue ? 'text-danger font-weight-bold' : '';
                 
                 echo "<tr>";
-                echo "<td>" . htmlspecialchars($areaName) . "</td>";
+                echo "<td><span class='badge bg-light text-dark font-weight-normal'>" . htmlspecialchars($areaName) . "</span></td>";
                 echo "<td>" . htmlspecialchars($shopName) . "</td>";
-                echo "<td>" . htmlspecialchars($bill['bill_id']) . "</td>";
+                echo "<td><code>" . htmlspecialchars($bill['bill_id']) . "</code></td>";
                 echo "<td>" . htmlspecialchars($bill['bill_date']) . "</td>";
                 echo "<td class='text-end'>" . number_format($bill['bill_amount'],2) . "</td>";
-                echo "<td class='text-end'>" . number_format($rem,2) . "</td>";
+                echo "<td class='text-end font-weight-bold'>" . number_format($rem,2) . "</td>";
                 echo "<td class='text-center $ageClass'>" . $bill['bill_age'] . "</td>";
                 echo "</tr>";
             }
         }
-        // Area Total Row
-        echo "<tr class='area-total-row'>";
-        echo "<td colspan='5' class='text-end'>Total for " . htmlspecialchars($areaName) . ":</td>";
-        echo "<td class='text-end'>" . number_format($area_total, 2) . "</td>";
+        echo "<tr class='area-total-row no-print'>";
+        echo "<td colspan='5' class='text-end text-muted small'>Area Total:</td>";
+        echo "<td class='text-end font-weight-bold text-primary'>" . number_format($area_total, 2) . "</td>";
         echo "<td></td>";
         echo "</tr>";
     }
     
-    // Grand Total Row
-    echo "<tr class='table-dark border-white'>";
-    echo "<td colspan='5' class='text-end fw-bold'>GRAND TOTAL OUTSTANDING:</td>";
-    echo "<td class='text-end fw-bold'>" . number_format($total_outstanding, 2) . "</td>";
+    echo "<tr class='bg-primary text-white font-weight-bold no-print'>";
+    echo "<td colspan='5' class='text-end uppercase letter-spacing-1'>Grand Total Outstanding</td>";
+    echo "<td class='text-end h5 mb-0'>" . number_format($total_outstanding, 2) . "</td>";
     echo "<td></td>";
     echo "</tr>";
 }
-
 echo "</tbody>";
 echo "</table>";
 echo "</div>";
+echo "</div>";
+echo "</div>";
+
+// Separate print-only table (cleaner, no fancy styles)
+echo "<div class='d-none d-print-block'>";
+echo "<table class='table table-bordered table-sm'>";
+echo "<thead><tr><th>Area</th><th>Shop</th><th>Bill ID</th><th>Date</th><th class='text-end'>Bill</th><th class='text-end'>Remaining</th><th class='text-center'>Age</th></tr></thead>";
+echo "<tbody>";
+foreach($report as $areaName => $shops){
+    $area_total = 0;
+    foreach($shops as $shopName => $bills){
+        foreach($bills as $bill){
+            $rem = floatval($bill['remaining_amount']);
+            $area_total += $rem;
+            $overdue = ($bill['bill_date'] < $warning_date) ? 'text-danger' : '';
+            echo "<tr><td>$areaName</td><td>$shopName</td><td>{$bill['bill_id']}</td><td>{$bill['bill_date']}</td><td class='text-end'>".number_format($bill['bill_amount'],2)."</td><td class='text-end'>".number_format($rem,2)."</td><td class='text-center $overdue'>{$bill['bill_age']}</td></tr>";
+        }
+    }
+    echo "<tr class='area-total-row'><td colspan='5' class='text-end'>Area Total:</td><td class='text-end'>".number_format($area_total, 2)."</td><td></td></tr>";
+}
+echo "<tr class='font-weight-bold'><td colspan='5' class='text-end'>GRAND TOTAL:</td><td class='text-end'>".number_format($total_outstanding, 2)."</td><td></td></tr>";
+echo "</tbody></table></div>";
 
 ?>
 </div>
