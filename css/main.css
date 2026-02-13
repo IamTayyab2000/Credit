@@ -8,10 +8,10 @@
     --danger: #e74a3b;
     --dark: #5a5c69;
     --light: #f8f9fc;
-    
-    --card-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
-    --hover-shadow: 0 0.5rem 2rem 0 rgba(58, 59, 69, 0.2);
-    --border-radius: 12px;
+
+    --card-shadow: 0 0.1rem 1rem 0 rgba(58, 59, 69, 0.12);
+    --hover-shadow: 0 0.3rem 1.5rem 0 rgba(58, 59, 69, 0.18);
+    --border-radius: 8px;
     --transition: all 0.3s ease;
 }
 
@@ -19,30 +19,35 @@ body {
     font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f4f7f6;
     color: #5a5c69;
+    font-size: 0.875rem;
 }
 
 /* Navbar Enhancements */
 .navbar {
     background: #ffffff !important;
-    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-    padding: 0.75rem 1.5rem;
-    margin-bottom: 2rem;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+    padding: 0.5rem 1rem;
+    margin-bottom: 1rem;
 }
 
 .navbar-brand {
     font-weight: 700;
+    font-size: 1.1rem;
     color: var(--primary) !important;
-    letter-spacing: -0.5px;
+    letter-spacing: -0.3px;
 }
 
 .nav-link {
     font-weight: 500;
+    font-size: 0.85rem;
     color: #606f7b !important;
-    margin: 0 0.5rem;
+    margin: 0 0.3rem;
+    padding: 0.4rem 0.7rem !important;
     transition: var(--transition);
 }
 
-.nav-link:hover, .nav-link.active {
+.nav-link:hover,
+.nav-link.active {
     color: var(--primary) !important;
 }
 
@@ -52,7 +57,7 @@ body {
     border-radius: var(--border-radius);
     box-shadow: var(--card-shadow);
     transition: var(--transition);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .card:hover {
@@ -63,27 +68,42 @@ body {
     background-color: #f8f9fc;
     border-bottom: 1px solid #e3e6f0;
     font-weight: 700;
+    font-size: 0.875rem;
     color: var(--primary);
-    padding: 1rem 1.25rem;
+    padding: 0.6rem 0.9rem;
     border-top-left-radius: var(--border-radius) !important;
     border-top-right-radius: var(--border-radius) !important;
 }
 
+.card-body {
+    padding: 0.9rem;
+}
+
 /* Button Refinements */
 .btn {
-    border-radius: 8px;
-    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     transition: var(--transition);
 }
 
-.btn-primary { background-color: var(--primary); border-color: var(--primary); }
-.btn-primary:hover { background-color: var(--primary-hover); border-color: var(--primary-hover); transform: translateY(-1px); }
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
 
 /* Table Styling */
 .table {
     border-collapse: separate;
-    border-spacing: 0 8px;
+    border-spacing: 0 5px;
+    font-size: 0.825rem;
 }
 
 .table thead th {
@@ -91,50 +111,201 @@ body {
     color: #4e73df;
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    padding: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    padding: 0.6rem;
 }
 
 .table tbody tr {
     background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
+    border-radius: 6px;
     transition: var(--transition);
 }
 
 .table tbody tr:hover {
     background-color: #f8f9fc;
-    transform: scale(1.005);
+    transform: scale(1.003);
 }
 
 .table td {
-    padding: 1rem;
+    padding: 0.6rem;
     vertical-align: middle;
     border-top: 1px solid #e3e6f0;
 }
 
 /* Form Styling */
-.form-control, .form-select {
-    border-radius: 8px;
+.form-control,
+.form-select {
+    border-radius: 6px;
     border: 1px solid #d1d3e2;
-    padding: 0.6rem 1rem;
+    padding: 0.45rem 0.75rem;
+    font-size: 0.85rem;
     transition: var(--transition);
 }
 
 .form-control:focus {
     border-color: #bac8f3;
-    box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    box-shadow: 0 0 0 0.15rem rgba(78, 115, 223, 0.2);
 }
 
 /* Layout Utilities */
 .page-heading {
     color: #2e3b4e;
     font-weight: 700;
-    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .bg-gradient-primary {
     background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
     background-size: cover;
+}
+
+/* Compact spacing for rows and columns */
+.row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.row>* {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+/* Typography adjustments */
+h1,
+.h1 {
+    font-size: 1.75rem;
+}
+
+h2,
+.h2 {
+    font-size: 1.5rem;
+}
+
+h3,
+.h3 {
+    font-size: 1.25rem;
+}
+
+h4,
+.h4 {
+    font-size: 1.1rem;
+}
+
+h5,
+.h5 {
+    font-size: 0.95rem;
+}
+
+h6,
+.h6 {
+    font-size: 0.85rem;
+}
+
+/* Dashboard stat cards */
+.text-xs {
+    font-size: 0.7rem !important;
+}
+
+/* List group compact */
+.list-group-item {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.85rem;
+}
+
+/* Table-sm (small table) extra compact */
+.table-sm {
+    font-size: 0.75rem !important;
+}
+
+.table-sm thead th {
+    padding: 0.4rem !important;
+    font-size: 0.65rem !important;
+}
+
+.table-sm tbody td {
+    padding: 0.4rem !important;
+}
+
+/* DataTables optimizations */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    font-size: 0.8rem;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.75rem;
+}
+
+/* Ensure table responsiveness */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent table text wrapping issues */
+.table th,
+.table td {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+/* Allow text wrap for customer/name columns */
+.table td:has(a),
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    white-space: normal;
+    max-width: 150px;
+}
+
+/* Compact modal tables */
+.modal .table-sm {
+    font-size: 0.7rem !important;
+}
+
+.modal .table-sm th,
+.modal .table-sm td {
+    padding: 0.35rem !important;
+}
+
+/* Input group compact sizing */
+.input-group-text {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.85rem;
+}
+
+/* Badge sizing */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+}
+
+/* Compact footer sizing */
+.card-footer {
+    padding: 0.65rem 0.9rem;
+    font-size: 0.85rem;
+}
+
+/* Small text utility */
+.small,
+small {
+    font-size: 0.8rem !important;
+}
+
+.text-xs,
+.text-muted.small {
+    font-size: 0.7rem !important;
 }
