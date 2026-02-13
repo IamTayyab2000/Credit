@@ -24,19 +24,22 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
+                            <a class="nav-link" href="adminpanel.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="creditReport.php">Credit Reports</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="insertDSR.php">Enter DSR</a>
+                            <a class="nav-link active" aria-current="page" href="insertDSR.php">Enter DSR</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="IssueBills.php" >Issue Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="generate_recovery_sheet.php">Recovery Sheets</a>
                         </li>
                     </ul>
                 </div>
@@ -46,18 +49,18 @@
     <main>
         <div class="container">
             <div class="row m-2 p-3 border rounded">
-                <div class="col col-md-8">
+                <div class="col-12 col-md-8">
                     <h5>Insert DSR</h5>
                 </div>
 
                 <div class="row m-1">
-                    <div class="col col-md-6">
+                    <div class="col-12 col-md-6">
                         <div class="input-group m-3">
                             <span class="input-group-text" id="inputGroupPrepend">Picklist ID</span>
                             <input type="text" class="form-control" id="picklist_id" placeholder="Picklist ID" aria-describedby="inputGroupPrepend">
                         </div>
                     </div>
-                    <div class="col col-md-6">
+                    <div class="col-12 col-md-6">
                         <div class="input-group m-3">
                             <span class="input-group-text">Sector</span>
                             <select class="form-select" id="saleman_name_selector">
@@ -115,7 +118,7 @@
             </div>
             <div class="row m-2 p-3 border rounded">
             <div class="row mb-1">
-            <div class="col col-md-3">
+            <div class="col-12 col-md-3">
                     <div class="input-group ">
                         <span class="input-group-text">Invoice ID</span>
                         <input type="text" class="form-control" id="customer_invoice_id">
@@ -128,7 +131,7 @@
                     </div>
                     <datalist id="customer_data_list"></datalist>
                 </div>
-                <div class="col col-md-3">
+                <div class="col-12 col-md-3">
                     <div class="input-group ">
                         <span class="input-group-text">Name</span>
                         <input type="text" class="form-control" id="customer_name" readonly>
@@ -151,6 +154,7 @@
                     <h3>Customer Credit</h3>
                 </div>
                 <hr>
+                <div class="table-responsive">
                 <table class="table" id="creditors_table">
                     <thead>
                         <th>Inv ID</th>
@@ -163,6 +167,7 @@
 
                     </tbody>
                 </table>
+                </div>
             </div>
         <div class="row">
             <button class="btn btn-success" id="btn_process_picklist">Process</button>

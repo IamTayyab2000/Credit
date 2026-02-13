@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
+                            <a class="nav-link" href="adminpanel.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="creditReport.php">Credit Reports</a>
@@ -32,8 +32,14 @@
                         <li class="nav-item">
                             <a class="nav-link" href="insertDSR.php">Enter DSR</a>
                         </li>
-                        <li class="nav-item active">
-                            <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="insertCustomers.php">Enter Customer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="IssueBills.php">Issue Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="generate_recovery_sheet.php">Recovery Sheets</a>
                         </li>
                     </ul>
                 </div>
@@ -44,10 +50,10 @@
         <div class="container">
             <!-- Main Code Goes Here -->
             <div class="row m-2 p-3 border rounded">
-                <div class="col col-md-6">
+                <div class="col-12 col-md-6">
                     <h5>Insert Areas/Saleman</h5>
                 </div>
-                <div class="col col-md-6">
+                <div class="col-12 col-md-6">
                     <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal_add_sector">Add
                         Sector</button>
                     <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal_set_sector">Set
@@ -60,12 +66,12 @@
             </div>
             <div class="row m-2 p-3 border rounded">
 
-                <div class="col col-md-8">
+                <div class="col-12 col-md-8">
                     <h5>Insert Customer</h5>
                 </div>
 
                 <div class="row m-1">
-                    <div class="col col-md-4">
+                    <div class="col-12 col-md-4">
                         <div class="input-group m-3">
                             <span class="input-group-text">Customer ID</span>
                             <input type="text" class="form-control" id="customer_id">
@@ -91,6 +97,7 @@
                 </div>
             </div>
             <div class="row m-2 p-3 border rounded">
+                <div class="table-responsive">
                 <table class="table" id='customer_table'>
                     <thead>
                         <th>ID</th>
@@ -103,6 +110,7 @@
 
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
         <!-- Modal Set Sectors -->
@@ -130,7 +138,7 @@
                                             <option value="Monday">Monday</option>
                                             <option value="Tuesday">Tuesday</option>
                                             <option value="Wednesday">Wednesday</option>
-                                            <option value="Thrusday">Thrusday</option>
+                                            <option value="Thursday">Thursday</option>
                                             <option value="Friday">Friday</option>
                                             <option value="Saturday">Saturday</option>
                                             <option value="Sunday">Sunday</option>
@@ -139,6 +147,7 @@
                                     </div>
                                 </div>
                                 <div>
+                                    <div class="table-responsive">
                                     <table class="table table-sm" id='route_table'>
                                         <thead>
                                             <th>Sector</th>
@@ -149,6 +158,7 @@
 
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -181,6 +191,7 @@
                                     </div>
                                 </div>
                                 <div>
+                                    <div class="table-responsive">
                                     <table class="table table-sm" id="saleman_table">
                                         <thead>
                                             <th>Id</th>
@@ -190,6 +201,7 @@
 
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -232,6 +244,7 @@
                                     </div>
                                 </div>
                                 <div>
+                                    <div class="table-responsive">
                                     <table class="table table-sm" id="sector_table">
                                         <thead>
                                             <th>Id</th>
@@ -241,6 +254,7 @@
 
                                         </tbody>
                                     </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -55,6 +55,7 @@
                 <h3>Recovery Sheets</h3>
             </div>
             <div class="row">
+                <div class="table-responsive">
                 <table class="table" id="rec_sheet_table">
                     <thead>
                         <th>ID</th>
@@ -69,6 +70,7 @@
                         
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
         <!-- main End -->

@@ -25,16 +25,22 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
+                            <a class="nav-link" href="adminpanel.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="creditReport.php">Credit Reports</a>
+                            <a class="nav-link active" aria-current="page" href="creditReport.php">Credit Reports</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="insertDSR.php">Enter DSR</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="IssueBills.php">Issue Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="generate_recovery_sheet.php">Recovery Sheets</a>
                         </li>
                     </ul>
                 </div>
@@ -55,6 +61,7 @@
         </div>
         <!-- Debugging End -->
         <div class="container">
+        <div class="table-responsive">
         <table id="picklistTable" class="display table" style="width:100%">
     <thead>
         <tr>
@@ -72,6 +79,7 @@
         <!-- Data will be populated here -->
     </tbody>
 </table>
+</div>
 
         </div>
     </main>

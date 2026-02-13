@@ -60,13 +60,15 @@ mySuperSaver.performAjaxRequest({
 }).then((responce) => {
   mySuperSaver.addOptionsToSelect('select_recovery_saleman', responce)
   mySuperSaver.addOptionsToSelect('filter_by_salesman', responce)
+  // Re-fetch bills once the salesman list is loaded and a selection is made
+  get_bills();
 }).catch((error) => {
   console.error(error);
-})
+});
 
-get_bills();
 function get_bills() {
-  mySuperSaver.LoadDataTable(tbl_bill_info, 'getBillsData');
+  const saleman_id = $("#select_recovery_saleman").val();
+  mySuperSaver.LoadDataTable(tbl_bill_info, 'getBillsData', { saleman_id: saleman_id });
 };
 
 // Wrap all event handlers in document ready
@@ -139,8 +141,8 @@ $(document).ready(function () {
   $('#select_recovery_saleman').change(function () {
     $('#filter_by_day').val('');
     $('#filter_by_salesman').val('');
-    // Optionally alert the user that changing salesman might require re-selection of bills if logic dictates
-    // but for now, we just clear filters to avoid confusion.
+    // Re-fetch bills for the newly selected salesman
+    get_bills();
   });
 
   $('#table_bills_info tbody').on('click', '.btn-action', function () {

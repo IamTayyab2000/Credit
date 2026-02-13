@@ -56,10 +56,10 @@ function ifexist($query) {
  }
 
 function getData($key){
-      return mysqli_escape_string($GLOBALS['conn'],$_GET[$key]);
+      return isset($_GET[$key]) ? mysqli_escape_string($GLOBALS['conn'],$_GET[$key]) : '';
 }
 function postData($key){
-     return mysqli_escape_string($GLOBALS['conn'],$_POST[$key]);
+      return isset($_POST[$key]) ? mysqli_escape_string($GLOBALS['conn'],$_POST[$key]) : '';
 }
 if(isset($_POST['function_to_call'])){
      $function_to_call=mysqli_escape_string($conn,$_POST['function_to_call']);     

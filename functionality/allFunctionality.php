@@ -87,6 +87,72 @@ switch ($function_to_call) {
             $query = "Update routes set saleman_id={$saleman_id},day='{$day}' where sector_id={$sector_id}";
             $responce = create_update_delete($query);
             if ($responce) {
+                // START: Bill Transfer Logic
+                // 1. Get all INFILE bills for this sector
+                $find_bills_query = "SELECT b.bill_id, b.bill_amount, b.picklist_id 
+                                     FROM bill b 
+                                     JOIN customer c ON b.cutomer_id = c.customer_id 
+                                     JOIN routes r ON c.customer_route = r.route_id 
+                                     WHERE r.sector_id = {$sector_id} AND b.Bill_status = 'INFILE'";
+                $bills_to_move = json_decode(read($find_bills_query), true);
+
+                if (!empty($bills_to_move)) {
+                    // Group totals by OLD picklist to subtract later
+                    $old_picklists_totals = [];
+                    $total_transfer_amount = 0;
+                    $bill_ids_to_update = [];
+
+                    foreach ($bills_to_move as $bill) {
+                        $pid = $bill['picklist_id'];
+                        $amt = (int)$bill['bill_amount'];
+
+                        if (!isset($old_picklists_totals[$pid])) {
+                            $old_picklists_totals[$pid] = 0;
+                        }
+                        $old_picklists_totals[$pid] += $amt;
+                        $total_transfer_amount += $amt;
+                        $bill_ids_to_update[] = $bill['bill_id'];
+                    }
+
+                    // 2. Find or Create NEW Picklist for the NEW Salesman
+                    $today_str = date('Ymd');
+                    $new_picklist_id = "MF_{$saleman_id}_{$today_str}_TRANSFER"; // Try specific transfer ID first or generic
+                    
+                    // Check if a picklist exists for this salesman for today (simplified check)
+                    // We'll just create/use a specific 'TRANSFER' one to avoid complex merging logic with existing partial ones if possible, 
+                    // or just check if one exists. Let's try to append to today's main one if exists.
+                    $check_new_pl = "SELECT picklist_id FROM picklist WHERE picklist_saleman = {$saleman_id} AND picklist_date = CURRENT_DATE LIMIT 1";
+                    $new_pl_res = json_decode(read($check_new_pl), true);
+                    
+                    if (!empty($new_pl_res) && isset($new_pl_res[0]['picklist_id'])) {
+                        $target_picklist_id = $new_pl_res[0]['picklist_id'];
+                        // Update existing
+                        $update_new_pl = "UPDATE picklist SET picklist_amount = picklist_amount + {$total_transfer_amount}, picklist_credit = picklist_credit + {$total_transfer_amount} WHERE picklist_id = '{$target_picklist_id}'";
+                        create_update_delete($update_new_pl);
+                    } else {
+                        // Create new
+                        $target_picklist_id = "MF_{$saleman_id}_{$today_str}_" . uniqid();
+                         $insert_new_pl = "INSERT INTO `picklist`(`picklist_id`,`picklist_saleman`, `picklist_date`, `picklist_amount`, `picklist_recovery`, `picklist_credit`, `picklist_sceheme_amount`, `picklist_return`,`picklist_date_processed`) 
+                                           VALUES ('{$target_picklist_id}',{$saleman_id},CURRENT_DATE,{$total_transfer_amount},0,{$total_transfer_amount},0,0,CURRENT_DATE)";
+                        create_update_delete($insert_new_pl);
+                    }
+
+                    // 3. Subtract from OLD Picklists
+                    foreach ($old_picklists_totals as $old_pid => $amt_to_sub) {
+                        if (empty($old_pid)) continue;
+                        $update_old = "UPDATE picklist SET picklist_amount = picklist_amount - {$amt_to_sub}, picklist_credit = picklist_credit - {$amt_to_sub} WHERE picklist_id = '{$old_pid}'";
+                        create_update_delete($update_old);
+                    }
+
+                    // 4. Update Bills to point to NEW Picklist
+                    if (!empty($bill_ids_to_update)) {
+                        $ids_str = implode("','", $bill_ids_to_update);
+                        $update_bills = "UPDATE bill SET picklist_id = '{$target_picklist_id}' WHERE bill_id IN ('{$ids_str}')";
+                        create_update_delete($update_bills);
+                    }
+                }
+                // END: Bill Transfer Logic
+
                 echo 2;
             } else {
                 echo $responce;
@@ -235,7 +301,12 @@ switch ($function_to_call) {
         }
         break;
     case 'getBillsData':
-        $query = "SELECT a.bill_id,b.customer_name,d.saleman_name,e.sector_name,a.bill_date,a.bill_amount from bill as a join customer as b on a.cutomer_id=b.customer_id join picklist as c on a.picklist_id=c.picklist_id join salesman as d on c.picklist_saleman=d.saleman_id join route_saleman_relation as e on b.customer_route=e.route_id where a.Bill_status='INFILE';";
+        $saleman_id = postData('saleman_id');
+        if (empty($saleman_id)) {
+            echo json_encode([]);
+            break;
+        }
+        $query = "SELECT a.bill_id,b.customer_name,d.saleman_name,e.sector_name,a.bill_date,a.bill_amount from bill as a join customer as b on a.cutomer_id=b.customer_id join picklist as c on a.picklist_id=c.picklist_id join salesman as d on c.picklist_saleman=d.saleman_id join route_saleman_relation as e on b.customer_route=e.route_id where a.Bill_status='INFILE' AND c.picklist_saleman = '{$saleman_id}';";
         $responce = read($query);
         echo $responce;
         break;
@@ -505,6 +576,11 @@ switch ($function_to_call) {
         // Base query: Get bills for sectors this salesman visits
         $day_filter = !empty($day) ? " AND r.day='{$day}'" : "";
         
+        // Determine which salesman's routes to look at.
+        // If a filter salesman is selected, we look at THAT salesman's routes.
+        // Otherwise, we look at the main selected salesman's routes.
+        $route_salesman_target = !empty($filter_saleman_id) ? $filter_saleman_id : $saleman_id;
+
         $query = "SELECT DISTINCT a.bill_id, b.customer_name, d.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
                   FROM bill as a 
                   JOIN customer as b ON a.cutomer_id = b.customer_id 
@@ -512,7 +588,7 @@ switch ($function_to_call) {
                   JOIN salesman as d ON c.picklist_saleman = d.saleman_id 
                   JOIN route_saleman_relation as e ON b.customer_route = e.route_id 
                   JOIN routes as r ON r.sector_id = e.sector_id 
-                  WHERE r.saleman_id = '{$saleman_id}' 
+                  WHERE r.saleman_id = '{$route_salesman_target}' 
                   {$day_filter} 
                   AND a.Bill_status = 'INFILE'";
         
@@ -520,6 +596,10 @@ switch ($function_to_call) {
         if (!empty($filter_saleman_id)) {
             $query .= " AND d.saleman_id = '{$filter_saleman_id}'";
         }
+        
+        // DEBUG LOGGING
+        $log = "Query at " . date('Y-m-d H:i:s') . ":\n" . $query . "\n--------------------------------\n";
+        file_put_contents('debug_query_log.txt', $log, FILE_APPEND);
         
         $responce = read($query);
         echo $responce;
@@ -559,16 +639,90 @@ switch ($function_to_call) {
                ORDER BY total DESC LIMIT 5";
         $response['top_salesmen'] = json_decode(read($q6), true);
 
-        // 4. Sector Performance (By Outstanding)
+        // 4. Sector Performance (Dead Zones - By Outstanding)
         $q7 = "SELECT s.sector_name, SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as outstanding
                FROM bill b 
                LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
                JOIN customer c ON b.cutomer_id = c.customer_id
-               JOIN route_saleman_relation r ON c.customer_route = r.route_id
+               JOIN routes r ON c.customer_route = r.route_id
                JOIN sector s ON r.sector_id = s.sector_id
-               GROUP BY s.sector_name
+               WHERE b.Bill_status = 'INFILE'
+               GROUP BY s.sector_id
                ORDER BY outstanding DESC LIMIT 5";
-        $response['top_sectors'] = json_decode(read($q7), true);
+        $response['dead_zones'] = json_decode(read($q7), true);
+
+        // 5. Top Defaulters (Customers with high outstanding)
+        $q8 = "SELECT c.customer_name, SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as outstanding, s.sector_name
+               FROM bill b
+               LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
+               JOIN customer c ON b.cutomer_id = c.customer_id
+               JOIN routes r ON c.customer_route = r.route_id
+               JOIN sector s ON r.sector_id = s.sector_id
+               WHERE b.Bill_status = 'INFILE'
+               GROUP BY c.customer_id
+               ORDER BY outstanding DESC LIMIT 5";
+        $response['top_defaulters'] = json_decode(read($q8), true);
+
+        // 6. Salesman Efficiency (Recovery / Sales * 100 for this month)
+        // Note: usage of complex subqueries or separate processing might be needed for perfect accuracy, 
+        // but here is a simplified approach fetching totals per salesman.
+        $q9 = "SELECT s.saleman_name, 
+                      IFNULL(SUM(b.bill_amount),0) as sales,
+                      (SELECT IFNULL(SUM(rs.recovery_sheet_recovery),0) 
+                       FROM recovery_sheet rs 
+                       WHERE rs.recovery_sheet_saleman_id = s.saleman_id 
+                       AND rs.recovery_date >= DATE_FORMAT(NOW(), '%Y-%m-01')) as recovery
+               FROM salesman s
+               LEFT JOIN routes r ON r.saleman_id = s.saleman_id
+               LEFT JOIN customer c ON c.customer_route = r.route_id
+               LEFT JOIN bill b ON b.cutomer_id = c.customer_id 
+                               AND b.bill_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+               GROUP BY s.saleman_id";
+        $salesman_stats = json_decode(read($q9), true);
+        $efficiency = [];
+        foreach($salesman_stats as $stat) {
+            $sales = (float)$stat['sales'];
+            $recovery = (float)$stat['recovery'];
+            $eff = ($sales > 0) ? round(($recovery / $sales) * 100, 1) : 0;
+            $efficiency[] = [
+                'name' => $stat['saleman_name'],
+                'efficiency' => $eff,
+                'sales' => $sales,
+                'recovery' => $recovery
+            ];
+        }
+        $response['salesman_efficiency'] = $efficiency;
+
+        // 7. Debt Aging Analysis
+        $q10 = "SELECT 
+                    CASE 
+                        WHEN DATEDIFF(NOW(), bill_date) <= 30 THEN '0-30 Days'
+                        WHEN DATEDIFF(NOW(), bill_date) <= 60 THEN '31-60 Days'
+                        WHEN DATEDIFF(NOW(), bill_date) <= 90 THEN '61-90 Days'
+                        ELSE '90+ Days'
+                    END as age_bucket,
+                    SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as total_outstanding
+                FROM bill b
+                LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
+                WHERE b.Bill_status = 'INFILE'
+                GROUP BY age_bucket";
+        $response['aging_analysis'] = json_decode(read($q10), true);
+
+        // 8. At-Risk Customers (Inactive > 60 days with Debt)
+        // Logic: Has outstanding debt AND Max(Bill Date) < 60 days ago
+        $q11 = "SELECT c.customer_name, 
+                       SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as outstanding,
+                       MAX(b.bill_date) as last_bill
+                FROM bill b
+                LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
+                JOIN customer c ON b.cutomer_id = c.customer_id
+                WHERE b.Bill_status = 'INFILE'
+                GROUP BY c.customer_id
+                HAVING last_bill < DATE_SUB(NOW(), INTERVAL 60 DAY)
+                ORDER BY outstanding DESC LIMIT 10";
+        $response['at_risk_customers'] = json_decode(read($q11), true);
+
+
 
         echo json_encode($response);
         break;

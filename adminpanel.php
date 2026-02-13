@@ -103,6 +103,79 @@
                     </div>
                 </div>
             </div>
+            <!-- Advanced Analytics Section -->
+            <div class="row mb-4">
+                <div class="col-lg-6 mb-3">
+                    <div class="card shadow h-100">
+                        <div class="card-header font-weight-bold">Salesman Efficiency (Recovery %)</div>
+                        <div class="card-body">
+                            <canvas id="salesmanEfficiencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-3">
+                    <div class="card shadow h-100">
+                        <div class="card-header font-weight-bold">Debt Aging</div>
+                        <div class="card-body">
+                            <canvas id="agingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-3">
+                    <div class="card shadow h-100 border-danger">
+                        <div class="card-header bg-danger text-white font-weight-bold">At-Risk Customers</div>
+                        <div class="card-body p-0" style="max-height: 300px; overflow-y: auto;">
+                            <ul class="list-group list-group-flush" id="at_risk_list">
+                                <li class="list-group-item text-center">Loading...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-lg-6 mb-3">
+                    <div class="card shadow h-100">
+                        <div class="card-header font-weight-bold">Dead Zones (High Debt Sectors)</div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Sector</th>
+                                            <th class="text-end">Outstanding</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dead_zones_table">
+                                        <tr><td colspan="2" class="text-center">Loading...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-3">
+                    <div class="card shadow h-100">
+                        <div class="card-header font-weight-bold">Top Defaulters</div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Customer</th>
+                                            <th>Sector</th>
+                                            <th class="text-end">Outstanding</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="top_defaulters_table">
+                                        <tr><td colspan="3" class="text-center">Loading...</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- End Dashboard Section -->
 
             <div class="row border rounded">
@@ -110,29 +183,31 @@
                     Today Sales
                 </div>
                 <div class="row">
-                    <table class="table" id='today_sales'>
-                        <thead>
-                            <th>DSR ID</th>
-                            <th>Saleman</th>
-                            <th>Amount</th>
-                            <th>Credit</th>
-                            <th>Scheme</th>
-                            <th>Return</th>
-                            <th>Recived</th>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                        <tfoot>
-                            <th>Total</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tfoot>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table" id='today_sales'>
+                            <thead>
+                                <th>DSR ID</th>
+                                <th>Saleman</th>
+                                <th>Amount</th>
+                                <th>Credit</th>
+                                <th>Scheme</th>
+                                <th>Return</th>
+                                <th>Recived</th>
+                            </thead>
+                            <tbody>
+    
+                            </tbody>
+                            <tfoot>
+                                <th>Total</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div class="row ">
@@ -141,6 +216,7 @@
                         <h3>Standing Credit</h3>
                     </div>
                     <div class="row">
+                    <div class="table-responsive">
                     <table class="table" id="standing_credit">
                     <thead>
                         <th>Saleman</th>
@@ -154,6 +230,7 @@
                         
                     </tfoot>
                 </table>
+                </div>
                     </div>
                 </div>
             </div>

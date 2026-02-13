@@ -1,0 +1,36 @@
+Query at 2026-02-13 11:04:11:
+SELECT DISTINCT a.bill_id, b.customer_name, d.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
+                  FROM bill as a 
+                  JOIN customer as b ON a.cutomer_id = b.customer_id 
+                  JOIN picklist as c ON a.picklist_id = c.picklist_id 
+                  JOIN salesman as d ON c.picklist_saleman = d.saleman_id 
+                  JOIN route_saleman_relation as e ON b.customer_route = e.route_id 
+                  JOIN routes as r ON r.sector_id = e.sector_id 
+                  WHERE r.saleman_id = '1' 
+                   AND r.day='Thursday' 
+                  AND a.Bill_status = 'INFILE' AND d.saleman_id = '5'
+--------------------------------
+Query at 2026-02-13 11:12:22:
+SELECT DISTINCT a.bill_id, b.customer_name, d.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
+                  FROM bill as a 
+                  JOIN customer as b ON a.cutomer_id = b.customer_id 
+                  JOIN picklist as c ON a.picklist_id = c.picklist_id 
+                  JOIN salesman as d ON c.picklist_saleman = d.saleman_id 
+                  JOIN route_saleman_relation as e ON b.customer_route = e.route_id 
+                  JOIN routes as r ON r.sector_id = e.sector_id 
+                  WHERE r.saleman_id = '1' 
+                   AND r.day='Monday' 
+                  AND a.Bill_status = 'INFILE' AND d.saleman_id = '5'
+--------------------------------
+Query at 2026-02-13 11:19:07:
+SELECT DISTINCT a.bill_id, b.customer_name, d.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
+                  FROM bill as a 
+                  JOIN customer as b ON a.cutomer_id = b.customer_id 
+                  JOIN picklist as c ON a.picklist_id = c.picklist_id 
+                  JOIN salesman as d ON c.picklist_saleman = d.saleman_id 
+                  JOIN route_saleman_relation as e ON b.customer_route = e.route_id 
+                  JOIN routes as r ON r.sector_id = e.sector_id 
+                  WHERE r.saleman_id = '5' 
+                   AND r.day='Monday' 
+                  AND a.Bill_status = 'INFILE' AND d.saleman_id = '5'
+--------------------------------

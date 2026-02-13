@@ -23,7 +23,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
+                            <a class="nav-link" href="adminpanel.php">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="creditReport.php">Credit Reports</a>
@@ -35,7 +35,10 @@
                             <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="IssueBills.php">Issue Bills</a>
+                            <a class="nav-link active" aria-current="page" href="IssueBills.php">Issue Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="generate_recovery_sheet.php">Recovery Sheets</a>
                         </li>
                     </ul>
                 </div>
@@ -44,14 +47,14 @@
     </header>
     <main>
         <div class="row m-2 p-2 bg-success bg-gradient  rounded">
-            <div class="col col-sm-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group">
                     <span class="input-group-text">Saleman</span>
                     <select class="form-select" id="select_recovery_saleman">
                     </select>
                 </div>
             </div>
-            <div class="col col-sm-6">
+            <div class="col-12 col-md-6">
                 <div class="input-group mb-3">
                 <span class="input-group-text">Merge Recovery Sheet </span>
                     <div class="input-group-text">
@@ -67,7 +70,7 @@
             <div class="col-12 mb-3">
                 <h5>Quick Bulk Selection</h5>
             </div>
-            <div class="col col-sm-4">
+            <div class="col-12 col-md-4">
                 <div class="input-group input-group-sm">
                     <span class="input-group-text">Select by Day</span>
                     <select class="form-select" id="filter_by_day">
@@ -97,13 +100,14 @@
         </div>
         <div class="m-2">
             <div class="row mt-2">
-                <div class="col col-sm-9">
+                <div class="col-12 col-md-9">
                     <div class="border rounded p-3">
                         <div class="row text-center">
                             <h1>Bills</h1>
                         </div>
                         <div class="row">
-                            <table class="" id="table_bills_info">
+                            <div class="table-responsive">
+                            <table class="table" id="table_bills_info">
                                 <thead>
                                     <th>Bill ID</th>
                                     <th>Customer</th>
@@ -114,10 +118,11 @@
                                     <th>Action</th>
                                 </thead>
                             </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col col-sm-3">
+                <div class="col-12 col-md-3">
                     <div class="border rounded p-3">
                         <div class="row text-center">
                             <h3>Issued</h3>
@@ -138,12 +143,12 @@
                 </div>
             </div>
             <div class="row m-2 p-2">
-                <div class="col col-sm-6 bg-secondary bg-gradient p-2 rounded-start">
+                <div class="col-12 col-md-6 bg-secondary bg-gradient p-2 rounded-start">
                     <h3>
                         Selected Bills: <span id="total_bills">0</span>
                     </h3>
                 </div>
-                <div class="col col-sm-6 bg-info bg-gradient text-light p-2 rounded-end ">
+                <div class="col-12 col-md-6 bg-info bg-gradient text-light p-2 rounded-end ">
                     <h3>
                         Recovery Amount: <span id="total_bill_amount">0</span>
                     </h3>
@@ -181,6 +186,7 @@
                     <hr>
                     <h6>Bills Included:</h6>
                     <div style="max-height: 400px; overflow-y: auto;">
+                        <div class="table-responsive">
                         <table class="table table-sm table-striped">
                             <thead class="table-light">
                                 <tr>
@@ -198,6 +204,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
