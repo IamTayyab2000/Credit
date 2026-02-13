@@ -309,9 +309,9 @@ function save_rec_sheet_wo_merger() {
     console.error('Store Recovery Sheet: ', error);
   });
 }
-function save_rec_detail_wo_merger(response) {
+function save_rec_detail_wo_merger(res_id) {
   selectedBills.forEach((item) => {
-    item.recovery_sheet_id = response;
+    item.recovery_sheet_id = res_id;
   });
   const recovery_sheet_detail = selectedBills;
   let data = {
@@ -321,9 +321,9 @@ function save_rec_detail_wo_merger(response) {
     },
     contentType: 'application/x-www-form-urlencoded'
   };
-  mySuperSaver.performAjaxRequest(data).then((response) => {
-    if (response == 1) {
-      alert('Recovery Sheet Created Successfully: ID ' + response);
+  mySuperSaver.performAjaxRequest(data).then((success) => {
+    if (success == 1 || success === true) {
+      alert('Recovery Sheet Created Successfully: ID ' + res_id);
       window.location.reload();
     }
     else {

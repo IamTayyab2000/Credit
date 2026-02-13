@@ -305,7 +305,7 @@ foreach ($customer_data as $idx => $customer) {
         $remaining_amount = (int)$remaining_credit;
         
         // Ledger query uses original amounts for record keeping
-        $ledger_query = "INSERT INTO `bill_ledger` (`ledger_date`, `customer_id`, `bill_id`, `bill_amount`, `recived_amount`, `remaining_amount`) VALUES (CURDATE(), '{$cust_id}', '{$bill_id}', {$original_bill_amount}, {$recived_amount}, {$remaining_amount})";
+        $ledger_query = "INSERT INTO `bill_ledger` (`ledger_date`, `customer_id`, `bill_id`, `bill_amount`, `recived_amount`, `remaining_amount`) VALUES ('{$bill_date_esc}', '{$cust_id}', '{$bill_id}', {$original_bill_amount}, {$recived_amount}, {$remaining_amount})";
 
         if (create_update_delete($ledger_query)) {
             $inserted_count++;

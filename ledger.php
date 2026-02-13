@@ -1,7 +1,7 @@
 <?php
 include('functionality/components/condb.php');
 $bill_id = $_GET['bill_id'];
-$sql = "SELECT a.ledger_id, a.ref_id, a.ledger_date, b.customer_name, a.bill_id, a.bill_amount, a.recived_amount, a.remaining_amount, a.bill_status FROM `bill_ledger` as a LEFT JOIN customer as b ON a.customer_id = b.customer_id where a.bill_id='$bill_id'";
+$sql = "SELECT a.ledger_id, a.ref_id, a.ledger_date, b.customer_name, a.bill_id, a.bill_amount, a.recived_amount, a.return_amount, a.remaining_amount, a.bill_status FROM `bill_ledger` as a LEFT JOIN customer as b ON a.customer_id = b.customer_id where a.bill_id='$bill_id'";
 
 $result = $conn->query($sql);
 ?>
@@ -63,6 +63,7 @@ $result = $conn->query($sql);
             <th>Bill ID</th>
             <th>Bill Amount</th>
             <th>Recoverd</th>
+            <th>Return</th>
             <th>Remaining</th>
             <th>Status</th>
         </thead>
@@ -78,6 +79,7 @@ $result = $conn->query($sql);
                     echo "<td>" . $row["bill_id"] . "</td>";
                     echo "<td>" . $row["bill_amount"] . "</td>";
                     echo "<td>" . $row["recived_amount"] . "</td>";
+                    echo "<td>" . $row["return_amount"] . "</td>";
                     echo "<td>" . $row["remaining_amount"] . "</td>";
                     echo "<td>" . $row["bill_status"] . "</td>";
                     echo "</tr>";

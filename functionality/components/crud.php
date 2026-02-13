@@ -12,16 +12,21 @@ function auth($username,$password,$tableName){
 }
 function create_update_delete($query){
      $result=mysqli_query($GLOBALS['conn'],$query);
-     // echo $query;
      if($result){
         return 1;
      }
      else{
+        // Return the error so we can see it in JSON
+        error_log("SQL Error: " . mysqli_error($GLOBALS['conn']) . " Query: " . $query);
         return 0;
      }
 }
 function read($query){
     $result=mysqli_query($GLOBALS['conn'],$query);
+    if (!$result) {
+        error_log("SQL Read Error: " . mysqli_error($GLOBALS['conn']) . " Query: " . $query);
+        return json_encode(["status" => "error", "message" => mysqli_error($GLOBALS['conn'])]);
+    }
     $data=array();
     while($row=mysqli_fetch_assoc($result)){
         $data[]=$row;
@@ -50,7 +55,7 @@ function ifexist($query) {
          $last_id = mysqli_insert_id($GLOBALS['conn']);
          return $last_id;
      } else {
-         echo mysqli_error($GLOBALS['conn']); // Print the MySQL error message for debugging
+         error_log("SQL Insert Error: " . mysqli_error($GLOBALS['conn']) . " Query: " . $query); // Print the MySQL error message for debugging
          return false; // Return false to indicate an error
      }
  }

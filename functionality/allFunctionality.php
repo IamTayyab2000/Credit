@@ -211,12 +211,12 @@ switch ($function_to_call) {
             if (is_array($customer_bills)) { // Check if JSON decoding was successful
                 foreach ($customer_bills as $bill) {
                     $customer_id = $bill['customer_id'];
-                    $credit_amount = $bill['credit_amount'];
+                    $credit_amount = $bill['credit_amount']; // This is the net credit/debt
                     $invoice_date = $bill['invoice_date'];
                     $invoice_id = $bill['invoice_id'];
                     $picklist_id = $bill['picklist_id'];
 
-                    // Concatenate the values for the INSERT statement
+                    // Record the net credit amount as the bill amount (debt)
                     $values .= "('$invoice_id', '$customer_id', '$picklist_id', '$credit_amount', '$invoice_date'),";
                 }
 
@@ -270,26 +270,30 @@ switch ($function_to_call) {
             if (is_array($customer_bills)) {
                 foreach ($customer_bills as $bill) {
                     $customer_id = $bill['customer_id'];
-                    $credit_amount = $bill['credit_amount'];
+                    $bill_total = $bill['bill_total'];
+                    $bill_recovered = $bill['bill_recovered'];
+                    $bill_returned = $bill['bill_returned']; // New: Extract return amount
+                    $credit_amount = $bill['credit_amount']; // Net balance
                     $invoice_date = $bill['invoice_date'];
                     $invoice_id = $bill['invoice_id'];
-                    $picklist_id = $bill['picklist_id'];
 
                     // Concatenate the values for the INSERT statement
-                    $values .= "('{$invoice_date}','{$customer_id}','{$invoice_id}',{$credit_amount},0,bill_amount-recived_amount),";
+                    // bill_total is the original gross, bill_recovered is the cash payment
+                    // bill_returned is the item return amount
+                    // remaining_amount is the net credit (debt)
+                    $values .= "('{$invoice_date}','{$customer_id}','{$invoice_id}',{$bill_total},{$bill_recovered},{$bill_returned},{$credit_amount}),";
                 }
                 // Remove the trailing comma from $values
                 $values = rtrim($values, ',');
 
                 // Combine the query and values
-                $query .= $values;
+                // Updated query to include 'return_amount'
+                $query = "INSERT INTO `bill_ledger`(`ledger_date`, `customer_id`, `bill_id`, `bill_amount`, `recived_amount`, `return_amount`, `remaining_amount`) VALUES" . $values;
 
-                //echo 'store_bill_ledger:\n'.$query.'\n';
-                $responce = create_update_delete($query);
-                if ($responce) {
-                    echo 1;
+                if (create_update_delete($query)) {
+                    echo true;
                 } else {
-                    echo $responce;
+                    echo $query;
                 }
             } else {
                 // Handle JSON decoding error
@@ -306,7 +310,13 @@ switch ($function_to_call) {
             echo json_encode([]);
             break;
         }
-        $query = "SELECT a.bill_id,b.customer_name,d.saleman_name,e.sector_name,a.bill_date,a.bill_amount from bill as a join customer as b on a.cutomer_id=b.customer_id join picklist as c on a.picklist_id=c.picklist_id join salesman as d on c.picklist_saleman=d.saleman_id join route_saleman_relation as e on b.customer_route=e.route_id where a.Bill_status='INFILE' AND c.picklist_saleman = '{$saleman_id}';";
+        // Optimized query: Join bill -> customer -> relation view directly via route_id
+        $query = "SELECT a.bill_id, b.customer_name, e.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
+                  FROM bill as a 
+                  JOIN customer as b ON a.cutomer_id = b.customer_id 
+                  JOIN route_saleman_relation as e ON b.customer_route = e.route_id 
+                  WHERE a.Bill_status = 'INFILE' 
+                  AND EXISTS (SELECT 1 FROM picklist p WHERE p.picklist_id = a.picklist_id AND p.picklist_saleman = '{$saleman_id}');";
         $responce = read($query);
         echo $responce;
         break;
@@ -315,9 +325,9 @@ switch ($function_to_call) {
         $query = "INSERT INTO `recovery_sheet`(`recovery_date`,`recovery_sheet_saleman_id`, `recovery_sheet_amount`, `recovery_sheet_recovery`) VALUES (CURRENT_DATE,'{$saleman_id}',0,0)";
         $responce = return_last_entered_record_id($query);
         if ($responce) {
-            echo $responce;
+            echo json_encode($responce);
         } else {
-            echo $query;
+            echo json_encode(false);
         }
         break;
     case 'save_rec_details':
@@ -347,15 +357,15 @@ switch ($function_to_call) {
             if (create_update_delete($query_for_recovery_sheet)) {
                 if (create_update_delete($query_for_Bill_status)) {
                     if (create_update_delete($query_for_recovery_sheet_total)) {
-                        echo 1;
+                        echo json_encode(true);
                     } else {
-                        echo $responce;
+                        echo json_encode(false);
                     }
                 } else {
-                    echo $responce;
+                    echo json_encode(false);
                 }
             } else {
-                echo $responce;
+                echo json_encode(false);
             }
         } else {
             echo 'JSON is Empty';
@@ -374,26 +384,26 @@ switch ($function_to_call) {
                 foreach ($bills as $bill) {
                     $rec_id = $bill["recID"];
                     $bill_id = $bill["ID"];
-                    $bill_amount = $bill["Recovered"];
-                    $bill_Status = $bill["Status"];
-                    $query = "Update bill set bill_amount=bill_amount-{$bill_amount},`Bill_status` = 'Nill' where `bill`.`bill_id`='$bill_id'";
-                    //echo $query;
+                    $recovered = $bill["Recovered"];
+                    $returned = $bill["Returned"] ?? 0;
+                    $total_deduction = $recovered + $returned;
+
+                    $query = "Update bill set bill_amount=bill_amount-{$total_deduction},`Bill_status` = 'NILL' where `bill`.`bill_id`='$bill_id'";
                     if (create_update_delete($query)) {
-                        $myquery = "update recovery_sheet_detail set recovery_sheet_bill_recovered={$bill_amount} where recovery_sheet_bill_id='{$bill_id}' and recovery_sheet_id={$rec_id}";
+                        $myquery = "update recovery_sheet_detail set recovery_sheet_bill_recovered={$recovered}, recovery_sheet_bill_returned={$returned} where recovery_sheet_bill_id='{$bill_id}' and recovery_sheet_id='{$rec_id}'";
                         
                         if (create_update_delete($myquery)) {
-
                             continue;
                         } else {
-                            echo $myquery;
+                            echo json_encode(false);
                             break;
                         }
                     } else {
-                        echo $query;
+                        echo json_encode(false);
                         break;
                     }
                 }
-                echo true;
+                echo json_encode(true);
             } else {
                 echo 'Not An Array';
             }
@@ -409,25 +419,29 @@ switch ($function_to_call) {
                 foreach ($bills as $bill) {
                     $rec_id = $bill["recID"];
                     $bill_id = $bill["ID"];
-                    $bill_amount = $bill["Recovered"];
-                    $bill_Status = $bill["Status"];
-                    $query = "Update bill set bill_amount=bill_amount-{$bill_amount},`Bill_status` = 'INFILE' where `bill`.`bill_id`='{$bill_id}'";
-                    //echo $query;
+                    $recovered = $bill["Recovered"];
+                    $returned = $bill["Returned"];
+                    $total_deduction = $recovered + $returned;
+                    $today = date('Y-m-d');
+
+                    $query = "Update bill set bill_amount=bill_amount-{$total_deduction},`Bill_status` = 'INFILE' where `bill`.`bill_id`='{$bill_id}'";
                     if (create_update_delete($query)) {
-                        $myquery = "update recovery_sheet_detail set recovery_sheet_bill_recovered={$bill_amount} where recovery_sheet_bill_id='{$bill_id}' and recovery_sheet_id='{$rec_id}'";
-                        $responce=create_update_delete($myquery);
-                        if ($responce) {
+                        $myquery = "update recovery_sheet_detail set recovery_sheet_bill_recovered={$recovered}, recovery_sheet_bill_returned={$returned} where recovery_sheet_bill_id='{$bill_id}' and recovery_sheet_id='{$rec_id}'";
+                        if (create_update_delete($myquery)) {
+                            // Log the return in the return table
+                            $returnLogQuery = "INSERT INTO bill_return (bill_id, ref_id, return_amount, return_date) VALUES ('$bill_id', '$rec_id', $returned, '$today')";
+                            create_update_delete($returnLogQuery);
                             continue;
                         } else {
-                            echo $myquery;
+                            echo json_encode(false);
                             break;
                         }
                     } else {
-                        echo $query;
+                        echo json_encode(false);
                         break;
                     }
                 }
-                echo true;
+                echo json_encode(true);
             } else {
                 echo 'Not An Array';
             }
@@ -443,25 +457,25 @@ switch ($function_to_call) {
                 foreach ($bills as $bill) {
                     $rec_id = $bill["recID"];
                     $bill_id = $bill["ID"];
-                    $bill_amount = $bill["Recovered"];
-                    $bill_Status = $bill["Status"];
-                    $query = "Update bill set bill_amount=bill_amount-{$bill_amount} where Bill_id='{$bill_id}'";
-                    //echo '\n'.$query;
+                    $recovered = $bill["Recovered"];
+                    $returned = $bill["Returned"] ?? 0;
+                    $total_deduction = $recovered + $returned;
+
+                    $query = "Update bill set bill_amount=bill_amount-{$total_deduction} where bill_id='{$bill_id}'";
                     if (create_update_delete($query)) {
-                        $myquery = "update recovery_sheet_detail set recovery_sheet_bill_recovered={$bill_amount} where recovery_sheet_bill_id='{$bill_id}' and recovery_sheet_id={$rec_id}";
+                        $myquery = "update recovery_sheet_detail set recovery_sheet_bill_recovered={$recovered}, recovery_sheet_bill_returned={$returned} where recovery_sheet_bill_id='{$bill_id}' and recovery_sheet_id='{$rec_id}'";
                         if (create_update_delete($myquery)) {
-                            
                             continue;
                         } else {
-                            echo $myquery;
+                            echo json_encode(false);
                             break;
                         }
                     } else {
-                        echo $query;
+                        echo json_encode(false);
                         break;
                     }
                 }
-                echo true;
+                echo json_encode(true);
             } else {
                 echo 'Not An Array';
             }
@@ -476,36 +490,49 @@ switch ($function_to_call) {
         break;
     case 'update_recovery_sheet_header':
         $recID = postData('recID');
-        $query = "Update recovery_sheet set recovery_sheet_recovery=(Select SUM(recovery_sheet_bill_recovered) from recovery_sheet_detail where recovery_sheet_id='{$recID}'),sheet_status='1' where recovery_id={$recID}";
-        //echo $query;
-        echo create_update_delete($query);
+        $query = "Update recovery_sheet set 
+                  recovery_sheet_recovery=(Select IFNULL(SUM(recovery_sheet_bill_recovered),0) from recovery_sheet_detail where recovery_sheet_id='{$recID}'),
+                  recovery_sheet_returned=(Select IFNULL(SUM(recovery_sheet_bill_returned),0) from recovery_sheet_detail where recovery_sheet_id='{$recID}'),
+                  sheet_status='1' 
+                  where recovery_id='{$recID}'";
+        echo json_encode(create_update_delete($query) == 1);
         break;
     case 'save_bill_ledger':
-        $bill_ledger = postData('bill_ledger');
-        if (!empty($bill_ledger)) {
-            $bill_ledger = json_decode(urldecode($bill_ledger), true);
-            if (is_array($bill_ledger)) {
-                foreach ($bill_ledger as $bill) {
-                    $ref_id = $bill["ref_id"];
-                    $bill_id = $bill["bill_id"];
-                    $bill_amount = $bill["bill_amount"];
-                    $recived_amount = $bill["recived_amount"];
-                    $remaining_amount = $bill["remaining_amount"];
-                    $bill_status = $bill["bill_status"];
-                    $query = "INSERT INTO `bill_ledger`(`ref_id`, `ledger_date`, `customer_id`, `bill_id`, `bill_amount`, `recived_amount`, `remaining_amount`, `bill_status`) VALUES ({$ref_id},CURRENT_DATE,(Select cutomer_id from bill where bill_id='{$bill_id}'),'{$bill_id}','{$bill_amount}','{$recived_amount}','{$remaining_amount}','{$bill_status}')";
-                    if (create_update_delete($query)) {
-                        continue;
-                    } else {
-                        echo $query;
-                        break;
-                    }
+        $bill_ledger_data = postData('bill_ledger');
+        if (!empty($bill_ledger_data)) {
+            $bill_ledger_data = json_decode(urldecode($bill_ledger_data), true);
+            if (is_array($bill_ledger_data)) {
+                if (empty($bill_ledger_data)) {
+                    echo json_encode(true);
+                    break;
                 }
-                echo true;
+                $values = "";
+                $ledger_date = date('Y-m-d');
+                foreach ($bill_ledger_data as $row) {
+                    $ref_id = $row['ref_id'];
+                    $bill_id = $row['bill_id'];
+                    $bill_amount = $row['bill_amount'];
+                    $recived_amount = $row['recived_amount'];
+                    $return_amount = $row['return_amount'] ?? 0;
+                    $remaining_amount = $row['remaining_amount'];
+                    $bill_status = $row['bill_status'];
+                    
+                    // Use COALESCE in the subquery to provide a default value if customer_id is not found, preventing NOT NULL failure
+                    $values .= "('$ledger_date', (SELECT COALESCE(cutomer_id, 'UNKNOWN') FROM bill WHERE bill_id='$bill_id' LIMIT 1), '$ref_id', '$bill_id', $bill_amount, $recived_amount, $return_amount, $remaining_amount, '$bill_status'),";
+                }
+                $values = rtrim($values, ',');
+                $sql = "INSERT INTO `bill_ledger` (`ledger_date`, `customer_id`, `ref_id`, `bill_id`, `bill_amount`, `recived_amount`, `return_amount`, `remaining_amount`, `bill_status`) VALUES $values";
+                
+                if (create_update_delete($sql)) {
+                    echo json_encode(true);
+                } else {
+                    echo json_encode(false);
+                }
             } else {
-                echo 'This is not an array';
+                echo json_encode(false);
             }
         } else {
-            echo 'Array is Empty';
+            echo json_encode(false);
         }
         break;
     case 'get_credit_by_saleman':
@@ -573,33 +600,23 @@ switch ($function_to_call) {
         $day = postData('day');
         $filter_saleman_id = postData('filter_saleman_id');
         
-        // Base query: Get bills for sectors this salesman visits
         $day_filter = !empty($day) ? " AND r.day='{$day}'" : "";
-        
-        // Determine which salesman's routes to look at.
-        // If a filter salesman is selected, we look at THAT salesman's routes.
-        // Otherwise, we look at the main selected salesman's routes.
         $route_salesman_target = !empty($filter_saleman_id) ? $filter_saleman_id : $saleman_id;
 
-        $query = "SELECT DISTINCT a.bill_id, b.customer_name, d.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
+        // Optimized query: Fetch bills based on the route relation rather than redundant sector joins
+        $query = "SELECT DISTINCT a.bill_id, b.customer_name, e.saleman_name, e.sector_name, a.bill_date, a.bill_amount 
                   FROM bill as a 
                   JOIN customer as b ON a.cutomer_id = b.customer_id 
-                  JOIN picklist as c ON a.picklist_id = c.picklist_id 
-                  JOIN salesman as d ON c.picklist_saleman = d.saleman_id 
                   JOIN route_saleman_relation as e ON b.customer_route = e.route_id 
-                  JOIN routes as r ON r.sector_id = e.sector_id 
+                  JOIN routes as r ON r.route_id = e.route_id
                   WHERE r.saleman_id = '{$route_salesman_target}' 
                   {$day_filter} 
                   AND a.Bill_status = 'INFILE'";
         
-        // Add filter by selected salesman in the filter dropdown if provided
+        // Optional filter: Only show bills that belong to a specific salesman's picklist
         if (!empty($filter_saleman_id)) {
-            $query .= " AND d.saleman_id = '{$filter_saleman_id}'";
+            $query .= " AND EXISTS (SELECT 1 FROM picklist p WHERE p.picklist_id = a.picklist_id AND p.picklist_saleman = '{$filter_saleman_id}')";
         }
-        
-        // DEBUG LOGGING
-        $log = "Query at " . date('Y-m-d H:i:s') . ":\n" . $query . "\n--------------------------------\n";
-        file_put_contents('debug_query_log.txt', $log, FILE_APPEND);
         
         $responce = read($query);
         echo $responce;

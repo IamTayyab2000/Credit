@@ -70,6 +70,7 @@ else{
             <th>Shop</th>
             <th>Amount</th>
             <th>Recived</th>
+            <th>Returned</th>
             <th>Remaining</th>
             <th>Status</th>
         </tr>
@@ -81,6 +82,7 @@ else{
             b.customer_name as 'Shop',
             a.bill_amount as 'Amount',
             a.recived_amount as 'Recived',
+            a.return_amount as 'Returned',
             a.remaining_amount as 'Remaining',
             CASE
                 WHEN a.bill_status = 'INFILE' THEN 'Return'
@@ -98,6 +100,7 @@ else{
             $responce=mysqli_query($conn,$query);
             $SheetTotal=0;
             $RcivedTotal=0;
+            $ReturnedTotal=0;
             $RemainingTotal=0;
             if($responce){
                 while($row=mysqli_fetch_assoc($responce)){
@@ -106,11 +109,13 @@ else{
                         <td>{$row['Shop']}</td>
                         <td>{$row['Amount']}</td>
                         <td>{$row['Recived']}</td>
+                        <td>{$row['Returned']}</td>
                         <td>{$row['Remaining']}</td>
                         <td>{$row['bill_status']}</td>
                     <tr>";
                     $SheetTotal+=(int)$row['Amount'];
                     $RcivedTotal+=(int)$row['Recived'];
+                    $ReturnedTotal+=(int)$row['Returned'];
                     $RemainingTotal+=(int)$row['Remaining'];
                 }
                 echo "
@@ -119,6 +124,7 @@ else{
                         <th>Total</th>
                         <th>{$SheetTotal}</th>
                         <th>{$RcivedTotal}</th>
+                        <th>{$ReturnedTotal}</th>
                         <th>{$RemainingTotal}</th>
                         <th></th>
                     </tr>

@@ -8,83 +8,78 @@ $("#close_messageBox").click(() => {
 });
 let api = "functionality/allFunctionality.php";
 const mySuperSaver = new SuperSaver(api);
-$(".btn-recovery").on("input", function () {
-  // Find the parent row of the current .btn-recovery element
+// Listener for both recovery and return inputs
+$(".btn-recovery, .btn-returned").on("input", function () {
+  // Find the parent row of the current element
   var $row = $(this).closest("tr");
 
-  // Get the Amount value from the row
-  var amountValue = parseFloat($row.find("td:eq(4)").text());
+  // Get values from the row - Use data-amount for raw numeric value
+  var amountValue = parseFloat($row.find("td:eq(4)").data("amount")) || 0;
+  var recoveryValue = parseFloat($row.find(".btn-recovery").val()) || 0;
+  var returnedValue = parseFloat($row.find(".btn-returned").val()) || 0;
 
-  // Get the selected value from the corresponding .selc-status element
   var selectedStatus = $row.find(".selc-status");
 
-  // Get the current value of .btn-recovery element
-  var recoveryValue = parseFloat($(this).val());
+  // Calculate the remaining value
+  var remainingValue = amountValue - (recoveryValue + returnedValue);
 
-  // Check if recoveryValue is NaN or empty, and set it to zero in that case
-  if (isNaN(recoveryValue) || $(this).val() === "") {
-    recoveryValue = 0;
-  }
-
-  // Calculate the remaining value based on the selectedStatus
-  var remainingValue;
-  remainingValue = amountValue - recoveryValue;
+  // Status automation logic
   if (remainingValue <= 0) {
-    var newOption = $("<option>").val("Nill").text("Nill");
-
-    // Append the new option to the select element
-    $("#selectedStatus").append(newOption);
-    selectedStatus.val("Nill");
-    selectedStatus.prop("disabled", true); // Change "readonly" to "disabled"
-  }
-  if (remainingValue > 0) {
-    selectedStatus.prop("disabled", false); // Change "readonly" to "disabled"
-    $("#selectedStatus option[value='Nill']").remove();
-    selectedStatus.val("0");
+    if (selectedStatus.val() !== "Return" && selectedStatus.val() !== "Nill") {
+      selectedStatus.val("Nill");
+    }
+    selectedStatus.prop("disabled", true);
+  } else {
+    selectedStatus.prop("disabled", false);
+    if (selectedStatus.val() === "Nill") {
+      selectedStatus.val("0");
+    }
   }
 
-  // Update the corresponding .txt_remaining element in the same row
-  $row.find(".txt_remaining").text(remainingValue);
+  // Update visually
+  $row.find(".txt_remaining").text(remainingValue.toFixed(0));
   updateTotalValues();
 });
 
 updateTotalValues();
 function updateTotalValues() {
   var totalRecovered = 0;
+  var totalReturned = 0;
   var totalRemaining = 0;
 
   // Loop through each row in the table body
   $("#recovery_table tbody tr").each(function () {
     var recoveredValue = parseFloat($(this).find(".btn-recovery").val()) || 0;
-    var remainingValue = parseFloat($(this).find(".txt_remaining").text());
+    var returnedValue = parseFloat($(this).find(".btn-returned").val()) || 0;
+    var remainingValue = parseFloat($(this).find(".txt_remaining").text()) || 0;
 
-    // Check if remainingValue is NaN, and initialize it to 0 if NaN
-    if (isNaN(remainingValue)) {
-      remainingValue = 0;
-    }
-
-    // Update totalRecovered and totalRemaining
+    // Update totals
     totalRecovered += recoveredValue;
+    totalReturned += returnedValue;
     totalRemaining += remainingValue;
   });
 
-  // Update the total values in the corresponding elements
-  $("#total_recovery").text(totalRecovered.toFixed(2));
-  $("#total_remaining").text(totalRemaining.toFixed(2));
+  // Update the total elements with consistent formatting
+  const formatOptions = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
+  $("#total_recovery").text(totalRecovered.toLocaleString('en-US', formatOptions));
+  $("#total_returned").text(totalReturned.toLocaleString('en-US', formatOptions));
+  $("#total_remaining").text(totalRemaining.toLocaleString('en-US', formatOptions));
 }
 function extractDataAndStoreInArray() {
   var recovery_sheet_array = [];
 
-  // Loop through each row in the table body, excluding the last one
-  $("#recovery_table tbody tr:not(:last)").each(function () {
-    var bill_id = $(this).find("td:eq(0)").text();
+  // Loop through each row in the table body
+  $("#recovery_table tbody tr").each(function () {
+    var bill_id = $(this).find("td:eq(0)").text().trim();
     var date = $(this).find("td:eq(1)").text();
     var days = parseInt($(this).find("td:eq(2)").text());
     var shop = $(this).find("td:eq(3)").text();
-    var amount = parseFloat($(this).find("td:eq(4)").text());
+    var amount = parseFloat($(this).find("td:eq(4)").data("amount")) || 0;
     var recovered = parseFloat($(this).find(".btn-recovery").val()) || 0;
-    var remaining = parseFloat($(this).find(".txt_remaining").text());
+    var returned = parseFloat($(this).find(".btn-returned").val()) || 0;
+    var remaining = amount - (recovered + returned);
     var status = $(this).find(".selc-status").val();
+
     if (bill_id == "") {
       return true;
     }
@@ -95,9 +90,10 @@ function extractDataAndStoreInArray() {
       Days: days,
       Shop: shop,
       Amount: amount,
-      Recovered: recovered != NaN ? recovered : 0,
-      Remaining: remaining != NaN ? remaining : 0,
-      Status: remaining === 0 ? "Nill" : status,
+      Recovered: recovered,
+      Returned: returned,
+      Remaining: remaining,
+      Status: remaining === 0 && status !== "Return" ? "Nill" : status,
     };
     // console.log(rowData);
     recovery_sheet_array.push(rowData);
@@ -109,31 +105,35 @@ function extractDataAndStoreInArray() {
 
 // Call the function to extract and store the data
 
-$("#btn-process").click(() => {
-  let reovery_sheet = extractDataAndStoreInArray();
-  var currentURL = window.location.href;
+$("#btn-process").click(async () => {
+  let recovery_sheet = extractDataAndStoreInArray();
+  const currentURL = window.location.href;
+  const url = new URL(currentURL);
+  const recId = url.searchParams.get("rec_id");
 
-  // Create a URL object
-  var url = new URL(currentURL);
+  if (!recId) {
+    alert("Recovery ID not found in URL");
+    return;
+  }
 
-  // Get the value of the rec_id parameter
-  let recId = url.searchParams.get("rec_id");
-  $.each(reovery_sheet, function(index, element) {
-    element.recID = recId; // Push the newItem to each element
+  // Inject recID into each element
+  recovery_sheet.forEach(element => {
+    element.recID = recId;
   });
-  console.log(reovery_sheet);
 
   let returns = [];
   let nill = [];
   let BF = [];
 
-  for (const item of reovery_sheet) {
+  for (const item of recovery_sheet) {
     if (item.Remaining < 0 || item.Status === "0") {
       give_bad_bills();
-      return false;
+      alert("Please fix bills highlighted in red/yellow before processing.");
+      return;
     } else if (item.Remaining > 0 && item.Status === "Nill") {
       give_bad_bills();
-      return false;
+      alert("Bills with remaining balance cannot be marked as Nill.");
+      return;
     } else {
       if (item.Status === "Return") {
         returns.push(item);
@@ -145,50 +145,40 @@ $("#btn-process").click(() => {
     }
   }
 
-  if (nill.length > 0) {
-    process_nill(nill);
-    alert('Processed...')
+  try {
+    let processPromises = [];
+
+    if (nill.length > 0) processPromises.push(process_nill(nill));
+    if (returns.length > 0) processPromises.push(process_return(returns));
+
+    // Wait for Nill and Return processing
+    await Promise.all(processPromises);
+
+    // Handle BF bills (creates new recovery sheet, so we do it sequentially if needed)
+    if (BF.length > 0) {
+      await process_forward(BF);
+      const saleman_id_data = await getSalemanID();
+      const new_rec_id = await save_rec_sheet_wo_merger(saleman_id_data);
+
+      let bf_details = BF.map(bill => ({
+        "bill_id": bill.ID,
+        "bill_amount": bill.Remaining
+      }));
+
+      await save_rec_detail_wo_merger(new_rec_id, bf_details);
+      alert("Forwarded BF bills to new Recovery Sheet: " + new_rec_id);
+    }
+
+    // Finalize the current sheet and ledger
+    await updateRecoverySheetDetails();
+
+    alert("Recovery Sheet processed and balances updated successfully.");
+    window.location.reload();
+
+  } catch (error) {
+    console.error("Processing failed:", error);
+    alert("An error occurred during processing. Check console for details.");
   }
-  if (returns.length > 0) {
-    process_return(returns);
-    alert('Processed...');
-  }
-  if (BF.length > 0) {
-    process_forward(BF)
-      .then(() => {
-        return getSalemanID();
-      })
-      .then((saleman_id) => {
-        console.log('Done 1...');
-        return save_rec_sheet_wo_merger(saleman_id); // Return a Promise here
-      })
-      .then((response) => {
-        let bills = [];
-        // More logic
-        for (const bill of BF) {
-          let newBill = {
-            "bill_id": bill.ID,
-            "bill_amount": bill.Remaining
-          };
-          bills.push(newBill);
-        }
-        console.log('Done 2...');
-        return save_rec_detail_wo_merger(response, bills); // Return a Promise here
-      })
-      .then((response) => {
-        console.log("Done 3...:", response);
-        let recId = response;
-        // Final processing
-        alert("Recovery Sheet Processed\n New Recovery Sheet for BF bills is:" + recId);
-         // Include it here as the final step
-      })
-      .catch((error) => {
-        // Handle errors here
-      });
-      
-  }
-  updateRecoverySheetDetails();
-  //window.close();
 });
 
 
@@ -243,27 +233,46 @@ function process_forward(BF) {
     },
     contentType: "application/x-www-form-urlencoded",
   };
-  return mySuperSaver.performAjaxRequest(data).catch();
+  return mySuperSaver.performAjaxRequest(data).then((response) => {
+    if (response !== true) {
+      throw new Error("Failed to process Forward (BF) bills.");
+    }
+    return response;
+  });
 }
+
 function process_return(returns) {
+  let bills = returns;
   let data = {
     data: {
       function_to_call: "process_return_bills",
-      customer_bills: encodeURIComponent(JSON.stringify(returns)),
+      customer_bills: encodeURIComponent(JSON.stringify(bills)),
     },
     contentType: "application/x-www-form-urlencoded",
   };
-  return mySuperSaver.performAjaxRequest(data).catch();
+  return mySuperSaver.performAjaxRequest(data).then((response) => {
+    if (response !== true) {
+      throw new Error("Failed to process Return bills.");
+    }
+    return response;
+  });
 }
+
 function process_nill(nill) {
+  let bills = nill;
   let data = {
     data: {
       function_to_call: "process_nill_bills",
-      customer_bills: encodeURIComponent(JSON.stringify(nill)),
+      customer_bills: encodeURIComponent(JSON.stringify(bills)),
     },
     contentType: "application/x-www-form-urlencoded",
   };
-  return mySuperSaver.performAjaxRequest(data).catch();
+  return mySuperSaver.performAjaxRequest(data).then((response) => {
+    if (response !== true) {
+      throw new Error("Failed to process Nill bills.");
+    }
+    return response;
+  });
 }
 function getSalemanID() {
   var currentURL = window.location.href;
@@ -278,7 +287,7 @@ function getSalemanID() {
   if (recId) {
     // recId contains the value of the rec_id parameter
     let data = {
-      data:{
+      data: {
         function_to_call: "get_saleman_from_recovery_sheet",
         recID: recId,
       }
@@ -296,7 +305,7 @@ function getSalemanID() {
 }
 
 function save_rec_sheet_wo_merger(saleman_id) {
-  let id=saleman_id[0].recovery_sheet_saleman_id;
+  let id = saleman_id[0].recovery_sheet_saleman_id;
   let data = {
     data: {
       function_to_call: "store_recovery_sheet",
@@ -344,68 +353,57 @@ function save_rec_detail_wo_merger(response, BF) {
 }
 
 function updateRecoverySheetDetails() {
-  var currentURL = window.location.href;
+  const url = new URL(window.location.href);
+  const recId = url.searchParams.get("rec_id");
 
-  // Create a URL object
-  var url = new URL(currentURL);
+  let data = {
+    data: {
+      function_to_call: "update_recovery_sheet_header",
+      recID: recId,
+    }
+  };
 
-  // Get the value of the rec_id parameter
-  var recId = url.searchParams.get("rec_id");
+  return mySuperSaver.performAjaxRequest(data).then((response) => {
+    if (response) {
+      let bills = extractDataAndStoreInArray();
+      let bill_ledger = [];
 
-  // Check if recId is not null or empty
-  
-    // recId contains the value of the rec_id parameter
-    let data = {
-      data:{
-        function_to_call: "update_recovery_sheet_header",
-        recID: recId,
+      for (const bill of bills) {
+        let bill_status = bill.Status;
+        // Map status to DB ENUM (bill_ledger table): NILL, BF, INFILE
+        if (bill_status === "Return") bill_status = "INFILE";
+        else if (bill_status === "Nill") bill_status = "NILL";
+        else if (bill_status === "BF") bill_status = "BF";
+        else bill_status = "INFILE"; // Default for active/0 or others
+
+        bill_ledger.push({
+          "ref_id": recId,
+          "bill_id": bill.ID,
+          "bill_amount": bill.Amount,
+          "recived_amount": bill.Recovered,
+          "return_amount": bill.Returned || 0,
+          "remaining_amount": bill.Remaining,
+          "bill_status": bill_status
+        });
       }
-    };
-  
-  mySuperSaver.performAjaxRequest(data).then((response)=>{
-    if(response){
-      let bills=extractDataAndStoreInArray();
-      let bill_ledger=[];
-      let refID=recId;
-      let bill_id='';
-      let bill_amount=0;
-      let recived_amount=0;
-      let remaining_amount=0;
-      let bill_status='';
-      for(const bill of bills){
-          bill_id=bill.ID;
-          bill_amount=bill.Amount;
-          recived_amount=bill.Recovered;
-          remaining_amount=bill.Remaining;
-          bill_status=bill.Status=='Return' ? 'INFILE':bill.Status;
-          let new_data={
-            "ref_id":refID,
-            "bill_id":bill_id,
-            "bill_amount":bill_amount,
-            "recived_amount":recived_amount,
-            "remaining_amount":remaining_amount,
-            "bill_status":bill_status
-          }
-          bill_ledger.push(new_data);
-      }
-      let data = {
+
+      let ledgerData = {
         data: {
           function_to_call: "save_bill_ledger",
           bill_ledger: encodeURIComponent(JSON.stringify(bill_ledger)),
         },
         contentType: "application/x-www-form-urlencoded",
       };
-      mySuperSaver.performAjaxRequest(data).then((response)=>{
-            if(response){
-              console.log("Done 4...");
-              
-            }
-      }).catch((error)=>{
 
-      })
+      return mySuperSaver.performAjaxRequest(ledgerData).then((ledgerResponse) => {
+        if (ledgerResponse === true) {
+          return true;
+        } else {
+          throw new Error("Failed to save bill ledger entries.");
+        }
+      });
+    } else {
+      throw new Error("Failed to update recovery sheet header");
     }
-    else{
-      console.error(response);
-    }
-  })
+  });
 }

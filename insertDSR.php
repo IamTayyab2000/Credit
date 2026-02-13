@@ -43,7 +43,12 @@
             <!-- DSR Header Info -->
             <div class="col-lg-12 mb-4">
                 <div class="card shadow-sm border-start border-primary border-5">
-                    <div class="card-header bg-white font-weight-bold">Primary Picklist Information</div>
+                    <div class="card-header bg-white">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold">Primary Picklist Information</span>
+                            <span class="badge bg-soft-primary text-primary">Auto-Calculating</span>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-3">
@@ -62,21 +67,21 @@
                                 <label class="form-label small">Total Amount</label>
                                 <div class="input-group">
                                     <span class="input-group-text">Rs.</span>
-                                    <input type="number" class="form-control" id="picklist_amount">
+                                    <input type="number" class="form-control bg-light" id="picklist_amount" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small">Return Amount</label>
                                 <div class="input-group">
                                     <span class="input-group-text">Rs.</span>
-                                    <input type="number" class="form-control" id="picklist_return">
+                                    <input type="number" class="form-control bg-light" id="picklist_return" readonly>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label small">Scheme / Discount</label>
                                 <div class="input-group">
                                     <span class="input-group-text">Rs.</span>
-                                    <input type="number" class="form-control" id="picklist_scheme">
+                                    <input type="number" class="form-control bg-light" id="picklist_scheme" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -95,9 +100,9 @@
             <!-- Customer Credit Entry -->
             <div class="col-lg-12 mb-4">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-white font-weight-bold">Add Customer Credit / Outstanding</div>
+                    <div class="card-header bg-white font-weight-bold">Add Bill Details</div>
                     <div class="card-body">
-                        <div class="row g-2 align-items-end">
+                        <div class="row g-3">
                             <div class="col-md-2">
                                 <label class="form-label small">Inv ID</label>
                                 <input type="text" class="form-control form-control-sm" id="customer_invoice_id">
@@ -112,24 +117,45 @@
                                 <input type="text" class="form-control form-control-sm bg-light" id="customer_name" readonly>
                             </div>
                             <div class="col-md-2">
-                                <label class="form-label small">Amount</label>
-                                <input type="number" class="form-control form-control-sm" id="credit_amount">
+                                <label class="form-label small">Bill Total</label>
+                                <input type="number" class="form-control form-control-sm" id="bill_total">
                             </div>
                             <div class="col-md-2">
+                                <label class="form-label small">Recovered</label>
+                                <input type="number" class="form-control form-control-sm" id="bill_recovered">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Returned</label>
+                                <input type="number" class="form-control form-control-sm" id="bill_returned">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Scheme/Disc</label>
+                                <input type="number" class="form-control form-control-sm" id="bill_scheme">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label small">Credit (Bal)</label>
+                                <input type="number" class="form-control form-control-sm bg-light" id="credit_amount" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label invisible d-block">Spacer</label>
                                 <button class="btn btn-primary btn-sm w-100" id="btn_add_creditor_to_table">Add to List</button>
                             </div>
                         </div>
                         
                         <div class="mt-4">
-                            <h6 class="font-weight-bold small uppercase letter-spacing-1 mb-3">Credit Summary</h6>
+                            <h6 class="font-weight-bold small uppercase letter-spacing-1 mb-3">DSR Entries Summary</h6>
                             <div class="table-responsive">
                                 <table class="table table-hover table-sm" id="creditors_table">
                                     <thead class="bg-light">
                                         <tr>
                                             <th>Inv ID</th>
-                                            <th>Cust ID</th>
+                                            <th>ID</th>
                                             <th>Customer Name</th>
-                                            <th class="text-end">Amount</th>
+                                            <th class="text-end">Total</th>
+                                            <th class="text-end">Recovered</th>
+                                            <th class="text-end">Returned</th>
+                                            <th class="text-end">Scheme</th>
+                                            <th class="text-end">Credit</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>

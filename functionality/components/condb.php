@@ -1,5 +1,6 @@
 <?php
 $conn = new mysqli("localhost","root","","credit");
+$conn->set_charset("utf8mb4");
 
 // Check connection
 if ($conn -> connect_errno) {
