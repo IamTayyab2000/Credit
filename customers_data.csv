@@ -1,0 +1,501 @@
+customer_id,customer_name,area_address,salesman_name,bill_amount,remaining_credit,bill_date
+1,Omar Sheikh,Johar Town,Naveed,28057.49,16778.38,2024-05-21
+2,Saad Farooq,Clifton Block 5,Imran,10590.35,3183.43,2025-08-28
+3,Ahmed Shah,Bahria Town,Imran,46254.93,29174.24,2025-10-29
+4,Usman Sheikh,DHA Phase 1,Kashif,43578.98,13344.14,2025-03-05
+5,Zain Ahmed,DHA Phase 1,Kashif,39789.17,16332.42,2025-03-26
+6,Ali Farooq,Satellite Town,Asif,49078.38,48117.52,2024-03-11
+7,Omar Iqbal,Defence View,Asif,39675.71,37012.82,2024-06-27
+8,Usman Raza,Johar Town,Naveed,11634.88,4927.57,2026-01-01
+9,Usman Sheikh,Bahria Town,Imran,41671.54,41242.73,2025-05-09
+10,Ayaan Sheikh,Cantt Area,Kashif,35011.29,23412.76,2025-11-23
+11,Hassan Iqbal,Cantt Area,Kashif,13902.72,2290.88,2025-10-17
+12,Omar Malik,DHA Phase 2,Tariq,44146.17,8224.68,2025-06-17
+13,Ali Chaudhry,DHA Phase 1,Kashif,46114.62,9626.84,2025-08-07
+14,Ali Iqbal,Satellite Town,Asif,42127.03,7351.66,2026-01-17
+15,Zain Ahmed,DHA Phase 1,Kashif,20842.27,5686.06,2025-05-09
+16,Ahmed Malik,Defence View,Asif,2404.39,1722.61,2025-08-28
+17,Ayaan Shah,Clifton Block 5,Imran,10159.01,3214.16,2024-07-07
+18,Ayaan Shah,Cantt Area,Kashif,2398.49,1645.37,2025-07-28
+19,Ali Sheikh,Satellite Town,Asif,44657.06,10281.45,2024-05-17
+20,Ali Sheikh,DHA Phase 2,Tariq,28949.05,15909.14,2025-09-09
+21,Hassan Raza,Gulshan-e-Iqbal,Naveed,29090.24,7586.13,2025-10-31
+22,Usman Chaudhry,Cantt Area,Kashif,42106.43,24169.93,2025-01-20
+23,Zain Sheikh,Model Town,Asif,44571.72,32120.47,2025-01-20
+24,Zain Chaudhry,DHA Phase 2,Tariq,13210.27,12227.41,2025-06-28
+25,Ali Khan,Cantt Area,Kashif,48571.36,19004.08,2026-01-12
+26,Hamza Raza,Model Town,Asif,15543.38,1540.58,2025-05-26
+27,Hassan Butt,Satellite Town,Asif,30129.37,22601.73,2024-05-02
+28,Omar Sheikh,Gulshan-e-Iqbal,Naveed,23283.8,11175.94,2024-10-27
+29,Omar Sheikh,Satellite Town,Asif,5638.1,2752.17,2026-01-30
+30,Omar Chaudhry,Johar Town,Naveed,1207.46,417.5,2025-10-13
+31,Bilal Raza,Model Town,Asif,16918.37,12359.4,2025-12-03
+32,Ahmed Iqbal,DHA Phase 1,Kashif,20850.6,11008.21,2025-09-30
+33,Saad Malik,DHA Phase 2,Tariq,43793.45,27202.94,2024-04-05
+34,Zain Butt,Defence View,Asif,7386.39,4716.67,2025-07-20
+35,Bilal Khan,Gulshan-e-Iqbal,Naveed,18801.23,14674.92,2025-07-03
+36,Saad Khan,Gulshan-e-Iqbal,Naveed,3588.81,317.43,2025-05-08
+37,Saad Iqbal,Johar Town,Naveed,30669.51,18565.98,2025-12-21
+38,Omar Farooq,Bahria Town,Imran,34119.27,11692.44,2025-12-04
+39,Ali Chaudhry,Clifton Block 5,Imran,39080.0,885.26,2025-01-03
+40,Usman Shah,Johar Town,Naveed,32072.56,5932.9,2025-03-08
+41,Zain Chaudhry,Johar Town,Naveed,11412.85,8554.66,2025-04-15
+42,Saad Butt,Satellite Town,Asif,3311.49,2024.66,2026-01-17
+43,Bilal Sheikh,Clifton Block 5,Imran,2229.18,99.9,2025-02-03
+44,Zain Butt,Gulshan-e-Iqbal,Naveed,26722.78,22411.8,2024-04-08
+45,Zain Raza,Bahria Town,Imran,9765.62,2835.47,2024-11-04
+46,Ahmed Sheikh,Bahria Town,Imran,41672.56,23849.7,2024-11-05
+47,Ali Farooq,Gulshan-e-Iqbal,Naveed,14739.18,2181.25,2024-09-23
+48,Usman Butt,Model Town,Asif,42643.63,12058.78,2024-04-08
+49,Ali Raza,Defence View,Asif,24391.86,8524.07,2024-04-19
+50,Ali Shah,Gulshan-e-Iqbal,Naveed,47388.52,17607.36,2024-12-25
+51,Ahmed Farooq,DHA Phase 1,Kashif,2530.76,1345.55,2025-01-30
+52,Ayaan Butt,Bahria Town,Imran,21103.2,18009.3,2024-10-05
+53,Usman Chaudhry,Johar Town,Naveed,10316.09,4103.74,2025-09-16
+54,Omar Raza,Satellite Town,Asif,20528.41,5873.85,2024-07-07
+55,Zain Farooq,Defence View,Asif,48407.94,33733.26,2025-07-16
+56,Ali Sheikh,Gulshan-e-Iqbal,Naveed,37227.59,23237.16,2025-10-08
+57,Ayaan Malik,Gulshan-e-Iqbal,Naveed,47912.93,30956.63,2024-12-02
+58,Hassan Ahmed,Defence View,Asif,1263.57,459.3,2024-03-29
+59,Saad Ahmed,Satellite Town,Asif,37708.99,9893.9,2024-11-21
+60,Bilal Ahmed,Cantt Area,Kashif,26650.55,16915.12,2025-04-22
+61,Usman Malik,Satellite Town,Asif,45469.38,9657.67,2025-04-04
+62,Ahmed Farooq,Gulshan-e-Iqbal,Naveed,2330.65,1751.82,2024-03-11
+63,Ahmed Raza,Clifton Block 5,Imran,14170.16,7946.2,2024-02-22
+64,Ayaan Butt,Johar Town,Naveed,36814.12,13913.5,2024-03-10
+65,Ahmed Malik,Defence View,Asif,25387.98,18940.68,2025-05-24
+66,Omar Butt,Cantt Area,Kashif,25713.67,9016.85,2025-09-13
+67,Ayaan Chaudhry,Satellite Town,Asif,2610.5,2360.2,2024-08-05
+68,Ahmed Chaudhry,Bahria Town,Imran,17104.55,6310.8,2024-07-31
+69,Bilal Malik,Bahria Town,Imran,25557.0,25244.2,2025-06-15
+70,Hassan Butt,DHA Phase 2,Tariq,5642.12,2914.5,2025-03-22
+71,Omar Khan,Clifton Block 5,Imran,40974.22,3592.25,2025-08-13
+72,Ahmed Farooq,Bahria Town,Imran,20207.33,1157.01,2025-04-25
+73,Saad Iqbal,Bahria Town,Imran,22291.89,10354.07,2025-12-10
+74,Ali Iqbal,DHA Phase 2,Tariq,14762.17,4619.24,2024-08-31
+75,Ali Sheikh,Clifton Block 5,Imran,21055.82,6241.45,2025-12-23
+76,Saad Raza,Gulshan-e-Iqbal,Naveed,29619.05,27379.11,2025-07-17
+77,Ali Butt,Defence View,Asif,20942.46,2964.61,2026-02-02
+78,Saad Iqbal,Cantt Area,Kashif,33027.6,6160.84,2025-06-17
+79,Bilal Chaudhry,DHA Phase 1,Kashif,26162.3,17021.74,2025-08-28
+80,Ali Raza,Cantt Area,Kashif,24847.68,10921.54,2024-03-08
+81,Ahmed Ahmed,Gulshan-e-Iqbal,Naveed,22062.58,903.61,2025-02-02
+82,Ali Sheikh,DHA Phase 2,Tariq,4316.85,949.7,2025-12-31
+83,Ali Sheikh,Cantt Area,Kashif,39458.04,4012.1,2025-04-11
+84,Ahmed Farooq,DHA Phase 2,Tariq,35525.23,26133.35,2024-07-12
+85,Bilal Butt,Clifton Block 5,Imran,19050.14,13440.3,2025-04-04
+86,Hassan Butt,Johar Town,Naveed,31355.44,18362.88,2025-04-20
+87,Ahmed Raza,Gulshan-e-Iqbal,Naveed,25175.99,24776.63,2025-12-17
+88,Saad Butt,DHA Phase 1,Kashif,19890.36,19730.75,2024-12-16
+89,Hamza Butt,Bahria Town,Imran,15353.08,1126.73,2024-12-05
+90,Ayaan Shah,Clifton Block 5,Imran,36599.25,18372.42,2025-03-09
+91,Hamza Sheikh,Satellite Town,Asif,29277.55,12650.29,2024-05-09
+92,Ali Shah,DHA Phase 1,Kashif,40176.79,30666.58,2024-12-22
+93,Ahmed Malik,DHA Phase 1,Kashif,41482.16,11894.96,2025-10-01
+94,Bilal Malik,Defence View,Asif,10198.02,4086.9,2024-12-09
+95,Ali Raza,Defence View,Asif,36132.75,18856.7,2024-04-11
+96,Ayaan Butt,Model Town,Asif,33933.23,2684.05,2024-06-10
+97,Saad Ahmed,Model Town,Asif,18213.4,4324.15,2025-12-19
+98,Hamza Shah,DHA Phase 2,Tariq,43650.2,19295.38,2025-08-09
+99,Hamza Ahmed,Cantt Area,Kashif,42353.2,732.72,2024-03-04
+100,Ali Shah,Clifton Block 5,Imran,36761.54,10640.23,2025-02-02
+101,Omar Raza,DHA Phase 2,Tariq,49988.75,11443.18,2025-05-13
+102,Usman Farooq,Clifton Block 5,Imran,49469.86,18378.65,2024-07-11
+103,Ayaan Sheikh,Model Town,Asif,1636.69,276.62,2025-09-21
+104,Zain Malik,Bahria Town,Imran,2575.12,748.37,2024-05-11
+105,Bilal Malik,Model Town,Asif,8094.2,4001.34,2024-04-10
+106,Omar Ahmed,Satellite Town,Asif,46960.6,43024.84,2024-06-05
+107,Usman Khan,Cantt Area,Kashif,8810.58,1729.82,2024-12-22
+108,Zain Chaudhry,DHA Phase 1,Kashif,3802.45,2207.27,2024-09-11
+109,Zain Khan,Gulshan-e-Iqbal,Naveed,34058.43,23064.55,2025-06-10
+110,Ahmed Ahmed,Clifton Block 5,Imran,37026.48,30710.05,2024-07-26
+111,Bilal Shah,Model Town,Asif,43108.91,43095.61,2024-10-21
+112,Hassan Chaudhry,Gulshan-e-Iqbal,Naveed,9937.08,4591.85,2025-11-19
+113,Ali Farooq,Satellite Town,Asif,45474.88,11151.21,2025-10-21
+114,Hassan Malik,Defence View,Asif,39274.37,27722.88,2025-05-11
+115,Ahmed Khan,Satellite Town,Asif,32838.63,21968.0,2025-12-05
+116,Ayaan Raza,Defence View,Asif,25450.51,12786.88,2025-11-22
+117,Omar Farooq,Gulshan-e-Iqbal,Naveed,25638.27,3176.13,2025-01-20
+118,Ayaan Iqbal,Bahria Town,Imran,44863.64,9542.12,2025-04-17
+119,Usman Iqbal,Cantt Area,Kashif,10652.17,3244.99,2025-09-02
+120,Hamza Raza,Gulshan-e-Iqbal,Naveed,8242.41,514.18,2025-09-05
+121,Zain Malik,Cantt Area,Kashif,22028.88,21226.11,2024-11-12
+122,Hamza Farooq,Satellite Town,Asif,29646.46,15754.03,2024-07-04
+123,Bilal Farooq,Clifton Block 5,Imran,49050.82,34694.94,2025-02-19
+124,Hamza Khan,Johar Town,Naveed,5117.33,2976.6,2024-12-30
+125,Usman Iqbal,Bahria Town,Imran,8313.23,5011.77,2024-07-11
+126,Usman Shah,Clifton Block 5,Imran,10904.83,10282.58,2025-08-08
+127,Ayaan Malik,Johar Town,Naveed,18097.99,3485.69,2025-11-16
+128,Saad Malik,Satellite Town,Asif,47469.09,41798.25,2024-09-07
+129,Usman Raza,DHA Phase 2,Tariq,4776.43,4005.97,2024-10-07
+130,Omar Sheikh,Johar Town,Naveed,15113.92,5477.94,2025-07-02
+131,Saad Raza,Defence View,Asif,11878.24,4590.16,2024-10-04
+132,Hassan Farooq,DHA Phase 1,Kashif,16693.0,4815.71,2024-02-29
+133,Saad Farooq,Clifton Block 5,Imran,8359.53,822.88,2024-10-28
+134,Usman Farooq,Defence View,Asif,10660.04,7771.79,2024-10-09
+135,Ahmed Sheikh,Model Town,Asif,23293.38,4176.68,2025-08-03
+136,Omar Ahmed,Clifton Block 5,Imran,10302.64,592.93,2025-09-03
+137,Ahmed Khan,Clifton Block 5,Imran,38691.24,21992.56,2024-12-23
+138,Hassan Khan,Satellite Town,Asif,2509.24,1130.12,2025-11-20
+139,Omar Chaudhry,Defence View,Asif,10757.74,2402.46,2024-05-01
+140,Hassan Chaudhry,Bahria Town,Imran,21517.53,1055.29,2024-10-15
+141,Bilal Chaudhry,Bahria Town,Imran,6407.8,792.5,2025-05-31
+142,Saad Sheikh,Johar Town,Naveed,14161.38,1646.68,2026-01-31
+143,Hamza Malik,Cantt Area,Kashif,10314.41,957.35,2025-03-18
+144,Saad Farooq,Johar Town,Naveed,10915.92,6688.46,2024-10-10
+145,Usman Malik,DHA Phase 2,Tariq,15654.14,3695.24,2026-01-26
+146,Usman Shah,Gulshan-e-Iqbal,Naveed,1288.59,550.86,2024-06-26
+147,Bilal Raza,DHA Phase 2,Tariq,39509.68,36225.84,2025-04-12
+148,Usman Butt,Defence View,Asif,2644.41,680.24,2025-10-22
+149,Hassan Sheikh,Johar Town,Naveed,22975.39,19876.63,2025-04-02
+150,Hamza Ahmed,Johar Town,Naveed,25113.43,12642.59,2024-12-22
+151,Hassan Butt,DHA Phase 2,Tariq,47229.02,877.74,2024-04-25
+152,Omar Iqbal,Clifton Block 5,Imran,44734.61,10533.79,2025-02-28
+153,Saad Butt,Bahria Town,Imran,4807.54,3900.93,2025-09-23
+154,Ali Malik,Bahria Town,Imran,28570.64,17522.51,2024-09-27
+155,Ayaan Butt,Satellite Town,Asif,24211.04,5962.33,2024-11-16
+156,Bilal Malik,Model Town,Asif,49157.9,5986.13,2024-09-17
+157,Saad Shah,Model Town,Asif,23896.28,21258.65,2025-11-18
+158,Ali Butt,Gulshan-e-Iqbal,Naveed,9806.05,7271.84,2025-08-19
+159,Ayaan Shah,Johar Town,Naveed,36587.27,9285.24,2025-06-19
+160,Saad Shah,DHA Phase 1,Kashif,14446.89,394.73,2024-09-12
+161,Usman Shah,Satellite Town,Asif,33991.27,32073.19,2024-03-31
+162,Saad Ahmed,DHA Phase 1,Kashif,24101.78,21588.56,2024-04-09
+163,Ayaan Malik,Satellite Town,Asif,40453.6,36567.15,2024-08-17
+164,Ali Sheikh,DHA Phase 1,Kashif,32510.97,22940.84,2024-06-20
+165,Ayaan Raza,Model Town,Asif,19230.86,8207.04,2025-02-01
+166,Saad Sheikh,Model Town,Asif,21025.58,14415.24,2024-12-05
+167,Zain Butt,Clifton Block 5,Imran,44065.56,36276.73,2024-12-04
+168,Ahmed Shah,Gulshan-e-Iqbal,Naveed,23004.8,18496.94,2025-08-12
+169,Ayaan Iqbal,Defence View,Asif,20342.0,238.61,2025-05-01
+170,Bilal Iqbal,Defence View,Asif,26968.71,7418.64,2025-11-06
+171,Hamza Ahmed,Gulshan-e-Iqbal,Naveed,44303.28,20711.15,2024-06-26
+172,Hamza Sheikh,Clifton Block 5,Imran,14703.74,13345.56,2025-04-22
+173,Omar Sheikh,Satellite Town,Asif,41973.12,16327.47,2024-09-15
+174,Ali Sheikh,Cantt Area,Kashif,21597.66,9116.16,2024-03-30
+175,Ahmed Ahmed,Clifton Block 5,Imran,13638.63,11931.97,2024-10-01
+176,Ayaan Iqbal,DHA Phase 1,Kashif,2629.59,2509.98,2025-12-27
+177,Ali Iqbal,Clifton Block 5,Imran,46048.97,578.33,2025-03-23
+178,Ali Chaudhry,Clifton Block 5,Imran,4305.94,2445.2,2025-11-05
+179,Ali Shah,Model Town,Asif,15048.66,2136.16,2024-09-25
+180,Zain Sheikh,Defence View,Asif,8865.7,1825.59,2026-02-02
+181,Usman Ahmed,DHA Phase 1,Kashif,42837.41,32816.98,2024-02-23
+182,Hamza Ahmed,Gulshan-e-Iqbal,Naveed,26041.73,22302.02,2025-06-10
+183,Hassan Butt,Model Town,Asif,16899.37,15315.47,2025-02-18
+184,Ayaan Farooq,DHA Phase 2,Tariq,29364.13,10461.57,2026-01-13
+185,Zain Raza,DHA Phase 2,Tariq,28225.46,22215.01,2024-10-09
+186,Hamza Shah,Defence View,Asif,37162.51,19014.29,2024-09-17
+187,Saad Khan,Bahria Town,Imran,6160.87,1658.54,2025-02-07
+188,Omar Butt,Satellite Town,Asif,4830.82,1231.99,2024-08-04
+189,Hassan Shah,Satellite Town,Asif,36240.91,15566.77,2025-10-11
+190,Ali Raza,Cantt Area,Kashif,31748.58,15690.97,2025-08-23
+191,Saad Sheikh,Gulshan-e-Iqbal,Naveed,32865.59,22086.05,2024-05-14
+192,Hassan Raza,DHA Phase 1,Kashif,29400.04,14121.03,2024-09-29
+193,Saad Ahmed,Bahria Town,Imran,20908.22,18720.28,2024-12-04
+194,Ali Iqbal,Model Town,Asif,43421.92,18355.97,2025-07-01
+195,Saad Khan,DHA Phase 1,Kashif,44984.26,19722.69,2024-10-06
+196,Hassan Shah,Gulshan-e-Iqbal,Naveed,34476.41,28238.89,2025-01-23
+197,Ali Chaudhry,Model Town,Asif,4985.86,1643.26,2025-06-30
+198,Omar Khan,Model Town,Asif,31311.3,23924.94,2025-04-25
+199,Usman Ahmed,Satellite Town,Asif,27494.99,20215.85,2025-01-10
+200,Omar Chaudhry,DHA Phase 1,Kashif,23071.59,22465.77,2024-02-28
+201,Hamza Ahmed,DHA Phase 1,Kashif,40036.43,36233.27,2024-06-26
+202,Omar Shah,Cantt Area,Kashif,14658.11,606.49,2024-09-04
+203,Bilal Sheikh,Gulshan-e-Iqbal,Naveed,49337.45,7112.98,2024-02-23
+204,Usman Sheikh,Bahria Town,Imran,16362.64,12382.85,2024-11-16
+205,Bilal Chaudhry,Cantt Area,Kashif,47888.55,3566.22,2026-01-14
+206,Ayaan Farooq,Bahria Town,Imran,15205.73,3419.32,2025-10-13
+207,Ali Malik,Model Town,Asif,42124.3,25280.55,2024-09-29
+208,Saad Ahmed,DHA Phase 2,Tariq,3840.75,1812.75,2024-12-09
+209,Zain Khan,DHA Phase 1,Kashif,25417.62,9733.3,2024-08-18
+210,Ayaan Chaudhry,Bahria Town,Imran,33758.45,33671.58,2025-08-14
+211,Zain Raza,Bahria Town,Imran,45765.99,5159.74,2025-08-18
+212,Ayaan Butt,Gulshan-e-Iqbal,Naveed,17226.27,554.36,2025-11-09
+213,Zain Ahmed,Cantt Area,Kashif,1386.11,164.68,2024-06-08
+214,Ayaan Iqbal,DHA Phase 1,Kashif,25577.54,16325.33,2025-09-23
+215,Ahmed Malik,Cantt Area,Kashif,17010.03,9363.6,2025-06-15
+216,Bilal Ahmed,Johar Town,Naveed,36004.97,34398.33,2026-01-16
+217,Usman Malik,Bahria Town,Imran,11327.34,7183.31,2025-11-20
+218,Ayaan Shah,Cantt Area,Kashif,26425.32,26338.64,2025-01-10
+219,Bilal Raza,Johar Town,Naveed,49203.52,43935.57,2024-03-16
+220,Usman Iqbal,Clifton Block 5,Imran,26894.68,10654.59,2025-04-30
+221,Omar Sheikh,Johar Town,Naveed,28197.36,1884.73,2025-12-03
+222,Ahmed Chaudhry,Satellite Town,Asif,1299.87,827.99,2024-09-04
+223,Saad Iqbal,DHA Phase 1,Kashif,34662.89,1156.0,2024-10-11
+224,Ahmed Sheikh,Bahria Town,Imran,19444.6,13816.31,2024-09-17
+225,Ayaan Farooq,Clifton Block 5,Imran,28690.6,14563.3,2024-02-27
+226,Usman Shah,Bahria Town,Imran,49550.8,14003.33,2024-02-29
+227,Usman Sheikh,Cantt Area,Kashif,20194.19,14288.76,2025-05-29
+228,Bilal Chaudhry,Model Town,Asif,35363.11,33724.96,2024-10-19
+229,Ahmed Sheikh,Cantt Area,Kashif,32779.47,13285.9,2025-04-20
+230,Bilal Raza,DHA Phase 1,Kashif,24990.84,16614.55,2025-08-31
+231,Zain Chaudhry,DHA Phase 1,Kashif,1423.83,973.89,2025-01-26
+232,Omar Sheikh,Johar Town,Naveed,27505.35,21271.54,2025-11-01
+233,Bilal Raza,Cantt Area,Kashif,14709.16,7121.79,2025-08-15
+234,Saad Sheikh,Clifton Block 5,Imran,45214.67,7621.41,2024-11-07
+235,Bilal Khan,Defence View,Asif,19787.87,15546.12,2024-09-14
+236,Usman Shah,Bahria Town,Imran,26901.98,14131.88,2025-09-07
+237,Hamza Malik,Satellite Town,Asif,32325.99,13233.5,2025-11-26
+238,Ahmed Chaudhry,Bahria Town,Imran,43655.73,5147.63,2024-09-05
+239,Usman Farooq,Gulshan-e-Iqbal,Naveed,5452.04,3797.98,2025-09-25
+240,Usman Khan,Defence View,Asif,49698.5,30787.25,2024-04-03
+241,Ahmed Iqbal,Defence View,Asif,43813.58,36420.74,2025-02-28
+242,Zain Raza,Clifton Block 5,Imran,24112.04,4609.98,2024-12-31
+243,Bilal Raza,Clifton Block 5,Imran,33172.86,25876.12,2025-09-14
+244,Bilal Iqbal,DHA Phase 2,Tariq,29542.97,28679.17,2025-10-09
+245,Bilal Ahmed,Johar Town,Naveed,32324.01,20264.3,2025-05-17
+246,Saad Malik,Clifton Block 5,Imran,3040.41,1696.56,2025-05-06
+247,Saad Malik,Gulshan-e-Iqbal,Naveed,1301.11,1030.48,2025-05-26
+248,Ayaan Khan,Gulshan-e-Iqbal,Naveed,22381.26,19801.61,2025-01-02
+249,Zain Butt,DHA Phase 1,Kashif,44685.14,20126.78,2024-06-28
+250,Saad Ahmed,Gulshan-e-Iqbal,Naveed,23532.45,608.8,2025-08-23
+251,Omar Iqbal,DHA Phase 1,Kashif,15302.21,9145.1,2025-09-26
+252,Zain Raza,Johar Town,Naveed,19116.32,14892.73,2025-02-28
+253,Saad Chaudhry,Johar Town,Naveed,31996.32,21289.61,2025-06-21
+254,Ahmed Farooq,Defence View,Asif,44822.72,14444.14,2025-07-29
+255,Hamza Khan,Johar Town,Naveed,9877.21,807.13,2024-08-26
+256,Omar Chaudhry,Satellite Town,Asif,10632.57,8068.67,2024-04-20
+257,Zain Farooq,DHA Phase 1,Kashif,8004.33,4185.42,2025-06-24
+258,Saad Iqbal,DHA Phase 2,Tariq,42304.15,27306.95,2024-06-06
+259,Saad Iqbal,Clifton Block 5,Imran,39711.78,17738.93,2024-12-09
+260,Ali Chaudhry,Clifton Block 5,Imran,46658.67,41412.53,2024-07-06
+261,Bilal Khan,DHA Phase 2,Tariq,30154.83,20640.19,2025-12-09
+262,Hamza Ahmed,Bahria Town,Imran,25108.1,3578.27,2024-03-06
+263,Ayaan Shah,Clifton Block 5,Imran,45903.09,19900.02,2025-03-26
+264,Usman Farooq,Cantt Area,Kashif,14525.6,720.31,2025-10-22
+265,Ayaan Farooq,Model Town,Asif,9483.6,7841.17,2025-08-18
+266,Bilal Farooq,Model Town,Asif,34653.44,30956.05,2025-10-29
+267,Ayaan Butt,Clifton Block 5,Imran,7512.93,5024.17,2024-07-26
+268,Bilal Farooq,Model Town,Asif,38490.37,3127.84,2024-02-17
+269,Zain Malik,Bahria Town,Imran,11806.94,7746.08,2025-01-27
+270,Omar Raza,Defence View,Asif,1396.71,784.26,2025-12-30
+271,Bilal Butt,DHA Phase 1,Kashif,20644.09,9355.15,2024-07-24
+272,Ayaan Sheikh,Defence View,Asif,14410.26,6212.76,2025-05-20
+273,Saad Sheikh,Model Town,Asif,28365.55,7953.42,2025-06-21
+274,Hamza Malik,Johar Town,Naveed,36013.14,31677.95,2025-12-22
+275,Ayaan Khan,Cantt Area,Kashif,20285.09,9074.01,2024-12-09
+276,Zain Ahmed,Johar Town,Naveed,33536.87,29815.45,2025-05-22
+277,Zain Iqbal,Gulshan-e-Iqbal,Naveed,34014.53,19698.56,2025-02-15
+278,Usman Malik,Gulshan-e-Iqbal,Naveed,6775.91,4663.89,2025-07-04
+279,Ahmed Shah,DHA Phase 1,Kashif,9126.89,2603.4,2024-08-26
+280,Omar Farooq,Cantt Area,Kashif,22848.83,22586.04,2025-05-25
+281,Saad Butt,Bahria Town,Imran,30386.21,22511.81,2025-10-19
+282,Ali Iqbal,Clifton Block 5,Imran,38325.19,7675.58,2024-05-06
+283,Ahmed Chaudhry,Model Town,Asif,13347.92,4113.58,2024-03-04
+284,Hamza Farooq,Model Town,Asif,26273.29,9749.99,2025-11-07
+285,Zain Malik,Model Town,Asif,15975.18,10041.09,2025-09-29
+286,Saad Farooq,Clifton Block 5,Imran,25663.67,18194.25,2025-11-20
+287,Usman Shah,Model Town,Asif,13852.35,3549.74,2026-02-08
+288,Ali Sheikh,Clifton Block 5,Imran,40110.23,9541.45,2025-01-14
+289,Saad Khan,Satellite Town,Asif,5231.33,3662.22,2024-05-29
+290,Omar Farooq,Model Town,Asif,9359.38,3092.6,2026-01-24
+291,Bilal Khan,DHA Phase 1,Kashif,26987.14,8661.2,2024-08-06
+292,Hassan Sheikh,Bahria Town,Imran,39637.45,32381.52,2025-04-16
+293,Hamza Raza,Defence View,Asif,6216.16,2410.05,2025-10-29
+294,Ali Malik,Gulshan-e-Iqbal,Naveed,44997.76,29654.39,2024-11-15
+295,Ayaan Malik,Gulshan-e-Iqbal,Naveed,11959.69,8298.82,2025-03-29
+296,Usman Farooq,Bahria Town,Imran,32855.47,16875.97,2024-03-21
+297,Ayaan Malik,Satellite Town,Asif,36426.95,11459.58,2024-11-24
+298,Hamza Raza,Bahria Town,Imran,17755.95,7675.98,2025-03-12
+299,Hassan Chaudhry,Cantt Area,Kashif,41380.97,40661.8,2024-06-04
+300,Zain Farooq,Cantt Area,Kashif,21809.64,13587.64,2025-07-22
+301,Ayaan Malik,Johar Town,Naveed,30748.92,16530.32,2026-01-24
+302,Usman Butt,Model Town,Asif,24582.4,20253.86,2024-10-14
+303,Hamza Shah,Cantt Area,Kashif,26959.38,19984.3,2024-08-24
+304,Saad Iqbal,Model Town,Asif,38643.68,38601.88,2025-08-10
+305,Hassan Khan,DHA Phase 1,Kashif,17821.33,16185.16,2024-12-24
+306,Ali Shah,Satellite Town,Asif,35733.73,19860.31,2025-06-25
+307,Zain Chaudhry,Johar Town,Naveed,7046.27,5267.81,2024-04-27
+308,Hamza Shah,DHA Phase 1,Kashif,49002.21,12359.87,2025-10-10
+309,Ayaan Khan,DHA Phase 2,Tariq,19485.41,1565.46,2024-10-11
+310,Omar Khan,DHA Phase 2,Tariq,24745.34,15112.84,2025-06-01
+311,Ali Chaudhry,DHA Phase 2,Tariq,45750.15,15667.74,2024-02-25
+312,Omar Khan,Cantt Area,Kashif,37021.55,24140.73,2025-07-21
+313,Bilal Sheikh,DHA Phase 1,Kashif,38965.01,13802.51,2024-06-28
+314,Hassan Iqbal,Johar Town,Naveed,19095.36,8663.36,2025-02-28
+315,Ali Iqbal,Clifton Block 5,Imran,31092.95,22213.48,2025-06-28
+316,Usman Iqbal,Johar Town,Naveed,1955.78,81.29,2025-08-10
+317,Ali Ahmed,DHA Phase 1,Kashif,37472.32,14006.01,2025-10-09
+318,Hassan Iqbal,DHA Phase 2,Tariq,10719.26,5525.5,2024-05-17
+319,Hamza Raza,Defence View,Asif,29623.8,19738.19,2025-10-17
+320,Zain Farooq,Gulshan-e-Iqbal,Naveed,25110.31,7815.2,2024-06-08
+321,Saad Shah,Model Town,Asif,14765.1,12187.44,2025-06-29
+322,Saad Ahmed,DHA Phase 1,Kashif,47695.37,17062.84,2025-05-24
+323,Hassan Raza,Johar Town,Naveed,42802.09,18011.92,2024-03-27
+324,Ayaan Khan,DHA Phase 2,Tariq,40303.28,38150.68,2025-01-22
+325,Ahmed Farooq,DHA Phase 1,Kashif,33837.58,4597.35,2025-01-25
+326,Usman Farooq,Cantt Area,Kashif,48407.62,34913.27,2024-11-18
+327,Zain Sheikh,Bahria Town,Imran,31412.13,30579.74,2024-10-26
+328,Omar Chaudhry,Gulshan-e-Iqbal,Naveed,23814.78,4100.85,2025-05-29
+329,Hamza Shah,Clifton Block 5,Imran,17018.84,12002.48,2024-10-27
+330,Saad Raza,Clifton Block 5,Imran,36415.92,13707.35,2024-07-22
+331,Usman Ahmed,Johar Town,Naveed,35833.57,16550.58,2025-07-17
+332,Ayaan Khan,Defence View,Asif,25758.29,8137.04,2025-03-01
+333,Bilal Shah,DHA Phase 2,Tariq,44451.22,6543.79,2024-03-13
+334,Hassan Butt,Cantt Area,Kashif,32908.39,2750.14,2024-08-29
+335,Saad Khan,Satellite Town,Asif,19190.61,13005.81,2025-06-20
+336,Usman Raza,Satellite Town,Asif,44947.38,16640.55,2024-02-24
+337,Ali Malik,Satellite Town,Asif,30634.99,20629.24,2024-12-13
+338,Usman Malik,Defence View,Asif,43623.02,20139.96,2024-08-19
+339,Saad Butt,Clifton Block 5,Imran,43608.99,1695.58,2025-08-29
+340,Ayaan Malik,Johar Town,Naveed,27990.94,486.63,2025-12-16
+341,Hassan Ahmed,Gulshan-e-Iqbal,Naveed,4980.7,2449.23,2025-12-18
+342,Ali Farooq,Defence View,Asif,48034.89,35435.2,2025-06-07
+343,Ahmed Shah,Clifton Block 5,Imran,15658.35,3362.42,2024-07-31
+344,Hassan Raza,Bahria Town,Imran,28158.32,17150.28,2026-01-06
+345,Ali Chaudhry,Johar Town,Naveed,31161.11,2951.15,2025-01-23
+346,Hamza Farooq,Gulshan-e-Iqbal,Naveed,15183.62,14136.42,2025-10-27
+347,Saad Sheikh,DHA Phase 2,Tariq,41049.89,3635.25,2024-12-14
+348,Usman Farooq,Satellite Town,Asif,22361.86,8490.31,2024-02-26
+349,Hassan Farooq,Bahria Town,Imran,34291.76,4703.65,2025-03-11
+350,Hamza Iqbal,Clifton Block 5,Imran,48604.83,16041.08,2024-05-01
+351,Ayaan Iqbal,Johar Town,Naveed,6321.64,5598.84,2024-11-21
+352,Usman Khan,Bahria Town,Imran,2931.44,2633.28,2024-08-21
+353,Ahmed Butt,Cantt Area,Kashif,5890.92,4263.36,2025-08-27
+354,Ahmed Farooq,Johar Town,Naveed,9665.01,2141.02,2026-01-28
+355,Omar Malik,Bahria Town,Imran,32186.87,27756.03,2025-04-28
+356,Omar Chaudhry,Model Town,Asif,8979.41,4737.33,2024-10-29
+357,Hamza Raza,DHA Phase 2,Tariq,1569.89,937.82,2025-09-17
+358,Hassan Shah,Bahria Town,Imran,45563.34,6806.62,2025-07-06
+359,Usman Chaudhry,Satellite Town,Asif,16230.95,13986.82,2025-05-19
+360,Usman Iqbal,Clifton Block 5,Imran,21537.69,15339.72,2024-04-23
+361,Ayaan Sheikh,DHA Phase 2,Tariq,18290.11,10188.42,2025-04-25
+362,Ayaan Raza,Gulshan-e-Iqbal,Naveed,3785.96,532.33,2025-07-14
+363,Bilal Sheikh,Gulshan-e-Iqbal,Naveed,18081.3,10679.26,2024-08-08
+364,Zain Shah,Defence View,Asif,16332.69,7198.91,2025-10-09
+365,Ali Raza,Satellite Town,Asif,12653.05,3483.05,2025-07-21
+366,Ahmed Chaudhry,Model Town,Asif,32641.98,428.32,2025-04-25
+367,Zain Ahmed,Model Town,Asif,30747.32,26647.91,2024-12-02
+368,Ali Iqbal,Johar Town,Naveed,24614.22,18350.15,2024-10-31
+369,Omar Raza,DHA Phase 2,Tariq,6712.8,5979.67,2024-12-11
+370,Zain Shah,DHA Phase 1,Kashif,39808.62,27467.9,2025-12-18
+371,Ayaan Raza,Gulshan-e-Iqbal,Naveed,16336.8,11563.49,2024-11-14
+372,Ayaan Raza,Bahria Town,Imran,16851.04,4423.83,2025-09-09
+373,Bilal Sheikh,Bahria Town,Imran,3351.59,3174.64,2025-11-25
+374,Hamza Raza,Satellite Town,Asif,18508.08,720.24,2024-04-11
+375,Omar Farooq,DHA Phase 1,Kashif,15079.55,13409.51,2024-08-18
+376,Ahmed Chaudhry,DHA Phase 2,Tariq,29497.09,16850.19,2025-12-01
+377,Ali Raza,DHA Phase 2,Tariq,26707.34,1383.53,2024-12-15
+378,Usman Ahmed,Satellite Town,Asif,8728.5,1222.94,2024-05-27
+379,Ahmed Butt,DHA Phase 1,Kashif,42338.05,1693.25,2025-08-01
+380,Usman Iqbal,Bahria Town,Imran,33999.6,27417.72,2025-09-25
+381,Hamza Ahmed,DHA Phase 2,Tariq,16252.69,11449.37,2024-08-07
+382,Ahmed Ahmed,Bahria Town,Imran,23501.11,380.41,2026-01-03
+383,Usman Chaudhry,Bahria Town,Imran,33271.64,15296.59,2024-05-04
+384,Bilal Raza,Bahria Town,Imran,28280.54,2417.33,2024-12-05
+385,Ahmed Butt,Satellite Town,Asif,47095.51,42308.08,2024-09-13
+386,Hamza Malik,DHA Phase 2,Tariq,36311.54,2914.27,2024-10-20
+387,Saad Iqbal,Cantt Area,Kashif,7427.66,661.63,2025-04-08
+388,Bilal Raza,Johar Town,Naveed,48399.9,40804.71,2025-09-16
+389,Usman Butt,DHA Phase 2,Tariq,1945.92,844.27,2025-06-10
+390,Ali Raza,Clifton Block 5,Imran,41032.85,26586.26,2025-08-15
+391,Omar Malik,Model Town,Asif,17546.34,13698.25,2024-09-22
+392,Saad Khan,Bahria Town,Imran,16955.93,15095.59,2024-07-04
+393,Ahmed Farooq,DHA Phase 2,Tariq,32468.16,13410.22,2025-02-23
+394,Usman Raza,DHA Phase 1,Kashif,10570.02,281.5,2025-11-01
+395,Usman Malik,Gulshan-e-Iqbal,Naveed,38153.68,12414.57,2025-06-28
+396,Hassan Ahmed,Cantt Area,Kashif,37031.42,10301.4,2024-11-12
+397,Hamza Ahmed,Johar Town,Naveed,37118.84,17803.9,2024-02-17
+398,Ayaan Ahmed,DHA Phase 2,Tariq,34263.11,29551.4,2024-11-10
+399,Zain Sheikh,DHA Phase 1,Kashif,28894.43,1743.78,2025-03-11
+400,Bilal Khan,Cantt Area,Kashif,47364.22,21303.33,2025-10-03
+401,Ali Malik,Clifton Block 5,Imran,22965.34,20563.52,2025-03-08
+402,Ahmed Khan,DHA Phase 1,Kashif,24683.63,18512.35,2024-11-09
+403,Bilal Shah,DHA Phase 2,Tariq,16539.34,11726.63,2025-10-12
+404,Zain Butt,DHA Phase 2,Tariq,26544.06,574.5,2025-08-10
+405,Ayaan Ahmed,Johar Town,Naveed,6413.91,55.65,2025-01-25
+406,Zain Iqbal,Gulshan-e-Iqbal,Naveed,43569.13,10655.58,2024-10-11
+407,Ahmed Khan,DHA Phase 2,Tariq,19991.31,5269.74,2026-01-23
+408,Bilal Sheikh,Bahria Town,Imran,16233.2,5226.33,2025-09-11
+409,Bilal Chaudhry,Cantt Area,Kashif,41858.76,16010.58,2025-06-26
+410,Hassan Raza,Cantt Area,Kashif,44388.46,14927.86,2024-12-28
+411,Bilal Butt,Cantt Area,Kashif,37979.19,24507.03,2024-08-27
+412,Usman Raza,Johar Town,Naveed,31120.83,12906.92,2024-05-01
+413,Saad Malik,Defence View,Asif,42408.06,15065.03,2024-05-20
+414,Omar Raza,Model Town,Asif,31845.47,22024.39,2025-11-11
+415,Omar Butt,DHA Phase 1,Kashif,39121.67,17815.72,2025-01-14
+416,Hassan Shah,Model Town,Asif,8339.78,6020.02,2025-11-01
+417,Zain Ahmed,DHA Phase 2,Tariq,15880.28,12554.77,2026-01-06
+418,Hamza Iqbal,DHA Phase 2,Tariq,28543.83,9633.13,2025-02-24
+419,Hassan Butt,Johar Town,Naveed,34173.37,25100.46,2025-12-05
+420,Ali Sheikh,Bahria Town,Imran,46683.43,37527.61,2026-01-02
+421,Ali Khan,Clifton Block 5,Imran,4161.13,175.41,2025-04-08
+422,Saad Farooq,Model Town,Asif,20626.86,18415.82,2025-08-25
+423,Hamza Khan,Clifton Block 5,Imran,34614.23,6778.27,2025-04-11
+424,Ayaan Shah,Defence View,Asif,41245.58,10217.1,2025-10-04
+425,Zain Butt,DHA Phase 2,Tariq,24259.68,20080.7,2025-01-07
+426,Omar Shah,Satellite Town,Asif,35568.75,23132.67,2024-04-10
+427,Usman Khan,Clifton Block 5,Imran,23617.44,9919.88,2024-08-08
+428,Ahmed Ahmed,Satellite Town,Asif,9874.57,1589.76,2025-12-19
+429,Zain Sheikh,Johar Town,Naveed,27953.09,16614.57,2024-06-29
+430,Zain Iqbal,Gulshan-e-Iqbal,Naveed,46642.0,34804.32,2024-10-05
+431,Ayaan Malik,DHA Phase 2,Tariq,36775.62,10657.13,2024-05-27
+432,Omar Iqbal,Model Town,Asif,42265.22,4916.7,2024-04-15
+433,Omar Chaudhry,Model Town,Asif,36328.06,3824.36,2024-12-15
+434,Ayaan Raza,Cantt Area,Kashif,8339.95,7919.34,2025-07-24
+435,Ayaan Sheikh,Gulshan-e-Iqbal,Naveed,28580.13,23328.26,2025-07-25
+436,Hamza Ahmed,DHA Phase 2,Tariq,25734.47,12318.55,2025-10-07
+437,Saad Malik,Gulshan-e-Iqbal,Naveed,5914.32,4500.92,2024-07-14
+438,Omar Farooq,Model Town,Asif,38813.9,5192.19,2025-04-10
+439,Zain Sheikh,DHA Phase 1,Kashif,29000.71,17127.16,2025-09-18
+440,Saad Iqbal,Defence View,Asif,29594.82,4596.45,2025-02-23
+441,Ali Raza,Johar Town,Naveed,18055.96,8608.98,2024-07-14
+442,Bilal Butt,DHA Phase 1,Kashif,3108.88,2121.6,2024-12-05
+443,Ahmed Farooq,Defence View,Asif,2865.28,628.67,2024-03-27
+444,Saad Butt,Gulshan-e-Iqbal,Naveed,13013.6,3163.0,2025-06-12
+445,Saad Malik,DHA Phase 1,Kashif,3576.51,3062.19,2024-11-21
+446,Saad Sheikh,Cantt Area,Kashif,31531.39,3274.61,2025-05-09
+447,Hassan Butt,Bahria Town,Imran,29693.31,1240.29,2024-09-02
+448,Hamza Iqbal,Clifton Block 5,Imran,22917.8,8133.87,2024-07-04
+449,Ayaan Malik,Bahria Town,Imran,14969.89,4917.13,2024-02-25
+450,Omar Butt,Johar Town,Naveed,42527.62,15222.7,2025-10-05
+451,Saad Raza,Bahria Town,Imran,30498.3,11729.01,2024-09-24
+452,Saad Khan,Johar Town,Naveed,44559.68,37480.42,2025-07-01
+453,Bilal Ahmed,Defence View,Asif,42078.39,28449.25,2024-09-08
+454,Omar Shah,Gulshan-e-Iqbal,Naveed,31896.45,763.0,2025-05-16
+455,Ayaan Raza,Cantt Area,Kashif,3251.61,992.82,2025-02-25
+456,Saad Raza,Defence View,Asif,8204.85,7288.11,2025-07-08
+457,Ahmed Raza,Model Town,Asif,19033.38,16949.68,2025-12-14
+458,Usman Ahmed,Satellite Town,Asif,2932.32,1098.26,2024-06-27
+459,Omar Farooq,Clifton Block 5,Imran,1441.92,784.67,2025-03-05
+460,Hamza Butt,Bahria Town,Imran,40160.7,37752.6,2025-10-23
+461,Omar Shah,DHA Phase 2,Tariq,28637.56,26258.78,2025-11-11
+462,Usman Khan,Cantt Area,Kashif,12490.76,12417.04,2025-02-15
+463,Hamza Chaudhry,Model Town,Asif,49288.78,13860.95,2026-01-14
+464,Saad Malik,DHA Phase 1,Kashif,31824.62,1670.52,2024-04-22
+465,Ayaan Khan,DHA Phase 1,Kashif,14131.4,4666.79,2024-08-31
+466,Zain Malik,Clifton Block 5,Imran,26647.79,12227.96,2025-04-11
+467,Omar Ahmed,Clifton Block 5,Imran,5658.53,1172.27,2024-06-30
+468,Ahmed Iqbal,Defence View,Asif,14165.83,94.19,2025-08-14
+469,Hassan Butt,Gulshan-e-Iqbal,Naveed,5963.31,3026.84,2024-05-02
+470,Usman Iqbal,Johar Town,Naveed,33854.04,21013.88,2024-06-20
+471,Hassan Malik,Clifton Block 5,Imran,13970.71,8739.02,2025-03-07
+472,Hamza Butt,Model Town,Asif,40363.48,39652.68,2024-09-22
+473,Omar Chaudhry,Model Town,Asif,11319.18,2589.73,2025-12-13
+474,Saad Iqbal,Johar Town,Naveed,31031.83,19481.84,2024-03-13
+475,Usman Butt,Satellite Town,Asif,11834.87,9414.95,2024-10-12
+476,Ahmed Shah,Johar Town,Naveed,22819.52,4231.98,2024-09-12
+477,Ali Iqbal,Model Town,Asif,32805.21,7770.92,2024-03-29
+478,Ali Malik,Defence View,Asif,4494.06,1199.91,2025-04-30
+479,Bilal Chaudhry,Bahria Town,Imran,12765.99,9895.76,2025-06-05
+480,Hamza Ahmed,Model Town,Asif,39212.62,22912.57,2025-04-20
+481,Saad Khan,Gulshan-e-Iqbal,Naveed,24689.53,8595.27,2025-09-09
+482,Usman Butt,Johar Town,Naveed,17569.47,5656.47,2025-03-17
+483,Hassan Ahmed,Bahria Town,Imran,12892.3,11680.1,2025-09-22
+484,Ayaan Malik,DHA Phase 2,Tariq,16875.6,2428.18,2025-04-17
+485,Ahmed Khan,Model Town,Asif,31261.86,15330.12,2026-01-16
+486,Usman Sheikh,DHA Phase 1,Kashif,38261.24,25292.82,2025-08-07
+487,Hamza Khan,Cantt Area,Kashif,35486.64,18227.12,2025-02-16
+488,Ayaan Butt,Bahria Town,Imran,33663.75,30927.28,2024-12-05
+489,Bilal Farooq,Bahria Town,Imran,43337.73,21215.21,2025-11-26
+490,Hassan Shah,Johar Town,Naveed,39463.54,11416.3,2025-09-22
+491,Usman Chaudhry,Gulshan-e-Iqbal,Naveed,30567.04,29394.28,2024-02-14
+492,Omar Farooq,Bahria Town,Imran,47559.04,29514.94,2024-09-17
+493,Zain Farooq,DHA Phase 1,Kashif,11348.74,3912.55,2024-12-05
+494,Saad Ahmed,DHA Phase 2,Tariq,47171.13,17278.15,2025-08-31
+495,Omar Ahmed,Johar Town,Naveed,14844.88,9182.46,2024-04-03
+496,Omar Chaudhry,Defence View,Asif,43431.07,7147.51,2025-04-15
+497,Ayaan Ahmed,Clifton Block 5,Imran,11381.96,4967.13,2025-12-20
+498,Usman Chaudhry,Clifton Block 5,Imran,28224.73,19295.6,2024-07-31
+499,Hassan Malik,DHA Phase 1,Kashif,6239.9,2092.32,2025-10-11
+500,Usman Chaudhry,Defence View,Asif,46914.42,8819.34,2024-08-07

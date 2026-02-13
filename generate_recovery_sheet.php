@@ -1,0 +1,95 @@
+<?php include_once('functionality/components/session_chk_admin.php') ?>
+<?php include_once('functionality/components/session_chk_admin.php'); ?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/cdn.datatables.net_1.13.6_css_jquery.dataTables.min.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/cdn.datatables.net_1.13.6_js_jquery.dataTables.min.js"></script>
+    <title>Generate Recovery Sheets</title>
+</head>
+
+<body>
+    <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Admin Panel</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="creditReport.php">Credit Reports</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="insertDSR.php">Enter DSR</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="IssueBills.php" >Issue Bills</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="generate_recovery_sheet.php" >Recovery Sheets</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+    </header>
+    <main>
+        <!-- main -->
+        <div class="container">
+            <div class="row text-center">
+                <h3>Recovery Sheets</h3>
+            </div>
+            <div class="row">
+                <table class="table" id="rec_sheet_table">
+                    <thead>
+                        <th>ID</th>
+                        <th>Saleman</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Recovery</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- main End -->
+        <!-- Debugging -->
+        <div class='m-3 row' id="messageBox">
+            <div class="col bg-danger bg-gradient">
+                <div class=" d-flex justify-content-between ">
+                    <div class=" h3">Message:</div>
+                    <a class="h3 text-light btn" style="text-decoration: none;" id='close_messageBox'>X</a>
+                </div>
+                <div id="messageBody" class="col h3 text-light p-2" style="background-color:#f08080;">
+                </div>
+            </div>
+        </div>
+        <!-- Debugging End -->
+    </main>
+    <footer>
+
+    </footer>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="js/generate_rec_sheet.js"></script>
+</body>
+
+</html>
