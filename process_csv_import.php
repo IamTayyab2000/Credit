@@ -61,7 +61,7 @@ if (empty($csv_data)) {
 $headers = array_shift($csv_data);
 
 // Validate required columns
-$required_columns = ['customer_id', 'customer_name', 'area_address', 'salesman_name', 'bill_amount', 'remaining_credit', 'bill_date'];
+$required_columns = ['bill_id', 'customer_id', 'customer_name', 'area_address', 'salesman_name', 'bill_amount', 'remaining_credit', 'bill_date'];
 $headers_lower = array_map('strtolower', array_map('trim', $headers));
 
 $column_indices = [];
@@ -91,6 +91,7 @@ foreach ($csv_data as $row_index => $row) {
     }
 
     // Extract values based on column indices
+    $legacy_bill_id = isset($row[$column_indices['bill_id']]) ? trim($row[$column_indices['bill_id']]) : '';
     $customer_id = isset($row[$column_indices['customer_id']]) ? trim($row[$column_indices['customer_id']]) : '';
     $customer_name = isset($row[$column_indices['customer_name']]) ? trim($row[$column_indices['customer_name']]) : '';
     $area_address = isset($row[$column_indices['area_address']]) ? trim($row[$column_indices['area_address']]) : '';
@@ -100,8 +101,8 @@ foreach ($csv_data as $row_index => $row) {
     $bill_date = isset($row[$column_indices['bill_date']]) ? trim($row[$column_indices['bill_date']]) : '';
 
     // Validate data
-    if (empty($customer_id) || empty($customer_name) || empty($area_address) || empty($salesman_name)) {
-        $errors[] = "Row " . ($row_index + 2) . ": Missing required fields";
+    if (empty($legacy_bill_id) || empty($customer_id) || empty($customer_name) || empty($area_address) || empty($salesman_name)) {
+        $errors[] = "Row " . ($row_index + 2) . ": Missing required fields (including bill_id)";
         continue;
     }
 
@@ -118,6 +119,7 @@ foreach ($csv_data as $row_index => $row) {
     // Collect customer data
     $customer_data[] = [
         'customer_id' => $customer_id,
+        'bill_id' => $legacy_bill_id,
         'customer_name' => $customer_name,
         'area_address' => $area_address,
         'salesman_name' => $salesman_name,
@@ -278,11 +280,8 @@ foreach ($customer_data as $idx => $customer) {
         }
     }
 
-    // Insert bill (always attempt, whether customer was new or existed)
-    // Fix: Use uniqid and a static counter to ensure uniqueness in fast loops
-    static $bill_counter = 0;
-    $bill_counter++;
-    $bill_id = 'BILL_' . $cust_id . '_' . uniqid() . '_' . $bill_counter;
+    // Use legacy bill_id from CSV
+    $bill_id = mysqli_real_escape_string($GLOBALS['conn'], $customer['bill_id']);
     
     $picklist_for_customer = isset($picklist_mapping[$salesman_id]) ? mysqli_real_escape_string($GLOBALS['conn'], $picklist_mapping[$salesman_id]) : '';
     $mysql_bill_date = formatDateForMySQL($customer['bill_date']);

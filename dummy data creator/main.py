@@ -25,6 +25,7 @@ with open("customers_data.csv", mode="w", newline="", encoding="utf-8") as file:
     
     # Write header
     writer.writerow([
+        "bill_id",
         "customer_id",
         "customer_name",
         "area_address",
@@ -37,6 +38,7 @@ with open("customers_data.csv", mode="w", newline="", encoding="utf-8") as file:
     # Generate 500 records
     for i in range(1, 501):
         customer_id = i
+        bill_id = f"LEG_BILL_ID_{i}_{random.randint(1000, 9999)}"
         customer_name = random.choice(first_names) + " " + random.choice(last_names)
         area_address = random.choice(areas)
         salesman_name = area_to_salesman[area_address]  # Get assigned salesman for this area
@@ -49,6 +51,7 @@ with open("customers_data.csv", mode="w", newline="", encoding="utf-8") as file:
         bill_date = (datetime.now() - timedelta(days=days_ago)).strftime("%Y-%m-%d")
         
         writer.writerow([
+            bill_id,
             customer_id,
             customer_name,
             area_address,

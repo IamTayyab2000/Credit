@@ -1,501 +1,501 @@
-customer_id,customer_name,area_address,salesman_name,bill_amount,remaining_credit,bill_date
-1,Omar Sheikh,Johar Town,Naveed,28057.49,16778.38,2024-05-21
-2,Saad Farooq,Clifton Block 5,Imran,10590.35,3183.43,2025-08-28
-3,Ahmed Shah,Bahria Town,Imran,46254.93,29174.24,2025-10-29
-4,Usman Sheikh,DHA Phase 1,Kashif,43578.98,13344.14,2025-03-05
-5,Zain Ahmed,DHA Phase 1,Kashif,39789.17,16332.42,2025-03-26
-6,Ali Farooq,Satellite Town,Asif,49078.38,48117.52,2024-03-11
-7,Omar Iqbal,Defence View,Asif,39675.71,37012.82,2024-06-27
-8,Usman Raza,Johar Town,Naveed,11634.88,4927.57,2026-01-01
-9,Usman Sheikh,Bahria Town,Imran,41671.54,41242.73,2025-05-09
-10,Ayaan Sheikh,Cantt Area,Kashif,35011.29,23412.76,2025-11-23
-11,Hassan Iqbal,Cantt Area,Kashif,13902.72,2290.88,2025-10-17
-12,Omar Malik,DHA Phase 2,Tariq,44146.17,8224.68,2025-06-17
-13,Ali Chaudhry,DHA Phase 1,Kashif,46114.62,9626.84,2025-08-07
-14,Ali Iqbal,Satellite Town,Asif,42127.03,7351.66,2026-01-17
-15,Zain Ahmed,DHA Phase 1,Kashif,20842.27,5686.06,2025-05-09
-16,Ahmed Malik,Defence View,Asif,2404.39,1722.61,2025-08-28
-17,Ayaan Shah,Clifton Block 5,Imran,10159.01,3214.16,2024-07-07
-18,Ayaan Shah,Cantt Area,Kashif,2398.49,1645.37,2025-07-28
-19,Ali Sheikh,Satellite Town,Asif,44657.06,10281.45,2024-05-17
-20,Ali Sheikh,DHA Phase 2,Tariq,28949.05,15909.14,2025-09-09
-21,Hassan Raza,Gulshan-e-Iqbal,Naveed,29090.24,7586.13,2025-10-31
-22,Usman Chaudhry,Cantt Area,Kashif,42106.43,24169.93,2025-01-20
-23,Zain Sheikh,Model Town,Asif,44571.72,32120.47,2025-01-20
-24,Zain Chaudhry,DHA Phase 2,Tariq,13210.27,12227.41,2025-06-28
-25,Ali Khan,Cantt Area,Kashif,48571.36,19004.08,2026-01-12
-26,Hamza Raza,Model Town,Asif,15543.38,1540.58,2025-05-26
-27,Hassan Butt,Satellite Town,Asif,30129.37,22601.73,2024-05-02
-28,Omar Sheikh,Gulshan-e-Iqbal,Naveed,23283.8,11175.94,2024-10-27
-29,Omar Sheikh,Satellite Town,Asif,5638.1,2752.17,2026-01-30
-30,Omar Chaudhry,Johar Town,Naveed,1207.46,417.5,2025-10-13
-31,Bilal Raza,Model Town,Asif,16918.37,12359.4,2025-12-03
-32,Ahmed Iqbal,DHA Phase 1,Kashif,20850.6,11008.21,2025-09-30
-33,Saad Malik,DHA Phase 2,Tariq,43793.45,27202.94,2024-04-05
-34,Zain Butt,Defence View,Asif,7386.39,4716.67,2025-07-20
-35,Bilal Khan,Gulshan-e-Iqbal,Naveed,18801.23,14674.92,2025-07-03
-36,Saad Khan,Gulshan-e-Iqbal,Naveed,3588.81,317.43,2025-05-08
-37,Saad Iqbal,Johar Town,Naveed,30669.51,18565.98,2025-12-21
-38,Omar Farooq,Bahria Town,Imran,34119.27,11692.44,2025-12-04
-39,Ali Chaudhry,Clifton Block 5,Imran,39080.0,885.26,2025-01-03
-40,Usman Shah,Johar Town,Naveed,32072.56,5932.9,2025-03-08
-41,Zain Chaudhry,Johar Town,Naveed,11412.85,8554.66,2025-04-15
-42,Saad Butt,Satellite Town,Asif,3311.49,2024.66,2026-01-17
-43,Bilal Sheikh,Clifton Block 5,Imran,2229.18,99.9,2025-02-03
-44,Zain Butt,Gulshan-e-Iqbal,Naveed,26722.78,22411.8,2024-04-08
-45,Zain Raza,Bahria Town,Imran,9765.62,2835.47,2024-11-04
-46,Ahmed Sheikh,Bahria Town,Imran,41672.56,23849.7,2024-11-05
-47,Ali Farooq,Gulshan-e-Iqbal,Naveed,14739.18,2181.25,2024-09-23
-48,Usman Butt,Model Town,Asif,42643.63,12058.78,2024-04-08
-49,Ali Raza,Defence View,Asif,24391.86,8524.07,2024-04-19
-50,Ali Shah,Gulshan-e-Iqbal,Naveed,47388.52,17607.36,2024-12-25
-51,Ahmed Farooq,DHA Phase 1,Kashif,2530.76,1345.55,2025-01-30
-52,Ayaan Butt,Bahria Town,Imran,21103.2,18009.3,2024-10-05
-53,Usman Chaudhry,Johar Town,Naveed,10316.09,4103.74,2025-09-16
-54,Omar Raza,Satellite Town,Asif,20528.41,5873.85,2024-07-07
-55,Zain Farooq,Defence View,Asif,48407.94,33733.26,2025-07-16
-56,Ali Sheikh,Gulshan-e-Iqbal,Naveed,37227.59,23237.16,2025-10-08
-57,Ayaan Malik,Gulshan-e-Iqbal,Naveed,47912.93,30956.63,2024-12-02
-58,Hassan Ahmed,Defence View,Asif,1263.57,459.3,2024-03-29
-59,Saad Ahmed,Satellite Town,Asif,37708.99,9893.9,2024-11-21
-60,Bilal Ahmed,Cantt Area,Kashif,26650.55,16915.12,2025-04-22
-61,Usman Malik,Satellite Town,Asif,45469.38,9657.67,2025-04-04
-62,Ahmed Farooq,Gulshan-e-Iqbal,Naveed,2330.65,1751.82,2024-03-11
-63,Ahmed Raza,Clifton Block 5,Imran,14170.16,7946.2,2024-02-22
-64,Ayaan Butt,Johar Town,Naveed,36814.12,13913.5,2024-03-10
-65,Ahmed Malik,Defence View,Asif,25387.98,18940.68,2025-05-24
-66,Omar Butt,Cantt Area,Kashif,25713.67,9016.85,2025-09-13
-67,Ayaan Chaudhry,Satellite Town,Asif,2610.5,2360.2,2024-08-05
-68,Ahmed Chaudhry,Bahria Town,Imran,17104.55,6310.8,2024-07-31
-69,Bilal Malik,Bahria Town,Imran,25557.0,25244.2,2025-06-15
-70,Hassan Butt,DHA Phase 2,Tariq,5642.12,2914.5,2025-03-22
-71,Omar Khan,Clifton Block 5,Imran,40974.22,3592.25,2025-08-13
-72,Ahmed Farooq,Bahria Town,Imran,20207.33,1157.01,2025-04-25
-73,Saad Iqbal,Bahria Town,Imran,22291.89,10354.07,2025-12-10
-74,Ali Iqbal,DHA Phase 2,Tariq,14762.17,4619.24,2024-08-31
-75,Ali Sheikh,Clifton Block 5,Imran,21055.82,6241.45,2025-12-23
-76,Saad Raza,Gulshan-e-Iqbal,Naveed,29619.05,27379.11,2025-07-17
-77,Ali Butt,Defence View,Asif,20942.46,2964.61,2026-02-02
-78,Saad Iqbal,Cantt Area,Kashif,33027.6,6160.84,2025-06-17
-79,Bilal Chaudhry,DHA Phase 1,Kashif,26162.3,17021.74,2025-08-28
-80,Ali Raza,Cantt Area,Kashif,24847.68,10921.54,2024-03-08
-81,Ahmed Ahmed,Gulshan-e-Iqbal,Naveed,22062.58,903.61,2025-02-02
-82,Ali Sheikh,DHA Phase 2,Tariq,4316.85,949.7,2025-12-31
-83,Ali Sheikh,Cantt Area,Kashif,39458.04,4012.1,2025-04-11
-84,Ahmed Farooq,DHA Phase 2,Tariq,35525.23,26133.35,2024-07-12
-85,Bilal Butt,Clifton Block 5,Imran,19050.14,13440.3,2025-04-04
-86,Hassan Butt,Johar Town,Naveed,31355.44,18362.88,2025-04-20
-87,Ahmed Raza,Gulshan-e-Iqbal,Naveed,25175.99,24776.63,2025-12-17
-88,Saad Butt,DHA Phase 1,Kashif,19890.36,19730.75,2024-12-16
-89,Hamza Butt,Bahria Town,Imran,15353.08,1126.73,2024-12-05
-90,Ayaan Shah,Clifton Block 5,Imran,36599.25,18372.42,2025-03-09
-91,Hamza Sheikh,Satellite Town,Asif,29277.55,12650.29,2024-05-09
-92,Ali Shah,DHA Phase 1,Kashif,40176.79,30666.58,2024-12-22
-93,Ahmed Malik,DHA Phase 1,Kashif,41482.16,11894.96,2025-10-01
-94,Bilal Malik,Defence View,Asif,10198.02,4086.9,2024-12-09
-95,Ali Raza,Defence View,Asif,36132.75,18856.7,2024-04-11
-96,Ayaan Butt,Model Town,Asif,33933.23,2684.05,2024-06-10
-97,Saad Ahmed,Model Town,Asif,18213.4,4324.15,2025-12-19
-98,Hamza Shah,DHA Phase 2,Tariq,43650.2,19295.38,2025-08-09
-99,Hamza Ahmed,Cantt Area,Kashif,42353.2,732.72,2024-03-04
-100,Ali Shah,Clifton Block 5,Imran,36761.54,10640.23,2025-02-02
-101,Omar Raza,DHA Phase 2,Tariq,49988.75,11443.18,2025-05-13
-102,Usman Farooq,Clifton Block 5,Imran,49469.86,18378.65,2024-07-11
-103,Ayaan Sheikh,Model Town,Asif,1636.69,276.62,2025-09-21
-104,Zain Malik,Bahria Town,Imran,2575.12,748.37,2024-05-11
-105,Bilal Malik,Model Town,Asif,8094.2,4001.34,2024-04-10
-106,Omar Ahmed,Satellite Town,Asif,46960.6,43024.84,2024-06-05
-107,Usman Khan,Cantt Area,Kashif,8810.58,1729.82,2024-12-22
-108,Zain Chaudhry,DHA Phase 1,Kashif,3802.45,2207.27,2024-09-11
-109,Zain Khan,Gulshan-e-Iqbal,Naveed,34058.43,23064.55,2025-06-10
-110,Ahmed Ahmed,Clifton Block 5,Imran,37026.48,30710.05,2024-07-26
-111,Bilal Shah,Model Town,Asif,43108.91,43095.61,2024-10-21
-112,Hassan Chaudhry,Gulshan-e-Iqbal,Naveed,9937.08,4591.85,2025-11-19
-113,Ali Farooq,Satellite Town,Asif,45474.88,11151.21,2025-10-21
-114,Hassan Malik,Defence View,Asif,39274.37,27722.88,2025-05-11
-115,Ahmed Khan,Satellite Town,Asif,32838.63,21968.0,2025-12-05
-116,Ayaan Raza,Defence View,Asif,25450.51,12786.88,2025-11-22
-117,Omar Farooq,Gulshan-e-Iqbal,Naveed,25638.27,3176.13,2025-01-20
-118,Ayaan Iqbal,Bahria Town,Imran,44863.64,9542.12,2025-04-17
-119,Usman Iqbal,Cantt Area,Kashif,10652.17,3244.99,2025-09-02
-120,Hamza Raza,Gulshan-e-Iqbal,Naveed,8242.41,514.18,2025-09-05
-121,Zain Malik,Cantt Area,Kashif,22028.88,21226.11,2024-11-12
-122,Hamza Farooq,Satellite Town,Asif,29646.46,15754.03,2024-07-04
-123,Bilal Farooq,Clifton Block 5,Imran,49050.82,34694.94,2025-02-19
-124,Hamza Khan,Johar Town,Naveed,5117.33,2976.6,2024-12-30
-125,Usman Iqbal,Bahria Town,Imran,8313.23,5011.77,2024-07-11
-126,Usman Shah,Clifton Block 5,Imran,10904.83,10282.58,2025-08-08
-127,Ayaan Malik,Johar Town,Naveed,18097.99,3485.69,2025-11-16
-128,Saad Malik,Satellite Town,Asif,47469.09,41798.25,2024-09-07
-129,Usman Raza,DHA Phase 2,Tariq,4776.43,4005.97,2024-10-07
-130,Omar Sheikh,Johar Town,Naveed,15113.92,5477.94,2025-07-02
-131,Saad Raza,Defence View,Asif,11878.24,4590.16,2024-10-04
-132,Hassan Farooq,DHA Phase 1,Kashif,16693.0,4815.71,2024-02-29
-133,Saad Farooq,Clifton Block 5,Imran,8359.53,822.88,2024-10-28
-134,Usman Farooq,Defence View,Asif,10660.04,7771.79,2024-10-09
-135,Ahmed Sheikh,Model Town,Asif,23293.38,4176.68,2025-08-03
-136,Omar Ahmed,Clifton Block 5,Imran,10302.64,592.93,2025-09-03
-137,Ahmed Khan,Clifton Block 5,Imran,38691.24,21992.56,2024-12-23
-138,Hassan Khan,Satellite Town,Asif,2509.24,1130.12,2025-11-20
-139,Omar Chaudhry,Defence View,Asif,10757.74,2402.46,2024-05-01
-140,Hassan Chaudhry,Bahria Town,Imran,21517.53,1055.29,2024-10-15
-141,Bilal Chaudhry,Bahria Town,Imran,6407.8,792.5,2025-05-31
-142,Saad Sheikh,Johar Town,Naveed,14161.38,1646.68,2026-01-31
-143,Hamza Malik,Cantt Area,Kashif,10314.41,957.35,2025-03-18
-144,Saad Farooq,Johar Town,Naveed,10915.92,6688.46,2024-10-10
-145,Usman Malik,DHA Phase 2,Tariq,15654.14,3695.24,2026-01-26
-146,Usman Shah,Gulshan-e-Iqbal,Naveed,1288.59,550.86,2024-06-26
-147,Bilal Raza,DHA Phase 2,Tariq,39509.68,36225.84,2025-04-12
-148,Usman Butt,Defence View,Asif,2644.41,680.24,2025-10-22
-149,Hassan Sheikh,Johar Town,Naveed,22975.39,19876.63,2025-04-02
-150,Hamza Ahmed,Johar Town,Naveed,25113.43,12642.59,2024-12-22
-151,Hassan Butt,DHA Phase 2,Tariq,47229.02,877.74,2024-04-25
-152,Omar Iqbal,Clifton Block 5,Imran,44734.61,10533.79,2025-02-28
-153,Saad Butt,Bahria Town,Imran,4807.54,3900.93,2025-09-23
-154,Ali Malik,Bahria Town,Imran,28570.64,17522.51,2024-09-27
-155,Ayaan Butt,Satellite Town,Asif,24211.04,5962.33,2024-11-16
-156,Bilal Malik,Model Town,Asif,49157.9,5986.13,2024-09-17
-157,Saad Shah,Model Town,Asif,23896.28,21258.65,2025-11-18
-158,Ali Butt,Gulshan-e-Iqbal,Naveed,9806.05,7271.84,2025-08-19
-159,Ayaan Shah,Johar Town,Naveed,36587.27,9285.24,2025-06-19
-160,Saad Shah,DHA Phase 1,Kashif,14446.89,394.73,2024-09-12
-161,Usman Shah,Satellite Town,Asif,33991.27,32073.19,2024-03-31
-162,Saad Ahmed,DHA Phase 1,Kashif,24101.78,21588.56,2024-04-09
-163,Ayaan Malik,Satellite Town,Asif,40453.6,36567.15,2024-08-17
-164,Ali Sheikh,DHA Phase 1,Kashif,32510.97,22940.84,2024-06-20
-165,Ayaan Raza,Model Town,Asif,19230.86,8207.04,2025-02-01
-166,Saad Sheikh,Model Town,Asif,21025.58,14415.24,2024-12-05
-167,Zain Butt,Clifton Block 5,Imran,44065.56,36276.73,2024-12-04
-168,Ahmed Shah,Gulshan-e-Iqbal,Naveed,23004.8,18496.94,2025-08-12
-169,Ayaan Iqbal,Defence View,Asif,20342.0,238.61,2025-05-01
-170,Bilal Iqbal,Defence View,Asif,26968.71,7418.64,2025-11-06
-171,Hamza Ahmed,Gulshan-e-Iqbal,Naveed,44303.28,20711.15,2024-06-26
-172,Hamza Sheikh,Clifton Block 5,Imran,14703.74,13345.56,2025-04-22
-173,Omar Sheikh,Satellite Town,Asif,41973.12,16327.47,2024-09-15
-174,Ali Sheikh,Cantt Area,Kashif,21597.66,9116.16,2024-03-30
-175,Ahmed Ahmed,Clifton Block 5,Imran,13638.63,11931.97,2024-10-01
-176,Ayaan Iqbal,DHA Phase 1,Kashif,2629.59,2509.98,2025-12-27
-177,Ali Iqbal,Clifton Block 5,Imran,46048.97,578.33,2025-03-23
-178,Ali Chaudhry,Clifton Block 5,Imran,4305.94,2445.2,2025-11-05
-179,Ali Shah,Model Town,Asif,15048.66,2136.16,2024-09-25
-180,Zain Sheikh,Defence View,Asif,8865.7,1825.59,2026-02-02
-181,Usman Ahmed,DHA Phase 1,Kashif,42837.41,32816.98,2024-02-23
-182,Hamza Ahmed,Gulshan-e-Iqbal,Naveed,26041.73,22302.02,2025-06-10
-183,Hassan Butt,Model Town,Asif,16899.37,15315.47,2025-02-18
-184,Ayaan Farooq,DHA Phase 2,Tariq,29364.13,10461.57,2026-01-13
-185,Zain Raza,DHA Phase 2,Tariq,28225.46,22215.01,2024-10-09
-186,Hamza Shah,Defence View,Asif,37162.51,19014.29,2024-09-17
-187,Saad Khan,Bahria Town,Imran,6160.87,1658.54,2025-02-07
-188,Omar Butt,Satellite Town,Asif,4830.82,1231.99,2024-08-04
-189,Hassan Shah,Satellite Town,Asif,36240.91,15566.77,2025-10-11
-190,Ali Raza,Cantt Area,Kashif,31748.58,15690.97,2025-08-23
-191,Saad Sheikh,Gulshan-e-Iqbal,Naveed,32865.59,22086.05,2024-05-14
-192,Hassan Raza,DHA Phase 1,Kashif,29400.04,14121.03,2024-09-29
-193,Saad Ahmed,Bahria Town,Imran,20908.22,18720.28,2024-12-04
-194,Ali Iqbal,Model Town,Asif,43421.92,18355.97,2025-07-01
-195,Saad Khan,DHA Phase 1,Kashif,44984.26,19722.69,2024-10-06
-196,Hassan Shah,Gulshan-e-Iqbal,Naveed,34476.41,28238.89,2025-01-23
-197,Ali Chaudhry,Model Town,Asif,4985.86,1643.26,2025-06-30
-198,Omar Khan,Model Town,Asif,31311.3,23924.94,2025-04-25
-199,Usman Ahmed,Satellite Town,Asif,27494.99,20215.85,2025-01-10
-200,Omar Chaudhry,DHA Phase 1,Kashif,23071.59,22465.77,2024-02-28
-201,Hamza Ahmed,DHA Phase 1,Kashif,40036.43,36233.27,2024-06-26
-202,Omar Shah,Cantt Area,Kashif,14658.11,606.49,2024-09-04
-203,Bilal Sheikh,Gulshan-e-Iqbal,Naveed,49337.45,7112.98,2024-02-23
-204,Usman Sheikh,Bahria Town,Imran,16362.64,12382.85,2024-11-16
-205,Bilal Chaudhry,Cantt Area,Kashif,47888.55,3566.22,2026-01-14
-206,Ayaan Farooq,Bahria Town,Imran,15205.73,3419.32,2025-10-13
-207,Ali Malik,Model Town,Asif,42124.3,25280.55,2024-09-29
-208,Saad Ahmed,DHA Phase 2,Tariq,3840.75,1812.75,2024-12-09
-209,Zain Khan,DHA Phase 1,Kashif,25417.62,9733.3,2024-08-18
-210,Ayaan Chaudhry,Bahria Town,Imran,33758.45,33671.58,2025-08-14
-211,Zain Raza,Bahria Town,Imran,45765.99,5159.74,2025-08-18
-212,Ayaan Butt,Gulshan-e-Iqbal,Naveed,17226.27,554.36,2025-11-09
-213,Zain Ahmed,Cantt Area,Kashif,1386.11,164.68,2024-06-08
-214,Ayaan Iqbal,DHA Phase 1,Kashif,25577.54,16325.33,2025-09-23
-215,Ahmed Malik,Cantt Area,Kashif,17010.03,9363.6,2025-06-15
-216,Bilal Ahmed,Johar Town,Naveed,36004.97,34398.33,2026-01-16
-217,Usman Malik,Bahria Town,Imran,11327.34,7183.31,2025-11-20
-218,Ayaan Shah,Cantt Area,Kashif,26425.32,26338.64,2025-01-10
-219,Bilal Raza,Johar Town,Naveed,49203.52,43935.57,2024-03-16
-220,Usman Iqbal,Clifton Block 5,Imran,26894.68,10654.59,2025-04-30
-221,Omar Sheikh,Johar Town,Naveed,28197.36,1884.73,2025-12-03
-222,Ahmed Chaudhry,Satellite Town,Asif,1299.87,827.99,2024-09-04
-223,Saad Iqbal,DHA Phase 1,Kashif,34662.89,1156.0,2024-10-11
-224,Ahmed Sheikh,Bahria Town,Imran,19444.6,13816.31,2024-09-17
-225,Ayaan Farooq,Clifton Block 5,Imran,28690.6,14563.3,2024-02-27
-226,Usman Shah,Bahria Town,Imran,49550.8,14003.33,2024-02-29
-227,Usman Sheikh,Cantt Area,Kashif,20194.19,14288.76,2025-05-29
-228,Bilal Chaudhry,Model Town,Asif,35363.11,33724.96,2024-10-19
-229,Ahmed Sheikh,Cantt Area,Kashif,32779.47,13285.9,2025-04-20
-230,Bilal Raza,DHA Phase 1,Kashif,24990.84,16614.55,2025-08-31
-231,Zain Chaudhry,DHA Phase 1,Kashif,1423.83,973.89,2025-01-26
-232,Omar Sheikh,Johar Town,Naveed,27505.35,21271.54,2025-11-01
-233,Bilal Raza,Cantt Area,Kashif,14709.16,7121.79,2025-08-15
-234,Saad Sheikh,Clifton Block 5,Imran,45214.67,7621.41,2024-11-07
-235,Bilal Khan,Defence View,Asif,19787.87,15546.12,2024-09-14
-236,Usman Shah,Bahria Town,Imran,26901.98,14131.88,2025-09-07
-237,Hamza Malik,Satellite Town,Asif,32325.99,13233.5,2025-11-26
-238,Ahmed Chaudhry,Bahria Town,Imran,43655.73,5147.63,2024-09-05
-239,Usman Farooq,Gulshan-e-Iqbal,Naveed,5452.04,3797.98,2025-09-25
-240,Usman Khan,Defence View,Asif,49698.5,30787.25,2024-04-03
-241,Ahmed Iqbal,Defence View,Asif,43813.58,36420.74,2025-02-28
-242,Zain Raza,Clifton Block 5,Imran,24112.04,4609.98,2024-12-31
-243,Bilal Raza,Clifton Block 5,Imran,33172.86,25876.12,2025-09-14
-244,Bilal Iqbal,DHA Phase 2,Tariq,29542.97,28679.17,2025-10-09
-245,Bilal Ahmed,Johar Town,Naveed,32324.01,20264.3,2025-05-17
-246,Saad Malik,Clifton Block 5,Imran,3040.41,1696.56,2025-05-06
-247,Saad Malik,Gulshan-e-Iqbal,Naveed,1301.11,1030.48,2025-05-26
-248,Ayaan Khan,Gulshan-e-Iqbal,Naveed,22381.26,19801.61,2025-01-02
-249,Zain Butt,DHA Phase 1,Kashif,44685.14,20126.78,2024-06-28
-250,Saad Ahmed,Gulshan-e-Iqbal,Naveed,23532.45,608.8,2025-08-23
-251,Omar Iqbal,DHA Phase 1,Kashif,15302.21,9145.1,2025-09-26
-252,Zain Raza,Johar Town,Naveed,19116.32,14892.73,2025-02-28
-253,Saad Chaudhry,Johar Town,Naveed,31996.32,21289.61,2025-06-21
-254,Ahmed Farooq,Defence View,Asif,44822.72,14444.14,2025-07-29
-255,Hamza Khan,Johar Town,Naveed,9877.21,807.13,2024-08-26
-256,Omar Chaudhry,Satellite Town,Asif,10632.57,8068.67,2024-04-20
-257,Zain Farooq,DHA Phase 1,Kashif,8004.33,4185.42,2025-06-24
-258,Saad Iqbal,DHA Phase 2,Tariq,42304.15,27306.95,2024-06-06
-259,Saad Iqbal,Clifton Block 5,Imran,39711.78,17738.93,2024-12-09
-260,Ali Chaudhry,Clifton Block 5,Imran,46658.67,41412.53,2024-07-06
-261,Bilal Khan,DHA Phase 2,Tariq,30154.83,20640.19,2025-12-09
-262,Hamza Ahmed,Bahria Town,Imran,25108.1,3578.27,2024-03-06
-263,Ayaan Shah,Clifton Block 5,Imran,45903.09,19900.02,2025-03-26
-264,Usman Farooq,Cantt Area,Kashif,14525.6,720.31,2025-10-22
-265,Ayaan Farooq,Model Town,Asif,9483.6,7841.17,2025-08-18
-266,Bilal Farooq,Model Town,Asif,34653.44,30956.05,2025-10-29
-267,Ayaan Butt,Clifton Block 5,Imran,7512.93,5024.17,2024-07-26
-268,Bilal Farooq,Model Town,Asif,38490.37,3127.84,2024-02-17
-269,Zain Malik,Bahria Town,Imran,11806.94,7746.08,2025-01-27
-270,Omar Raza,Defence View,Asif,1396.71,784.26,2025-12-30
-271,Bilal Butt,DHA Phase 1,Kashif,20644.09,9355.15,2024-07-24
-272,Ayaan Sheikh,Defence View,Asif,14410.26,6212.76,2025-05-20
-273,Saad Sheikh,Model Town,Asif,28365.55,7953.42,2025-06-21
-274,Hamza Malik,Johar Town,Naveed,36013.14,31677.95,2025-12-22
-275,Ayaan Khan,Cantt Area,Kashif,20285.09,9074.01,2024-12-09
-276,Zain Ahmed,Johar Town,Naveed,33536.87,29815.45,2025-05-22
-277,Zain Iqbal,Gulshan-e-Iqbal,Naveed,34014.53,19698.56,2025-02-15
-278,Usman Malik,Gulshan-e-Iqbal,Naveed,6775.91,4663.89,2025-07-04
-279,Ahmed Shah,DHA Phase 1,Kashif,9126.89,2603.4,2024-08-26
-280,Omar Farooq,Cantt Area,Kashif,22848.83,22586.04,2025-05-25
-281,Saad Butt,Bahria Town,Imran,30386.21,22511.81,2025-10-19
-282,Ali Iqbal,Clifton Block 5,Imran,38325.19,7675.58,2024-05-06
-283,Ahmed Chaudhry,Model Town,Asif,13347.92,4113.58,2024-03-04
-284,Hamza Farooq,Model Town,Asif,26273.29,9749.99,2025-11-07
-285,Zain Malik,Model Town,Asif,15975.18,10041.09,2025-09-29
-286,Saad Farooq,Clifton Block 5,Imran,25663.67,18194.25,2025-11-20
-287,Usman Shah,Model Town,Asif,13852.35,3549.74,2026-02-08
-288,Ali Sheikh,Clifton Block 5,Imran,40110.23,9541.45,2025-01-14
-289,Saad Khan,Satellite Town,Asif,5231.33,3662.22,2024-05-29
-290,Omar Farooq,Model Town,Asif,9359.38,3092.6,2026-01-24
-291,Bilal Khan,DHA Phase 1,Kashif,26987.14,8661.2,2024-08-06
-292,Hassan Sheikh,Bahria Town,Imran,39637.45,32381.52,2025-04-16
-293,Hamza Raza,Defence View,Asif,6216.16,2410.05,2025-10-29
-294,Ali Malik,Gulshan-e-Iqbal,Naveed,44997.76,29654.39,2024-11-15
-295,Ayaan Malik,Gulshan-e-Iqbal,Naveed,11959.69,8298.82,2025-03-29
-296,Usman Farooq,Bahria Town,Imran,32855.47,16875.97,2024-03-21
-297,Ayaan Malik,Satellite Town,Asif,36426.95,11459.58,2024-11-24
-298,Hamza Raza,Bahria Town,Imran,17755.95,7675.98,2025-03-12
-299,Hassan Chaudhry,Cantt Area,Kashif,41380.97,40661.8,2024-06-04
-300,Zain Farooq,Cantt Area,Kashif,21809.64,13587.64,2025-07-22
-301,Ayaan Malik,Johar Town,Naveed,30748.92,16530.32,2026-01-24
-302,Usman Butt,Model Town,Asif,24582.4,20253.86,2024-10-14
-303,Hamza Shah,Cantt Area,Kashif,26959.38,19984.3,2024-08-24
-304,Saad Iqbal,Model Town,Asif,38643.68,38601.88,2025-08-10
-305,Hassan Khan,DHA Phase 1,Kashif,17821.33,16185.16,2024-12-24
-306,Ali Shah,Satellite Town,Asif,35733.73,19860.31,2025-06-25
-307,Zain Chaudhry,Johar Town,Naveed,7046.27,5267.81,2024-04-27
-308,Hamza Shah,DHA Phase 1,Kashif,49002.21,12359.87,2025-10-10
-309,Ayaan Khan,DHA Phase 2,Tariq,19485.41,1565.46,2024-10-11
-310,Omar Khan,DHA Phase 2,Tariq,24745.34,15112.84,2025-06-01
-311,Ali Chaudhry,DHA Phase 2,Tariq,45750.15,15667.74,2024-02-25
-312,Omar Khan,Cantt Area,Kashif,37021.55,24140.73,2025-07-21
-313,Bilal Sheikh,DHA Phase 1,Kashif,38965.01,13802.51,2024-06-28
-314,Hassan Iqbal,Johar Town,Naveed,19095.36,8663.36,2025-02-28
-315,Ali Iqbal,Clifton Block 5,Imran,31092.95,22213.48,2025-06-28
-316,Usman Iqbal,Johar Town,Naveed,1955.78,81.29,2025-08-10
-317,Ali Ahmed,DHA Phase 1,Kashif,37472.32,14006.01,2025-10-09
-318,Hassan Iqbal,DHA Phase 2,Tariq,10719.26,5525.5,2024-05-17
-319,Hamza Raza,Defence View,Asif,29623.8,19738.19,2025-10-17
-320,Zain Farooq,Gulshan-e-Iqbal,Naveed,25110.31,7815.2,2024-06-08
-321,Saad Shah,Model Town,Asif,14765.1,12187.44,2025-06-29
-322,Saad Ahmed,DHA Phase 1,Kashif,47695.37,17062.84,2025-05-24
-323,Hassan Raza,Johar Town,Naveed,42802.09,18011.92,2024-03-27
-324,Ayaan Khan,DHA Phase 2,Tariq,40303.28,38150.68,2025-01-22
-325,Ahmed Farooq,DHA Phase 1,Kashif,33837.58,4597.35,2025-01-25
-326,Usman Farooq,Cantt Area,Kashif,48407.62,34913.27,2024-11-18
-327,Zain Sheikh,Bahria Town,Imran,31412.13,30579.74,2024-10-26
-328,Omar Chaudhry,Gulshan-e-Iqbal,Naveed,23814.78,4100.85,2025-05-29
-329,Hamza Shah,Clifton Block 5,Imran,17018.84,12002.48,2024-10-27
-330,Saad Raza,Clifton Block 5,Imran,36415.92,13707.35,2024-07-22
-331,Usman Ahmed,Johar Town,Naveed,35833.57,16550.58,2025-07-17
-332,Ayaan Khan,Defence View,Asif,25758.29,8137.04,2025-03-01
-333,Bilal Shah,DHA Phase 2,Tariq,44451.22,6543.79,2024-03-13
-334,Hassan Butt,Cantt Area,Kashif,32908.39,2750.14,2024-08-29
-335,Saad Khan,Satellite Town,Asif,19190.61,13005.81,2025-06-20
-336,Usman Raza,Satellite Town,Asif,44947.38,16640.55,2024-02-24
-337,Ali Malik,Satellite Town,Asif,30634.99,20629.24,2024-12-13
-338,Usman Malik,Defence View,Asif,43623.02,20139.96,2024-08-19
-339,Saad Butt,Clifton Block 5,Imran,43608.99,1695.58,2025-08-29
-340,Ayaan Malik,Johar Town,Naveed,27990.94,486.63,2025-12-16
-341,Hassan Ahmed,Gulshan-e-Iqbal,Naveed,4980.7,2449.23,2025-12-18
-342,Ali Farooq,Defence View,Asif,48034.89,35435.2,2025-06-07
-343,Ahmed Shah,Clifton Block 5,Imran,15658.35,3362.42,2024-07-31
-344,Hassan Raza,Bahria Town,Imran,28158.32,17150.28,2026-01-06
-345,Ali Chaudhry,Johar Town,Naveed,31161.11,2951.15,2025-01-23
-346,Hamza Farooq,Gulshan-e-Iqbal,Naveed,15183.62,14136.42,2025-10-27
-347,Saad Sheikh,DHA Phase 2,Tariq,41049.89,3635.25,2024-12-14
-348,Usman Farooq,Satellite Town,Asif,22361.86,8490.31,2024-02-26
-349,Hassan Farooq,Bahria Town,Imran,34291.76,4703.65,2025-03-11
-350,Hamza Iqbal,Clifton Block 5,Imran,48604.83,16041.08,2024-05-01
-351,Ayaan Iqbal,Johar Town,Naveed,6321.64,5598.84,2024-11-21
-352,Usman Khan,Bahria Town,Imran,2931.44,2633.28,2024-08-21
-353,Ahmed Butt,Cantt Area,Kashif,5890.92,4263.36,2025-08-27
-354,Ahmed Farooq,Johar Town,Naveed,9665.01,2141.02,2026-01-28
-355,Omar Malik,Bahria Town,Imran,32186.87,27756.03,2025-04-28
-356,Omar Chaudhry,Model Town,Asif,8979.41,4737.33,2024-10-29
-357,Hamza Raza,DHA Phase 2,Tariq,1569.89,937.82,2025-09-17
-358,Hassan Shah,Bahria Town,Imran,45563.34,6806.62,2025-07-06
-359,Usman Chaudhry,Satellite Town,Asif,16230.95,13986.82,2025-05-19
-360,Usman Iqbal,Clifton Block 5,Imran,21537.69,15339.72,2024-04-23
-361,Ayaan Sheikh,DHA Phase 2,Tariq,18290.11,10188.42,2025-04-25
-362,Ayaan Raza,Gulshan-e-Iqbal,Naveed,3785.96,532.33,2025-07-14
-363,Bilal Sheikh,Gulshan-e-Iqbal,Naveed,18081.3,10679.26,2024-08-08
-364,Zain Shah,Defence View,Asif,16332.69,7198.91,2025-10-09
-365,Ali Raza,Satellite Town,Asif,12653.05,3483.05,2025-07-21
-366,Ahmed Chaudhry,Model Town,Asif,32641.98,428.32,2025-04-25
-367,Zain Ahmed,Model Town,Asif,30747.32,26647.91,2024-12-02
-368,Ali Iqbal,Johar Town,Naveed,24614.22,18350.15,2024-10-31
-369,Omar Raza,DHA Phase 2,Tariq,6712.8,5979.67,2024-12-11
-370,Zain Shah,DHA Phase 1,Kashif,39808.62,27467.9,2025-12-18
-371,Ayaan Raza,Gulshan-e-Iqbal,Naveed,16336.8,11563.49,2024-11-14
-372,Ayaan Raza,Bahria Town,Imran,16851.04,4423.83,2025-09-09
-373,Bilal Sheikh,Bahria Town,Imran,3351.59,3174.64,2025-11-25
-374,Hamza Raza,Satellite Town,Asif,18508.08,720.24,2024-04-11
-375,Omar Farooq,DHA Phase 1,Kashif,15079.55,13409.51,2024-08-18
-376,Ahmed Chaudhry,DHA Phase 2,Tariq,29497.09,16850.19,2025-12-01
-377,Ali Raza,DHA Phase 2,Tariq,26707.34,1383.53,2024-12-15
-378,Usman Ahmed,Satellite Town,Asif,8728.5,1222.94,2024-05-27
-379,Ahmed Butt,DHA Phase 1,Kashif,42338.05,1693.25,2025-08-01
-380,Usman Iqbal,Bahria Town,Imran,33999.6,27417.72,2025-09-25
-381,Hamza Ahmed,DHA Phase 2,Tariq,16252.69,11449.37,2024-08-07
-382,Ahmed Ahmed,Bahria Town,Imran,23501.11,380.41,2026-01-03
-383,Usman Chaudhry,Bahria Town,Imran,33271.64,15296.59,2024-05-04
-384,Bilal Raza,Bahria Town,Imran,28280.54,2417.33,2024-12-05
-385,Ahmed Butt,Satellite Town,Asif,47095.51,42308.08,2024-09-13
-386,Hamza Malik,DHA Phase 2,Tariq,36311.54,2914.27,2024-10-20
-387,Saad Iqbal,Cantt Area,Kashif,7427.66,661.63,2025-04-08
-388,Bilal Raza,Johar Town,Naveed,48399.9,40804.71,2025-09-16
-389,Usman Butt,DHA Phase 2,Tariq,1945.92,844.27,2025-06-10
-390,Ali Raza,Clifton Block 5,Imran,41032.85,26586.26,2025-08-15
-391,Omar Malik,Model Town,Asif,17546.34,13698.25,2024-09-22
-392,Saad Khan,Bahria Town,Imran,16955.93,15095.59,2024-07-04
-393,Ahmed Farooq,DHA Phase 2,Tariq,32468.16,13410.22,2025-02-23
-394,Usman Raza,DHA Phase 1,Kashif,10570.02,281.5,2025-11-01
-395,Usman Malik,Gulshan-e-Iqbal,Naveed,38153.68,12414.57,2025-06-28
-396,Hassan Ahmed,Cantt Area,Kashif,37031.42,10301.4,2024-11-12
-397,Hamza Ahmed,Johar Town,Naveed,37118.84,17803.9,2024-02-17
-398,Ayaan Ahmed,DHA Phase 2,Tariq,34263.11,29551.4,2024-11-10
-399,Zain Sheikh,DHA Phase 1,Kashif,28894.43,1743.78,2025-03-11
-400,Bilal Khan,Cantt Area,Kashif,47364.22,21303.33,2025-10-03
-401,Ali Malik,Clifton Block 5,Imran,22965.34,20563.52,2025-03-08
-402,Ahmed Khan,DHA Phase 1,Kashif,24683.63,18512.35,2024-11-09
-403,Bilal Shah,DHA Phase 2,Tariq,16539.34,11726.63,2025-10-12
-404,Zain Butt,DHA Phase 2,Tariq,26544.06,574.5,2025-08-10
-405,Ayaan Ahmed,Johar Town,Naveed,6413.91,55.65,2025-01-25
-406,Zain Iqbal,Gulshan-e-Iqbal,Naveed,43569.13,10655.58,2024-10-11
-407,Ahmed Khan,DHA Phase 2,Tariq,19991.31,5269.74,2026-01-23
-408,Bilal Sheikh,Bahria Town,Imran,16233.2,5226.33,2025-09-11
-409,Bilal Chaudhry,Cantt Area,Kashif,41858.76,16010.58,2025-06-26
-410,Hassan Raza,Cantt Area,Kashif,44388.46,14927.86,2024-12-28
-411,Bilal Butt,Cantt Area,Kashif,37979.19,24507.03,2024-08-27
-412,Usman Raza,Johar Town,Naveed,31120.83,12906.92,2024-05-01
-413,Saad Malik,Defence View,Asif,42408.06,15065.03,2024-05-20
-414,Omar Raza,Model Town,Asif,31845.47,22024.39,2025-11-11
-415,Omar Butt,DHA Phase 1,Kashif,39121.67,17815.72,2025-01-14
-416,Hassan Shah,Model Town,Asif,8339.78,6020.02,2025-11-01
-417,Zain Ahmed,DHA Phase 2,Tariq,15880.28,12554.77,2026-01-06
-418,Hamza Iqbal,DHA Phase 2,Tariq,28543.83,9633.13,2025-02-24
-419,Hassan Butt,Johar Town,Naveed,34173.37,25100.46,2025-12-05
-420,Ali Sheikh,Bahria Town,Imran,46683.43,37527.61,2026-01-02
-421,Ali Khan,Clifton Block 5,Imran,4161.13,175.41,2025-04-08
-422,Saad Farooq,Model Town,Asif,20626.86,18415.82,2025-08-25
-423,Hamza Khan,Clifton Block 5,Imran,34614.23,6778.27,2025-04-11
-424,Ayaan Shah,Defence View,Asif,41245.58,10217.1,2025-10-04
-425,Zain Butt,DHA Phase 2,Tariq,24259.68,20080.7,2025-01-07
-426,Omar Shah,Satellite Town,Asif,35568.75,23132.67,2024-04-10
-427,Usman Khan,Clifton Block 5,Imran,23617.44,9919.88,2024-08-08
-428,Ahmed Ahmed,Satellite Town,Asif,9874.57,1589.76,2025-12-19
-429,Zain Sheikh,Johar Town,Naveed,27953.09,16614.57,2024-06-29
-430,Zain Iqbal,Gulshan-e-Iqbal,Naveed,46642.0,34804.32,2024-10-05
-431,Ayaan Malik,DHA Phase 2,Tariq,36775.62,10657.13,2024-05-27
-432,Omar Iqbal,Model Town,Asif,42265.22,4916.7,2024-04-15
-433,Omar Chaudhry,Model Town,Asif,36328.06,3824.36,2024-12-15
-434,Ayaan Raza,Cantt Area,Kashif,8339.95,7919.34,2025-07-24
-435,Ayaan Sheikh,Gulshan-e-Iqbal,Naveed,28580.13,23328.26,2025-07-25
-436,Hamza Ahmed,DHA Phase 2,Tariq,25734.47,12318.55,2025-10-07
-437,Saad Malik,Gulshan-e-Iqbal,Naveed,5914.32,4500.92,2024-07-14
-438,Omar Farooq,Model Town,Asif,38813.9,5192.19,2025-04-10
-439,Zain Sheikh,DHA Phase 1,Kashif,29000.71,17127.16,2025-09-18
-440,Saad Iqbal,Defence View,Asif,29594.82,4596.45,2025-02-23
-441,Ali Raza,Johar Town,Naveed,18055.96,8608.98,2024-07-14
-442,Bilal Butt,DHA Phase 1,Kashif,3108.88,2121.6,2024-12-05
-443,Ahmed Farooq,Defence View,Asif,2865.28,628.67,2024-03-27
-444,Saad Butt,Gulshan-e-Iqbal,Naveed,13013.6,3163.0,2025-06-12
-445,Saad Malik,DHA Phase 1,Kashif,3576.51,3062.19,2024-11-21
-446,Saad Sheikh,Cantt Area,Kashif,31531.39,3274.61,2025-05-09
-447,Hassan Butt,Bahria Town,Imran,29693.31,1240.29,2024-09-02
-448,Hamza Iqbal,Clifton Block 5,Imran,22917.8,8133.87,2024-07-04
-449,Ayaan Malik,Bahria Town,Imran,14969.89,4917.13,2024-02-25
-450,Omar Butt,Johar Town,Naveed,42527.62,15222.7,2025-10-05
-451,Saad Raza,Bahria Town,Imran,30498.3,11729.01,2024-09-24
-452,Saad Khan,Johar Town,Naveed,44559.68,37480.42,2025-07-01
-453,Bilal Ahmed,Defence View,Asif,42078.39,28449.25,2024-09-08
-454,Omar Shah,Gulshan-e-Iqbal,Naveed,31896.45,763.0,2025-05-16
-455,Ayaan Raza,Cantt Area,Kashif,3251.61,992.82,2025-02-25
-456,Saad Raza,Defence View,Asif,8204.85,7288.11,2025-07-08
-457,Ahmed Raza,Model Town,Asif,19033.38,16949.68,2025-12-14
-458,Usman Ahmed,Satellite Town,Asif,2932.32,1098.26,2024-06-27
-459,Omar Farooq,Clifton Block 5,Imran,1441.92,784.67,2025-03-05
-460,Hamza Butt,Bahria Town,Imran,40160.7,37752.6,2025-10-23
-461,Omar Shah,DHA Phase 2,Tariq,28637.56,26258.78,2025-11-11
-462,Usman Khan,Cantt Area,Kashif,12490.76,12417.04,2025-02-15
-463,Hamza Chaudhry,Model Town,Asif,49288.78,13860.95,2026-01-14
-464,Saad Malik,DHA Phase 1,Kashif,31824.62,1670.52,2024-04-22
-465,Ayaan Khan,DHA Phase 1,Kashif,14131.4,4666.79,2024-08-31
-466,Zain Malik,Clifton Block 5,Imran,26647.79,12227.96,2025-04-11
-467,Omar Ahmed,Clifton Block 5,Imran,5658.53,1172.27,2024-06-30
-468,Ahmed Iqbal,Defence View,Asif,14165.83,94.19,2025-08-14
-469,Hassan Butt,Gulshan-e-Iqbal,Naveed,5963.31,3026.84,2024-05-02
-470,Usman Iqbal,Johar Town,Naveed,33854.04,21013.88,2024-06-20
-471,Hassan Malik,Clifton Block 5,Imran,13970.71,8739.02,2025-03-07
-472,Hamza Butt,Model Town,Asif,40363.48,39652.68,2024-09-22
-473,Omar Chaudhry,Model Town,Asif,11319.18,2589.73,2025-12-13
-474,Saad Iqbal,Johar Town,Naveed,31031.83,19481.84,2024-03-13
-475,Usman Butt,Satellite Town,Asif,11834.87,9414.95,2024-10-12
-476,Ahmed Shah,Johar Town,Naveed,22819.52,4231.98,2024-09-12
-477,Ali Iqbal,Model Town,Asif,32805.21,7770.92,2024-03-29
-478,Ali Malik,Defence View,Asif,4494.06,1199.91,2025-04-30
-479,Bilal Chaudhry,Bahria Town,Imran,12765.99,9895.76,2025-06-05
-480,Hamza Ahmed,Model Town,Asif,39212.62,22912.57,2025-04-20
-481,Saad Khan,Gulshan-e-Iqbal,Naveed,24689.53,8595.27,2025-09-09
-482,Usman Butt,Johar Town,Naveed,17569.47,5656.47,2025-03-17
-483,Hassan Ahmed,Bahria Town,Imran,12892.3,11680.1,2025-09-22
-484,Ayaan Malik,DHA Phase 2,Tariq,16875.6,2428.18,2025-04-17
-485,Ahmed Khan,Model Town,Asif,31261.86,15330.12,2026-01-16
-486,Usman Sheikh,DHA Phase 1,Kashif,38261.24,25292.82,2025-08-07
-487,Hamza Khan,Cantt Area,Kashif,35486.64,18227.12,2025-02-16
-488,Ayaan Butt,Bahria Town,Imran,33663.75,30927.28,2024-12-05
-489,Bilal Farooq,Bahria Town,Imran,43337.73,21215.21,2025-11-26
-490,Hassan Shah,Johar Town,Naveed,39463.54,11416.3,2025-09-22
-491,Usman Chaudhry,Gulshan-e-Iqbal,Naveed,30567.04,29394.28,2024-02-14
-492,Omar Farooq,Bahria Town,Imran,47559.04,29514.94,2024-09-17
-493,Zain Farooq,DHA Phase 1,Kashif,11348.74,3912.55,2024-12-05
-494,Saad Ahmed,DHA Phase 2,Tariq,47171.13,17278.15,2025-08-31
-495,Omar Ahmed,Johar Town,Naveed,14844.88,9182.46,2024-04-03
-496,Omar Chaudhry,Defence View,Asif,43431.07,7147.51,2025-04-15
-497,Ayaan Ahmed,Clifton Block 5,Imran,11381.96,4967.13,2025-12-20
-498,Usman Chaudhry,Clifton Block 5,Imran,28224.73,19295.6,2024-07-31
-499,Hassan Malik,DHA Phase 1,Kashif,6239.9,2092.32,2025-10-11
-500,Usman Chaudhry,Defence View,Asif,46914.42,8819.34,2024-08-07
+bill_id,customer_id,customer_name,area_address,salesman_name,bill_amount,remaining_credit,bill_date
+LEG_BILL_ID_1_6158,1,Bilal Iqbal,Bahria Town,Faisal,40507.36,23662.66,2025-10-20
+LEG_BILL_ID_2_8183,2,Bilal Khan,Bahria Town,Faisal,35334.09,15662.27,2024-03-13
+LEG_BILL_ID_3_9504,3,Hamza Chaudhry,DHA Phase 1,Tariq,21763.03,9904.57,2025-08-02
+LEG_BILL_ID_4_3677,4,Usman Sheikh,Johar Town,Asif,13284.58,6564.96,2024-12-29
+LEG_BILL_ID_5_2057,5,Saad Farooq,Satellite Town,Asif,46031.07,24527.5,2024-11-27
+LEG_BILL_ID_6_5442,6,Zain Butt,DHA Phase 1,Tariq,31890.62,23367.53,2024-07-20
+LEG_BILL_ID_7_9627,7,Hassan Raza,DHA Phase 2,Kashif,24238.62,6133.04,2024-07-01
+LEG_BILL_ID_8_1603,8,Omar Butt,Defence View,Asif,12579.04,7494.36,2024-07-19
+LEG_BILL_ID_9_3724,9,Ali Malik,Clifton Block 5,Imran,21093.97,528.08,2026-02-08
+LEG_BILL_ID_10_2166,10,Bilal Chaudhry,Cantt Area,Asif,44556.74,26372.13,2025-03-28
+LEG_BILL_ID_11_1055,11,Omar Malik,Defence View,Asif,34909.29,1490.77,2024-11-07
+LEG_BILL_ID_12_5671,12,Ayaan Farooq,Gulshan-e-Iqbal,Tariq,6065.53,1521.1,2025-02-06
+LEG_BILL_ID_13_6344,13,Omar Iqbal,Clifton Block 5,Imran,9249.57,3535.58,2024-05-24
+LEG_BILL_ID_14_7316,14,Hassan Chaudhry,Johar Town,Asif,39090.34,6537.15,2024-05-09
+LEG_BILL_ID_15_5617,15,Ali Raza,DHA Phase 1,Tariq,2018.38,1917.36,2025-02-18
+LEG_BILL_ID_16_4384,16,Ayaan Ahmed,DHA Phase 2,Kashif,23485.2,9066.76,2025-07-29
+LEG_BILL_ID_17_2935,17,Zain Farooq,Johar Town,Asif,35196.39,8399.62,2025-01-31
+LEG_BILL_ID_18_2864,18,Bilal Ahmed,Model Town,Tariq,9746.38,3267.83,2024-11-03
+LEG_BILL_ID_19_1666,19,Saad Raza,Model Town,Tariq,42126.29,25445.82,2025-08-28
+LEG_BILL_ID_20_9713,20,Ayaan Khan,Bahria Town,Faisal,31929.35,10229.25,2024-10-25
+LEG_BILL_ID_21_4443,21,Zain Shah,Model Town,Tariq,48679.31,27123.46,2025-07-13
+LEG_BILL_ID_22_1005,22,Saad Farooq,Johar Town,Asif,8709.92,7592.11,2024-03-17
+LEG_BILL_ID_23_8130,23,Saad Malik,Bahria Town,Faisal,6342.62,2273.17,2025-03-08
+LEG_BILL_ID_24_8922,24,Saad Ahmed,Satellite Town,Asif,22496.2,16496.74,2025-12-10
+LEG_BILL_ID_25_3134,25,Ahmed Raza,Satellite Town,Asif,24296.82,13202.38,2025-04-30
+LEG_BILL_ID_26_8503,26,Ahmed Chaudhry,Defence View,Asif,47274.98,10820.29,2025-06-26
+LEG_BILL_ID_27_3464,27,Usman Khan,Bahria Town,Faisal,21919.67,4665.41,2025-11-21
+LEG_BILL_ID_28_7190,28,Hassan Ahmed,Cantt Area,Asif,47563.76,4881.37,2025-02-19
+LEG_BILL_ID_29_4190,29,Omar Khan,Cantt Area,Asif,31205.14,17613.1,2024-02-26
+LEG_BILL_ID_30_6413,30,Bilal Chaudhry,Defence View,Asif,38362.11,24979.92,2024-11-01
+LEG_BILL_ID_31_4701,31,Omar Butt,DHA Phase 1,Tariq,11051.27,2283.24,2024-07-22
+LEG_BILL_ID_32_4733,32,Ayaan Ahmed,Defence View,Asif,48761.39,6555.22,2025-02-23
+LEG_BILL_ID_33_8437,33,Bilal Raza,Satellite Town,Asif,40817.0,20074.49,2025-05-27
+LEG_BILL_ID_34_6231,34,Ali Raza,Johar Town,Asif,17146.02,15315.35,2024-08-31
+LEG_BILL_ID_35_1768,35,Ahmed Malik,Gulshan-e-Iqbal,Tariq,35545.69,23858.64,2024-03-11
+LEG_BILL_ID_36_1400,36,Saad Malik,Gulshan-e-Iqbal,Tariq,23954.63,19774.3,2025-10-27
+LEG_BILL_ID_37_2964,37,Saad Farooq,Johar Town,Asif,10202.91,6979.92,2025-03-11
+LEG_BILL_ID_38_5668,38,Omar Iqbal,DHA Phase 1,Tariq,14517.38,2015.11,2024-10-31
+LEG_BILL_ID_39_9654,39,Ali Shah,Bahria Town,Faisal,24826.72,11881.28,2025-01-07
+LEG_BILL_ID_40_6492,40,Ahmed Raza,Model Town,Tariq,30564.65,28995.94,2025-12-26
+LEG_BILL_ID_41_5652,41,Ayaan Khan,Cantt Area,Asif,7350.28,4700.09,2025-01-09
+LEG_BILL_ID_42_9114,42,Saad Ahmed,Model Town,Tariq,23273.98,19636.45,2025-07-17
+LEG_BILL_ID_43_7295,43,Omar Farooq,Clifton Block 5,Imran,42626.03,25437.43,2024-12-27
+LEG_BILL_ID_44_2129,44,Hassan Ahmed,Johar Town,Asif,9932.12,7012.78,2025-03-15
+LEG_BILL_ID_45_3323,45,Ali Malik,Satellite Town,Asif,2026.39,1256.12,2024-12-24
+LEG_BILL_ID_46_5633,46,Saad Farooq,DHA Phase 1,Tariq,16082.11,10460.24,2024-05-03
+LEG_BILL_ID_47_9739,47,Usman Sheikh,DHA Phase 1,Tariq,12297.28,79.35,2024-04-06
+LEG_BILL_ID_48_9742,48,Ali Farooq,DHA Phase 1,Tariq,42221.03,19055.61,2024-06-13
+LEG_BILL_ID_49_4107,49,Saad Raza,Cantt Area,Asif,34172.62,25151.86,2026-01-06
+LEG_BILL_ID_50_7739,50,Usman Malik,Satellite Town,Asif,45431.35,16041.06,2024-08-15
+LEG_BILL_ID_51_9812,51,Bilal Raza,Bahria Town,Faisal,18389.72,15259.85,2025-04-07
+LEG_BILL_ID_52_4587,52,Usman Sheikh,Gulshan-e-Iqbal,Tariq,32398.5,5282.44,2026-01-16
+LEG_BILL_ID_53_2567,53,Ayaan Butt,DHA Phase 1,Tariq,11606.61,2725.96,2024-03-26
+LEG_BILL_ID_54_4846,54,Omar Raza,DHA Phase 2,Kashif,15353.18,9142.64,2024-11-02
+LEG_BILL_ID_55_2902,55,Ayaan Malik,Clifton Block 5,Imran,8412.36,3977.06,2024-12-24
+LEG_BILL_ID_56_8983,56,Saad Farooq,DHA Phase 1,Tariq,48627.49,23056.99,2024-12-20
+LEG_BILL_ID_57_4767,57,Omar Khan,Gulshan-e-Iqbal,Tariq,40212.51,8718.7,2024-10-03
+LEG_BILL_ID_58_2628,58,Hassan Chaudhry,Defence View,Asif,7399.32,3899.12,2025-09-14
+LEG_BILL_ID_59_1102,59,Hassan Iqbal,Bahria Town,Faisal,48594.19,26999.43,2025-02-21
+LEG_BILL_ID_60_3566,60,Ayaan Chaudhry,DHA Phase 1,Tariq,21549.76,19385.05,2024-07-14
+LEG_BILL_ID_61_5706,61,Saad Malik,Defence View,Asif,37817.31,5446.26,2024-08-04
+LEG_BILL_ID_62_1687,62,Ahmed Raza,Model Town,Tariq,43897.04,15028.45,2025-11-25
+LEG_BILL_ID_63_4735,63,Usman Sheikh,Clifton Block 5,Imran,27508.14,118.43,2025-09-27
+LEG_BILL_ID_64_6203,64,Usman Sheikh,Defence View,Asif,1724.73,569.43,2024-08-25
+LEG_BILL_ID_65_7869,65,Ayaan Malik,DHA Phase 2,Kashif,28279.6,23504.27,2025-05-21
+LEG_BILL_ID_66_5404,66,Hamza Khan,Defence View,Asif,42480.08,14986.7,2026-02-12
+LEG_BILL_ID_67_9076,67,Hamza Raza,DHA Phase 1,Tariq,26884.15,22922.2,2025-08-27
+LEG_BILL_ID_68_8331,68,Usman Butt,Johar Town,Asif,28986.22,14398.48,2025-08-05
+LEG_BILL_ID_69_5948,69,Ayaan Chaudhry,Johar Town,Asif,41376.76,32420.15,2025-09-05
+LEG_BILL_ID_70_9068,70,Ali Sheikh,Johar Town,Asif,9038.01,2892.07,2025-06-17
+LEG_BILL_ID_71_8461,71,Ayaan Chaudhry,Cantt Area,Asif,24225.51,18317.96,2025-09-28
+LEG_BILL_ID_72_2772,72,Hassan Ahmed,Bahria Town,Faisal,39520.51,3764.98,2024-08-28
+LEG_BILL_ID_73_8789,73,Hassan Ahmed,Clifton Block 5,Imran,48870.88,24535.05,2025-07-20
+LEG_BILL_ID_74_5263,74,Ali Malik,Clifton Block 5,Imran,10413.37,2747.96,2025-01-02
+LEG_BILL_ID_75_1290,75,Ahmed Farooq,Gulshan-e-Iqbal,Tariq,28509.99,1211.16,2025-07-04
+LEG_BILL_ID_76_9932,76,Ali Farooq,Defence View,Asif,8033.89,352.24,2024-09-03
+LEG_BILL_ID_77_2401,77,Bilal Raza,Cantt Area,Asif,44043.09,10108.02,2024-10-15
+LEG_BILL_ID_78_5162,78,Usman Raza,Clifton Block 5,Imran,49318.99,44246.93,2025-05-23
+LEG_BILL_ID_79_4040,79,Bilal Chaudhry,Johar Town,Asif,33007.92,30677.86,2025-07-25
+LEG_BILL_ID_80_4568,80,Ahmed Shah,Johar Town,Asif,19113.85,18633.45,2025-11-08
+LEG_BILL_ID_81_2567,81,Ahmed Shah,Cantt Area,Asif,31135.02,20542.43,2025-02-09
+LEG_BILL_ID_82_9291,82,Hamza Khan,Defence View,Asif,31095.29,4375.61,2024-06-25
+LEG_BILL_ID_83_6613,83,Omar Sheikh,Satellite Town,Asif,2755.5,566.44,2025-05-03
+LEG_BILL_ID_84_6123,84,Omar Malik,Bahria Town,Faisal,37312.56,4227.43,2025-01-28
+LEG_BILL_ID_85_5748,85,Ahmed Chaudhry,Bahria Town,Faisal,37256.17,2168.01,2024-02-18
+LEG_BILL_ID_86_7173,86,Saad Chaudhry,DHA Phase 2,Kashif,33848.95,24356.24,2025-10-08
+LEG_BILL_ID_87_4995,87,Hamza Butt,DHA Phase 1,Tariq,47900.24,18399.77,2026-01-19
+LEG_BILL_ID_88_2981,88,Bilal Iqbal,Cantt Area,Asif,44036.25,9559.36,2025-10-29
+LEG_BILL_ID_89_7406,89,Bilal Khan,Defence View,Asif,25906.1,22543.1,2024-06-12
+LEG_BILL_ID_90_8391,90,Usman Raza,Johar Town,Asif,39036.97,20391.5,2025-01-18
+LEG_BILL_ID_91_6377,91,Ahmed Raza,DHA Phase 2,Kashif,18823.32,11707.0,2024-11-27
+LEG_BILL_ID_92_7622,92,Omar Shah,Johar Town,Asif,13380.93,2232.84,2024-10-21
+LEG_BILL_ID_93_5788,93,Ali Iqbal,Johar Town,Asif,24799.67,21376.97,2025-12-04
+LEG_BILL_ID_94_4927,94,Hamza Malik,Gulshan-e-Iqbal,Tariq,23606.65,20346.39,2024-12-05
+LEG_BILL_ID_95_3012,95,Bilal Ahmed,Clifton Block 5,Imran,38850.04,28489.76,2025-11-20
+LEG_BILL_ID_96_6045,96,Ayaan Shah,Bahria Town,Faisal,3939.91,334.57,2024-05-24
+LEG_BILL_ID_97_8234,97,Hamza Shah,DHA Phase 2,Kashif,35110.81,13839.85,2025-04-07
+LEG_BILL_ID_98_6520,98,Hassan Malik,Satellite Town,Asif,14495.81,6346.43,2024-09-23
+LEG_BILL_ID_99_5500,99,Omar Ahmed,Satellite Town,Asif,10066.46,2647.85,2025-12-11
+LEG_BILL_ID_100_1392,100,Ahmed Butt,DHA Phase 2,Kashif,9087.94,4980.85,2026-01-23
+LEG_BILL_ID_101_4915,101,Saad Farooq,Clifton Block 5,Imran,26167.37,18124.24,2025-02-05
+LEG_BILL_ID_102_7409,102,Ahmed Farooq,Defence View,Asif,42914.5,20838.79,2024-09-29
+LEG_BILL_ID_103_8960,103,Hassan Raza,DHA Phase 1,Tariq,7379.16,2286.6,2024-04-26
+LEG_BILL_ID_104_4518,104,Zain Khan,Model Town,Tariq,18195.43,6250.16,2025-12-08
+LEG_BILL_ID_105_8974,105,Saad Raza,Cantt Area,Asif,18824.65,4957.38,2024-10-12
+LEG_BILL_ID_106_7983,106,Hassan Iqbal,Clifton Block 5,Imran,34754.63,30301.22,2025-10-28
+LEG_BILL_ID_107_8522,107,Ali Sheikh,Cantt Area,Asif,21156.87,16928.37,2025-09-17
+LEG_BILL_ID_108_6716,108,Hamza Butt,Johar Town,Asif,12877.33,7200.85,2024-12-02
+LEG_BILL_ID_109_6569,109,Hamza Ahmed,Bahria Town,Faisal,1817.9,1768.3,2024-05-27
+LEG_BILL_ID_110_2070,110,Hamza Malik,Clifton Block 5,Imran,28162.21,24306.1,2025-05-29
+LEG_BILL_ID_111_6226,111,Hamza Malik,Model Town,Tariq,10578.21,10205.79,2024-06-16
+LEG_BILL_ID_112_6331,112,Ahmed Butt,Defence View,Asif,46607.31,21193.62,2024-08-07
+LEG_BILL_ID_113_5274,113,Ayaan Iqbal,DHA Phase 2,Kashif,29631.3,26320.83,2025-05-30
+LEG_BILL_ID_114_1219,114,Hamza Iqbal,Gulshan-e-Iqbal,Tariq,38897.27,20565.44,2024-10-08
+LEG_BILL_ID_115_5996,115,Ali Butt,Johar Town,Asif,35367.92,23580.8,2025-02-26
+LEG_BILL_ID_116_4303,116,Usman Raza,Model Town,Tariq,21154.7,7897.04,2024-04-11
+LEG_BILL_ID_117_6112,117,Usman Ahmed,Satellite Town,Asif,45269.15,43747.89,2024-07-16
+LEG_BILL_ID_118_8435,118,Bilal Iqbal,Model Town,Tariq,48714.03,34010.96,2024-06-20
+LEG_BILL_ID_119_4685,119,Bilal Ahmed,DHA Phase 2,Kashif,30369.71,10982.78,2024-05-13
+LEG_BILL_ID_120_7592,120,Ali Chaudhry,DHA Phase 1,Tariq,28010.48,25418.11,2025-12-10
+LEG_BILL_ID_121_6676,121,Hassan Sheikh,Cantt Area,Asif,45493.81,2028.76,2025-07-12
+LEG_BILL_ID_122_2183,122,Usman Butt,Johar Town,Asif,34847.26,3758.48,2025-11-03
+LEG_BILL_ID_123_2425,123,Ahmed Malik,Johar Town,Asif,18352.62,11418.44,2024-07-07
+LEG_BILL_ID_124_5547,124,Zain Shah,Defence View,Asif,29070.19,27743.57,2024-03-26
+LEG_BILL_ID_125_3331,125,Ayaan Chaudhry,Defence View,Asif,34910.77,5392.88,2024-04-21
+LEG_BILL_ID_126_9081,126,Hassan Khan,Satellite Town,Asif,13449.09,7459.91,2024-03-06
+LEG_BILL_ID_127_2376,127,Ahmed Raza,Clifton Block 5,Imran,6597.8,5126.24,2025-07-27
+LEG_BILL_ID_128_6684,128,Usman Farooq,Model Town,Tariq,18694.61,1571.85,2025-07-28
+LEG_BILL_ID_129_5980,129,Ahmed Shah,Johar Town,Asif,17490.21,4765.19,2024-03-24
+LEG_BILL_ID_130_2959,130,Saad Iqbal,Satellite Town,Asif,49276.56,25096.56,2026-01-23
+LEG_BILL_ID_131_5313,131,Usman Raza,Satellite Town,Asif,35469.54,20604.47,2024-07-20
+LEG_BILL_ID_132_8673,132,Ahmed Malik,Gulshan-e-Iqbal,Tariq,49680.79,18066.77,2025-02-07
+LEG_BILL_ID_133_9545,133,Ahmed Ahmed,Defence View,Asif,41052.05,17838.18,2024-04-12
+LEG_BILL_ID_134_5796,134,Zain Ahmed,Cantt Area,Asif,43866.49,20989.12,2025-08-05
+LEG_BILL_ID_135_2251,135,Zain Farooq,Johar Town,Asif,18704.07,15383.51,2024-10-15
+LEG_BILL_ID_136_1431,136,Ali Farooq,DHA Phase 2,Kashif,41365.21,13424.41,2024-03-02
+LEG_BILL_ID_137_6678,137,Ayaan Shah,Clifton Block 5,Imran,29040.8,12987.1,2025-09-23
+LEG_BILL_ID_138_9728,138,Ali Farooq,DHA Phase 2,Kashif,3766.64,2723.82,2025-05-07
+LEG_BILL_ID_139_1355,139,Bilal Shah,Satellite Town,Asif,22458.64,12905.88,2024-06-28
+LEG_BILL_ID_140_2734,140,Saad Iqbal,Model Town,Tariq,25641.29,7740.05,2024-03-13
+LEG_BILL_ID_141_4688,141,Ali Khan,Model Town,Tariq,29749.82,22436.66,2025-11-03
+LEG_BILL_ID_142_2471,142,Saad Butt,Model Town,Tariq,27186.72,9555.37,2025-03-13
+LEG_BILL_ID_143_5920,143,Ahmed Ahmed,Defence View,Asif,29706.85,19801.01,2024-08-12
+LEG_BILL_ID_144_5434,144,Ali Chaudhry,Johar Town,Asif,43380.25,26551.95,2024-08-09
+LEG_BILL_ID_145_9557,145,Zain Khan,Defence View,Asif,14721.33,11086.31,2024-09-06
+LEG_BILL_ID_146_5019,146,Ali Ahmed,Bahria Town,Faisal,26573.88,18273.85,2025-02-04
+LEG_BILL_ID_147_5719,147,Ali Sheikh,Cantt Area,Asif,11267.11,2083.75,2024-05-02
+LEG_BILL_ID_148_9064,148,Usman Ahmed,Cantt Area,Asif,25213.57,7903.59,2025-07-31
+LEG_BILL_ID_149_6870,149,Hassan Butt,Bahria Town,Faisal,28085.4,14569.01,2025-08-04
+LEG_BILL_ID_150_1846,150,Ali Chaudhry,Johar Town,Asif,21798.77,11610.2,2024-07-14
+LEG_BILL_ID_151_9029,151,Saad Khan,Johar Town,Asif,27674.9,7292.86,2025-12-20
+LEG_BILL_ID_152_2260,152,Usman Shah,Bahria Town,Faisal,43935.78,20255.09,2025-05-24
+LEG_BILL_ID_153_3086,153,Ali Chaudhry,Bahria Town,Faisal,40320.8,9131.46,2025-07-09
+LEG_BILL_ID_154_4908,154,Bilal Khan,Bahria Town,Faisal,29878.69,17393.37,2024-02-25
+LEG_BILL_ID_155_8181,155,Usman Sheikh,Johar Town,Asif,43295.64,31134.34,2024-09-06
+LEG_BILL_ID_156_7028,156,Ali Sheikh,Johar Town,Asif,47787.16,6310.89,2026-02-10
+LEG_BILL_ID_157_4756,157,Ali Malik,DHA Phase 1,Tariq,39756.03,2113.89,2024-03-18
+LEG_BILL_ID_158_2504,158,Zain Iqbal,Johar Town,Asif,28293.96,15599.0,2025-12-16
+LEG_BILL_ID_159_4783,159,Omar Raza,Defence View,Asif,44061.16,6748.02,2026-01-10
+LEG_BILL_ID_160_6341,160,Omar Chaudhry,Johar Town,Asif,4394.21,2164.22,2025-12-27
+LEG_BILL_ID_161_6443,161,Saad Butt,Clifton Block 5,Imran,2693.07,1759.46,2024-05-10
+LEG_BILL_ID_162_4899,162,Zain Iqbal,Johar Town,Asif,28047.77,9880.82,2024-03-23
+LEG_BILL_ID_163_8837,163,Bilal Farooq,Clifton Block 5,Imran,7097.14,3199.18,2025-03-27
+LEG_BILL_ID_164_1219,164,Ahmed Malik,DHA Phase 2,Kashif,23559.63,17527.77,2024-12-23
+LEG_BILL_ID_165_6763,165,Usman Ahmed,Bahria Town,Faisal,15272.83,7699.74,2024-07-13
+LEG_BILL_ID_166_2037,166,Bilal Malik,Satellite Town,Asif,16425.98,3329.51,2024-10-16
+LEG_BILL_ID_167_8299,167,Usman Farooq,Clifton Block 5,Imran,24587.84,592.73,2024-04-01
+LEG_BILL_ID_168_9275,168,Ayaan Butt,Model Town,Tariq,7315.78,2333.94,2026-02-07
+LEG_BILL_ID_169_7322,169,Hassan Farooq,Cantt Area,Asif,32448.79,4062.66,2025-09-28
+LEG_BILL_ID_170_5075,170,Bilal Sheikh,Satellite Town,Asif,26498.25,1290.39,2024-08-30
+LEG_BILL_ID_171_5648,171,Saad Butt,Model Town,Tariq,24071.28,12024.14,2025-02-20
+LEG_BILL_ID_172_3610,172,Saad Iqbal,Bahria Town,Faisal,27489.7,18938.88,2025-06-02
+LEG_BILL_ID_173_3534,173,Saad Sheikh,Bahria Town,Faisal,6593.33,2844.04,2024-12-06
+LEG_BILL_ID_174_5408,174,Omar Farooq,Defence View,Asif,25171.9,24164.68,2026-02-03
+LEG_BILL_ID_175_7665,175,Bilal Chaudhry,Cantt Area,Asif,26665.1,10743.61,2025-04-07
+LEG_BILL_ID_176_8728,176,Ali Farooq,DHA Phase 2,Kashif,32436.73,21913.88,2025-03-08
+LEG_BILL_ID_177_9812,177,Ahmed Malik,DHA Phase 1,Tariq,6895.4,1303.06,2024-05-23
+LEG_BILL_ID_178_9469,178,Usman Farooq,Model Town,Tariq,33484.82,2960.96,2024-11-08
+LEG_BILL_ID_179_8047,179,Ahmed Raza,Satellite Town,Asif,10304.58,4857.39,2024-04-24
+LEG_BILL_ID_180_2302,180,Bilal Khan,Bahria Town,Faisal,40724.2,23361.86,2025-11-29
+LEG_BILL_ID_181_7486,181,Saad Sheikh,Model Town,Tariq,30534.77,3462.24,2024-04-22
+LEG_BILL_ID_182_1266,182,Ahmed Shah,DHA Phase 1,Tariq,20811.32,13843.91,2025-04-16
+LEG_BILL_ID_183_1888,183,Ahmed Shah,Gulshan-e-Iqbal,Tariq,17592.34,654.34,2025-03-13
+LEG_BILL_ID_184_9899,184,Hassan Shah,Bahria Town,Faisal,9281.46,6332.28,2025-10-28
+LEG_BILL_ID_185_2144,185,Zain Chaudhry,Model Town,Tariq,47486.58,40318.7,2025-11-01
+LEG_BILL_ID_186_7121,186,Hassan Butt,Defence View,Asif,24972.49,17175.16,2024-02-26
+LEG_BILL_ID_187_6133,187,Saad Raza,Defence View,Asif,36562.0,4385.12,2025-11-23
+LEG_BILL_ID_188_5640,188,Saad Sheikh,DHA Phase 1,Tariq,20595.58,8685.64,2025-11-02
+LEG_BILL_ID_189_2323,189,Ali Chaudhry,Bahria Town,Faisal,27540.65,19049.59,2025-11-03
+LEG_BILL_ID_190_1971,190,Omar Khan,DHA Phase 2,Kashif,10331.47,3361.03,2025-08-22
+LEG_BILL_ID_191_3573,191,Ali Farooq,Clifton Block 5,Imran,46468.11,17970.21,2024-08-19
+LEG_BILL_ID_192_2679,192,Ahmed Shah,Clifton Block 5,Imran,17518.71,10233.73,2025-05-25
+LEG_BILL_ID_193_7885,193,Ahmed Chaudhry,Satellite Town,Asif,17923.2,9889.52,2024-10-14
+LEG_BILL_ID_194_8813,194,Zain Chaudhry,Johar Town,Asif,5663.31,2398.12,2025-01-08
+LEG_BILL_ID_195_3578,195,Omar Chaudhry,DHA Phase 2,Kashif,3939.58,2814.29,2025-10-08
+LEG_BILL_ID_196_4140,196,Bilal Ahmed,Defence View,Asif,45856.26,38231.65,2024-05-11
+LEG_BILL_ID_197_1325,197,Saad Malik,Gulshan-e-Iqbal,Tariq,7749.03,6262.44,2025-08-18
+LEG_BILL_ID_198_3386,198,Ayaan Iqbal,Clifton Block 5,Imran,48259.59,44455.24,2024-03-24
+LEG_BILL_ID_199_3078,199,Ali Iqbal,Gulshan-e-Iqbal,Tariq,11717.92,4909.21,2024-03-09
+LEG_BILL_ID_200_8713,200,Bilal Chaudhry,Johar Town,Asif,45191.39,27791.53,2025-03-25
+LEG_BILL_ID_201_6070,201,Hamza Shah,Model Town,Tariq,22312.44,15323.1,2024-02-19
+LEG_BILL_ID_202_6685,202,Usman Sheikh,DHA Phase 2,Kashif,10883.97,10144.32,2024-03-18
+LEG_BILL_ID_203_9178,203,Hassan Khan,Johar Town,Asif,10407.78,5461.9,2024-02-29
+LEG_BILL_ID_204_6590,204,Ayaan Chaudhry,Gulshan-e-Iqbal,Tariq,25334.32,1428.86,2026-01-01
+LEG_BILL_ID_205_1550,205,Ali Khan,DHA Phase 2,Kashif,37077.7,15749.05,2024-09-06
+LEG_BILL_ID_206_9211,206,Ali Shah,Johar Town,Asif,27988.92,20710.78,2025-09-06
+LEG_BILL_ID_207_9496,207,Usman Ahmed,DHA Phase 1,Tariq,45027.4,26885.99,2025-02-15
+LEG_BILL_ID_208_1271,208,Saad Raza,Defence View,Asif,39739.52,27597.61,2025-06-28
+LEG_BILL_ID_209_3159,209,Ali Chaudhry,Clifton Block 5,Imran,25019.64,2325.0,2025-01-26
+LEG_BILL_ID_210_6189,210,Zain Shah,Gulshan-e-Iqbal,Tariq,33112.04,15635.61,2025-06-22
+LEG_BILL_ID_211_1771,211,Usman Malik,Johar Town,Asif,21656.91,3551.41,2025-12-20
+LEG_BILL_ID_212_2446,212,Usman Sheikh,Cantt Area,Asif,34599.3,15916.52,2024-06-26
+LEG_BILL_ID_213_8465,213,Bilal Raza,Defence View,Asif,46234.24,28017.18,2024-10-02
+LEG_BILL_ID_214_7408,214,Zain Raza,Cantt Area,Asif,15356.65,13993.52,2025-06-09
+LEG_BILL_ID_215_2936,215,Saad Shah,DHA Phase 1,Tariq,17975.27,2663.13,2024-10-11
+LEG_BILL_ID_216_6636,216,Hassan Khan,Satellite Town,Asif,8693.94,4344.34,2025-07-05
+LEG_BILL_ID_217_7378,217,Bilal Butt,Defence View,Asif,27831.32,12407.23,2024-10-15
+LEG_BILL_ID_218_7321,218,Ali Malik,Johar Town,Asif,6279.39,3376.32,2025-04-07
+LEG_BILL_ID_219_1259,219,Hamza Khan,Bahria Town,Faisal,25768.88,1175.44,2024-10-30
+LEG_BILL_ID_220_8602,220,Ayaan Shah,Gulshan-e-Iqbal,Tariq,42563.13,27611.28,2025-03-12
+LEG_BILL_ID_221_4240,221,Usman Sheikh,Gulshan-e-Iqbal,Tariq,48156.25,37555.22,2024-12-22
+LEG_BILL_ID_222_3935,222,Ali Iqbal,Model Town,Tariq,19023.8,16901.54,2025-01-08
+LEG_BILL_ID_223_2850,223,Ahmed Shah,Satellite Town,Asif,16931.23,13267.33,2025-12-02
+LEG_BILL_ID_224_1276,224,Usman Shah,Bahria Town,Faisal,8409.47,4672.02,2024-10-09
+LEG_BILL_ID_225_9958,225,Zain Iqbal,Satellite Town,Asif,19884.81,18189.03,2024-05-09
+LEG_BILL_ID_226_8596,226,Ali Iqbal,Johar Town,Asif,16912.58,1726.88,2025-08-12
+LEG_BILL_ID_227_2318,227,Ayaan Farooq,Bahria Town,Faisal,19538.15,6764.69,2025-12-19
+LEG_BILL_ID_228_7100,228,Usman Ahmed,Satellite Town,Asif,36619.36,2541.02,2026-01-31
+LEG_BILL_ID_229_1632,229,Hassan Khan,Bahria Town,Faisal,32105.02,10543.83,2024-08-28
+LEG_BILL_ID_230_6004,230,Zain Farooq,Gulshan-e-Iqbal,Tariq,15212.79,587.32,2025-03-08
+LEG_BILL_ID_231_6047,231,Bilal Khan,Model Town,Tariq,7392.34,839.77,2025-08-08
+LEG_BILL_ID_232_7558,232,Saad Ahmed,Gulshan-e-Iqbal,Tariq,25853.69,4061.45,2025-04-21
+LEG_BILL_ID_233_3166,233,Zain Butt,Model Town,Tariq,19025.02,17644.97,2025-12-30
+LEG_BILL_ID_234_4330,234,Ali Iqbal,Satellite Town,Asif,5053.79,3230.29,2024-03-07
+LEG_BILL_ID_235_8720,235,Ayaan Shah,Johar Town,Asif,10200.62,4253.71,2024-11-08
+LEG_BILL_ID_236_6727,236,Ali Iqbal,Gulshan-e-Iqbal,Tariq,17817.17,16275.92,2026-01-24
+LEG_BILL_ID_237_6717,237,Ahmed Farooq,DHA Phase 1,Tariq,10259.79,3098.65,2024-06-24
+LEG_BILL_ID_238_2808,238,Ahmed Farooq,Gulshan-e-Iqbal,Tariq,28654.41,401.46,2025-09-26
+LEG_BILL_ID_239_4675,239,Saad Khan,Gulshan-e-Iqbal,Tariq,13395.83,6190.96,2024-12-09
+LEG_BILL_ID_240_4964,240,Hassan Butt,DHA Phase 2,Kashif,21126.6,19698.87,2024-07-13
+LEG_BILL_ID_241_8681,241,Ahmed Chaudhry,Satellite Town,Asif,44860.79,18930.8,2025-02-04
+LEG_BILL_ID_242_7473,242,Ali Malik,Clifton Block 5,Imran,38983.25,18362.71,2025-07-19
+LEG_BILL_ID_243_3782,243,Omar Iqbal,Cantt Area,Asif,12186.38,5154.74,2024-11-05
+LEG_BILL_ID_244_2649,244,Saad Raza,DHA Phase 2,Kashif,39858.22,540.69,2026-01-29
+LEG_BILL_ID_245_7578,245,Ahmed Raza,Defence View,Asif,36102.46,4303.45,2024-02-14
+LEG_BILL_ID_246_5488,246,Usman Butt,DHA Phase 2,Kashif,34513.74,8307.76,2024-02-29
+LEG_BILL_ID_247_1342,247,Ahmed Khan,Satellite Town,Asif,49807.69,27852.84,2025-03-30
+LEG_BILL_ID_248_2162,248,Omar Khan,Clifton Block 5,Imran,10773.88,4293.04,2025-02-03
+LEG_BILL_ID_249_3564,249,Zain Farooq,Johar Town,Asif,39436.46,17221.71,2025-04-05
+LEG_BILL_ID_250_3428,250,Ali Sheikh,Bahria Town,Faisal,36543.44,7650.42,2025-10-02
+LEG_BILL_ID_251_2013,251,Ali Farooq,Defence View,Asif,36469.01,5916.05,2025-06-24
+LEG_BILL_ID_252_9189,252,Ahmed Chaudhry,Satellite Town,Asif,42643.82,5690.54,2024-10-14
+LEG_BILL_ID_253_2193,253,Zain Ahmed,Defence View,Asif,39381.88,16145.63,2025-04-26
+LEG_BILL_ID_254_9995,254,Hassan Ahmed,Defence View,Asif,21055.28,1589.02,2025-08-25
+LEG_BILL_ID_255_3683,255,Hamza Chaudhry,Cantt Area,Asif,42650.39,29576.97,2025-10-27
+LEG_BILL_ID_256_2789,256,Ahmed Sheikh,Model Town,Tariq,17157.68,8608.6,2025-07-14
+LEG_BILL_ID_257_8235,257,Saad Butt,Bahria Town,Faisal,19112.14,53.33,2024-04-16
+LEG_BILL_ID_258_5539,258,Zain Iqbal,Clifton Block 5,Imran,13834.37,2791.82,2025-08-24
+LEG_BILL_ID_259_7877,259,Saad Butt,DHA Phase 2,Kashif,20575.83,9174.57,2025-10-18
+LEG_BILL_ID_260_7078,260,Hamza Butt,Model Town,Tariq,40983.95,12827.86,2025-12-28
+LEG_BILL_ID_261_4930,261,Omar Shah,Defence View,Asif,40280.27,36242.92,2024-04-09
+LEG_BILL_ID_262_9844,262,Hamza Malik,Cantt Area,Asif,27815.83,13375.13,2024-08-01
+LEG_BILL_ID_263_7137,263,Ahmed Ahmed,Clifton Block 5,Imran,25724.3,12497.37,2026-02-04
+LEG_BILL_ID_264_5215,264,Hamza Khan,Clifton Block 5,Imran,27930.05,5437.87,2024-11-09
+LEG_BILL_ID_265_2593,265,Usman Farooq,Model Town,Tariq,44266.81,44144.95,2025-10-15
+LEG_BILL_ID_266_6271,266,Bilal Ahmed,Johar Town,Asif,36425.73,11257.8,2025-08-04
+LEG_BILL_ID_267_4277,267,Usman Malik,Defence View,Asif,28136.36,512.87,2024-05-28
+LEG_BILL_ID_268_6877,268,Hamza Ahmed,Clifton Block 5,Imran,36141.0,4742.47,2024-08-18
+LEG_BILL_ID_269_7014,269,Saad Khan,Defence View,Asif,10277.48,8969.06,2024-04-22
+LEG_BILL_ID_270_2159,270,Ali Sheikh,Satellite Town,Asif,20390.66,9489.55,2025-02-07
+LEG_BILL_ID_271_6838,271,Omar Malik,DHA Phase 2,Kashif,9614.37,1529.26,2024-05-06
+LEG_BILL_ID_272_6751,272,Ali Shah,DHA Phase 2,Kashif,2293.07,155.95,2024-04-15
+LEG_BILL_ID_273_1257,273,Ahmed Shah,Bahria Town,Faisal,44278.87,35943.06,2025-03-01
+LEG_BILL_ID_274_2419,274,Usman Iqbal,DHA Phase 1,Tariq,27677.08,25906.55,2025-07-12
+LEG_BILL_ID_275_1404,275,Ahmed Iqbal,Satellite Town,Asif,13629.27,11690.72,2024-10-25
+LEG_BILL_ID_276_2986,276,Hassan Farooq,Cantt Area,Asif,32255.05,27438.56,2024-11-27
+LEG_BILL_ID_277_2378,277,Omar Sheikh,Cantt Area,Asif,28194.68,15432.11,2026-01-22
+LEG_BILL_ID_278_8768,278,Saad Malik,Defence View,Asif,23465.72,10549.97,2024-08-03
+LEG_BILL_ID_279_1161,279,Usman Iqbal,Satellite Town,Asif,8902.94,2917.0,2025-03-21
+LEG_BILL_ID_280_6746,280,Ahmed Raza,Gulshan-e-Iqbal,Tariq,35622.51,30259.98,2025-11-16
+LEG_BILL_ID_281_5581,281,Hamza Ahmed,Gulshan-e-Iqbal,Tariq,44698.85,26221.75,2025-11-11
+LEG_BILL_ID_282_5227,282,Hamza Malik,Cantt Area,Asif,40409.49,4427.56,2024-10-02
+LEG_BILL_ID_283_6275,283,Omar Khan,Model Town,Tariq,27644.06,12746.63,2024-06-22
+LEG_BILL_ID_284_8284,284,Saad Farooq,Model Town,Tariq,28169.33,18574.06,2024-04-09
+LEG_BILL_ID_285_8173,285,Hamza Shah,Defence View,Asif,46616.29,43611.02,2025-05-24
+LEG_BILL_ID_286_2152,286,Ali Chaudhry,Bahria Town,Faisal,47482.4,6517.86,2024-10-01
+LEG_BILL_ID_287_8764,287,Hassan Chaudhry,Gulshan-e-Iqbal,Tariq,7616.79,348.57,2025-09-08
+LEG_BILL_ID_288_6277,288,Zain Farooq,Model Town,Tariq,28358.05,6689.92,2024-10-02
+LEG_BILL_ID_289_4767,289,Ali Khan,Defence View,Asif,12693.08,7771.82,2024-07-17
+LEG_BILL_ID_290_1652,290,Hamza Khan,DHA Phase 1,Tariq,17882.34,17355.13,2026-01-02
+LEG_BILL_ID_291_7337,291,Bilal Khan,DHA Phase 2,Kashif,12506.8,12243.02,2025-08-31
+LEG_BILL_ID_292_4824,292,Saad Farooq,Satellite Town,Asif,6643.44,1363.39,2024-03-15
+LEG_BILL_ID_293_6801,293,Bilal Sheikh,Clifton Block 5,Imran,43994.46,15049.58,2024-03-01
+LEG_BILL_ID_294_1515,294,Zain Khan,Cantt Area,Asif,41898.15,27876.82,2025-07-04
+LEG_BILL_ID_295_3865,295,Saad Malik,Bahria Town,Faisal,45075.37,10489.16,2024-04-07
+LEG_BILL_ID_296_8689,296,Ali Khan,DHA Phase 2,Kashif,41310.87,33420.44,2026-01-10
+LEG_BILL_ID_297_5953,297,Usman Iqbal,Johar Town,Asif,44567.85,15705.09,2025-09-28
+LEG_BILL_ID_298_9247,298,Ayaan Shah,Defence View,Asif,14293.82,2929.82,2024-11-24
+LEG_BILL_ID_299_8378,299,Bilal Ahmed,Model Town,Tariq,42154.71,1738.65,2024-08-13
+LEG_BILL_ID_300_9276,300,Hassan Butt,Satellite Town,Asif,35444.68,5626.42,2025-02-20
+LEG_BILL_ID_301_1085,301,Zain Chaudhry,Gulshan-e-Iqbal,Tariq,1368.73,307.51,2024-09-24
+LEG_BILL_ID_302_3099,302,Ali Chaudhry,Johar Town,Asif,38701.43,2718.06,2025-07-17
+LEG_BILL_ID_303_5828,303,Ahmed Iqbal,DHA Phase 2,Kashif,44255.54,5725.84,2025-05-12
+LEG_BILL_ID_304_9309,304,Usman Butt,Johar Town,Asif,22493.95,12779.34,2024-06-18
+LEG_BILL_ID_305_5288,305,Bilal Raza,Cantt Area,Asif,46391.6,35919.67,2025-11-10
+LEG_BILL_ID_306_9714,306,Zain Raza,DHA Phase 2,Kashif,32181.82,19739.39,2024-10-06
+LEG_BILL_ID_307_3168,307,Ayaan Shah,Clifton Block 5,Imran,5882.13,2674.41,2024-06-11
+LEG_BILL_ID_308_4842,308,Ali Khan,Defence View,Asif,41889.14,29836.13,2025-01-02
+LEG_BILL_ID_309_2706,309,Omar Raza,DHA Phase 2,Kashif,28710.93,6485.48,2024-10-28
+LEG_BILL_ID_310_8564,310,Zain Ahmed,Cantt Area,Asif,39577.95,29948.33,2024-05-31
+LEG_BILL_ID_311_3635,311,Zain Malik,Clifton Block 5,Imran,33361.05,3893.32,2024-12-07
+LEG_BILL_ID_312_7691,312,Bilal Ahmed,Defence View,Asif,25535.28,10645.36,2025-01-30
+LEG_BILL_ID_313_2362,313,Ayaan Chaudhry,Bahria Town,Faisal,6165.72,6088.05,2025-08-05
+LEG_BILL_ID_314_5832,314,Ayaan Chaudhry,Johar Town,Asif,20234.42,354.94,2025-02-09
+LEG_BILL_ID_315_7429,315,Saad Ahmed,DHA Phase 2,Kashif,13210.31,6134.29,2025-03-31
+LEG_BILL_ID_316_4985,316,Zain Farooq,Satellite Town,Asif,26273.88,5381.26,2026-02-03
+LEG_BILL_ID_317_1557,317,Usman Raza,Johar Town,Asif,38878.72,36265.21,2025-02-14
+LEG_BILL_ID_318_9000,318,Omar Khan,Cantt Area,Asif,29507.19,8606.12,2024-11-28
+LEG_BILL_ID_319_6751,319,Ayaan Farooq,Cantt Area,Asif,40116.62,19525.73,2025-09-20
+LEG_BILL_ID_320_7203,320,Bilal Butt,Satellite Town,Asif,41516.8,40094.84,2025-03-05
+LEG_BILL_ID_321_8280,321,Omar Iqbal,Clifton Block 5,Imran,35183.93,28660.99,2025-09-28
+LEG_BILL_ID_322_8262,322,Saad Iqbal,DHA Phase 1,Tariq,39664.86,7414.95,2025-09-03
+LEG_BILL_ID_323_7454,323,Usman Butt,DHA Phase 1,Tariq,44719.09,21468.16,2025-07-15
+LEG_BILL_ID_324_6920,324,Ayaan Butt,Clifton Block 5,Imran,5797.27,818.88,2024-07-10
+LEG_BILL_ID_325_1701,325,Saad Iqbal,Defence View,Asif,44324.85,42057.51,2024-09-06
+LEG_BILL_ID_326_8570,326,Omar Chaudhry,DHA Phase 1,Tariq,46238.17,33054.1,2024-03-30
+LEG_BILL_ID_327_7576,327,Ayaan Khan,Satellite Town,Asif,47945.75,33479.64,2024-06-24
+LEG_BILL_ID_328_3264,328,Bilal Butt,DHA Phase 2,Kashif,33555.78,13823.48,2025-08-29
+LEG_BILL_ID_329_8948,329,Hamza Farooq,Defence View,Asif,34975.35,17306.42,2025-01-01
+LEG_BILL_ID_330_8368,330,Omar Sheikh,Johar Town,Asif,33912.68,11396.95,2024-05-09
+LEG_BILL_ID_331_5219,331,Omar Iqbal,Model Town,Tariq,25705.76,20251.18,2025-02-09
+LEG_BILL_ID_332_3606,332,Hassan Chaudhry,DHA Phase 1,Tariq,21764.35,3058.73,2026-02-04
+LEG_BILL_ID_333_2024,333,Bilal Chaudhry,Bahria Town,Faisal,48782.5,28223.56,2024-09-17
+LEG_BILL_ID_334_8521,334,Ali Ahmed,Defence View,Asif,2831.59,367.45,2025-01-30
+LEG_BILL_ID_335_4157,335,Zain Shah,Gulshan-e-Iqbal,Tariq,6786.47,2877.1,2024-09-10
+LEG_BILL_ID_336_1608,336,Ahmed Shah,Bahria Town,Faisal,8496.77,2388.64,2024-08-26
+LEG_BILL_ID_337_4949,337,Saad Ahmed,Satellite Town,Asif,47907.45,16964.84,2024-11-06
+LEG_BILL_ID_338_9957,338,Ahmed Khan,Johar Town,Asif,43353.83,12680.8,2025-06-08
+LEG_BILL_ID_339_6046,339,Omar Iqbal,Model Town,Tariq,25345.54,18454.63,2024-11-30
+LEG_BILL_ID_340_5564,340,Ali Farooq,Gulshan-e-Iqbal,Tariq,37614.44,15262.13,2024-03-12
+LEG_BILL_ID_341_1266,341,Hassan Iqbal,Cantt Area,Asif,25151.13,17836.95,2026-01-07
+LEG_BILL_ID_342_2586,342,Omar Raza,Johar Town,Asif,20518.35,11182.94,2024-07-28
+LEG_BILL_ID_343_1133,343,Saad Ahmed,DHA Phase 1,Tariq,29390.02,8420.12,2024-12-31
+LEG_BILL_ID_344_9123,344,Ali Chaudhry,Defence View,Asif,21085.82,17024.67,2025-03-16
+LEG_BILL_ID_345_8769,345,Hamza Iqbal,Model Town,Tariq,43362.82,714.68,2026-02-03
+LEG_BILL_ID_346_9759,346,Ayaan Sheikh,Bahria Town,Faisal,22692.73,3171.31,2024-05-22
+LEG_BILL_ID_347_8537,347,Ayaan Sheikh,Johar Town,Asif,17127.03,7144.86,2024-12-29
+LEG_BILL_ID_348_8790,348,Usman Shah,Model Town,Tariq,10211.19,4665.86,2025-09-19
+LEG_BILL_ID_349_3158,349,Hamza Sheikh,Satellite Town,Asif,44198.81,22770.46,2025-06-06
+LEG_BILL_ID_350_4207,350,Hassan Farooq,Bahria Town,Faisal,29533.89,9154.27,2026-01-20
+LEG_BILL_ID_351_8961,351,Ali Raza,Bahria Town,Faisal,10459.78,718.32,2024-06-22
+LEG_BILL_ID_352_6344,352,Hassan Farooq,Cantt Area,Asif,18592.21,16987.56,2024-12-08
+LEG_BILL_ID_353_6693,353,Hassan Farooq,Model Town,Tariq,36875.36,14766.14,2025-07-11
+LEG_BILL_ID_354_8608,354,Ali Farooq,Model Town,Tariq,14483.1,13434.88,2025-10-17
+LEG_BILL_ID_355_4951,355,Ali Chaudhry,Cantt Area,Asif,21128.91,16375.02,2025-01-07
+LEG_BILL_ID_356_4747,356,Bilal Butt,Clifton Block 5,Imran,40571.14,37993.08,2024-02-15
+LEG_BILL_ID_357_9378,357,Usman Farooq,DHA Phase 2,Kashif,16630.21,11300.77,2025-05-29
+LEG_BILL_ID_358_3161,358,Saad Khan,Model Town,Tariq,1735.12,703.06,2024-05-23
+LEG_BILL_ID_359_8454,359,Saad Malik,Model Town,Tariq,21593.17,11900.04,2024-09-14
+LEG_BILL_ID_360_6941,360,Hassan Khan,DHA Phase 2,Kashif,31654.9,9698.76,2024-06-24
+LEG_BILL_ID_361_1772,361,Ahmed Raza,DHA Phase 1,Tariq,44064.55,27357.68,2025-06-13
+LEG_BILL_ID_362_3185,362,Ali Khan,DHA Phase 2,Kashif,9929.64,2373.29,2024-10-31
+LEG_BILL_ID_363_1634,363,Hassan Butt,Cantt Area,Asif,40379.66,8957.22,2024-04-30
+LEG_BILL_ID_364_1812,364,Ayaan Iqbal,Bahria Town,Faisal,23764.03,14500.46,2024-12-02
+LEG_BILL_ID_365_2386,365,Bilal Iqbal,Cantt Area,Asif,37506.1,11543.88,2024-09-19
+LEG_BILL_ID_366_8713,366,Zain Ahmed,Model Town,Tariq,20400.32,11409.77,2024-10-14
+LEG_BILL_ID_367_7392,367,Ahmed Farooq,Johar Town,Asif,40313.33,33520.73,2024-09-20
+LEG_BILL_ID_368_1688,368,Hassan Malik,Gulshan-e-Iqbal,Tariq,44424.45,9018.89,2024-11-08
+LEG_BILL_ID_369_5655,369,Bilal Farooq,Defence View,Asif,5526.67,2446.61,2024-03-18
+LEG_BILL_ID_370_5960,370,Bilal Butt,Johar Town,Asif,40937.22,21329.29,2024-08-30
+LEG_BILL_ID_371_4503,371,Hamza Malik,DHA Phase 1,Tariq,30976.03,7802.54,2024-11-02
+LEG_BILL_ID_372_5936,372,Saad Sheikh,Defence View,Asif,33921.37,28228.52,2024-05-02
+LEG_BILL_ID_373_6760,373,Hamza Chaudhry,Johar Town,Asif,38541.65,804.8,2025-02-25
+LEG_BILL_ID_374_3498,374,Zain Farooq,DHA Phase 1,Tariq,47935.05,36576.5,2025-05-02
+LEG_BILL_ID_375_6565,375,Ayaan Malik,Defence View,Asif,34967.59,11343.95,2024-12-29
+LEG_BILL_ID_376_2663,376,Zain Raza,DHA Phase 1,Tariq,35378.7,9569.31,2025-01-12
+LEG_BILL_ID_377_9953,377,Zain Chaudhry,Defence View,Asif,23694.01,17749.64,2025-07-09
+LEG_BILL_ID_378_2298,378,Ahmed Chaudhry,Gulshan-e-Iqbal,Tariq,34533.35,33568.92,2025-09-22
+LEG_BILL_ID_379_8812,379,Usman Sheikh,DHA Phase 2,Kashif,39655.84,6950.87,2025-08-14
+LEG_BILL_ID_380_4191,380,Ali Farooq,Satellite Town,Asif,25474.69,25376.17,2024-07-21
+LEG_BILL_ID_381_7273,381,Omar Butt,Model Town,Tariq,47598.45,44921.88,2025-09-29
+LEG_BILL_ID_382_9947,382,Ali Raza,Defence View,Asif,44064.4,1595.45,2025-09-01
+LEG_BILL_ID_383_4730,383,Ahmed Butt,Gulshan-e-Iqbal,Tariq,8363.89,8242.27,2026-01-28
+LEG_BILL_ID_384_9881,384,Hamza Ahmed,Cantt Area,Asif,35398.92,34391.92,2025-03-02
+LEG_BILL_ID_385_4305,385,Zain Chaudhry,Satellite Town,Asif,26625.31,159.65,2025-12-18
+LEG_BILL_ID_386_3090,386,Ayaan Ahmed,Bahria Town,Faisal,14380.08,3697.29,2024-06-10
+LEG_BILL_ID_387_2399,387,Hassan Shah,Model Town,Tariq,11691.88,9708.41,2025-10-13
+LEG_BILL_ID_388_3189,388,Omar Khan,Bahria Town,Faisal,40463.33,6874.81,2025-08-25
+LEG_BILL_ID_389_1777,389,Ali Malik,Gulshan-e-Iqbal,Tariq,6157.23,1543.09,2025-05-16
+LEG_BILL_ID_390_7048,390,Saad Farooq,Bahria Town,Faisal,20527.55,13137.88,2025-05-28
+LEG_BILL_ID_391_3427,391,Usman Iqbal,DHA Phase 1,Tariq,11300.71,3074.76,2024-10-30
+LEG_BILL_ID_392_7344,392,Ahmed Sheikh,Cantt Area,Asif,22305.38,14316.02,2026-02-09
+LEG_BILL_ID_393_1468,393,Hassan Raza,Johar Town,Asif,31647.24,5218.41,2024-08-03
+LEG_BILL_ID_394_1320,394,Bilal Chaudhry,Bahria Town,Faisal,13609.26,13152.34,2025-01-06
+LEG_BILL_ID_395_3027,395,Bilal Shah,Satellite Town,Asif,23914.73,17671.37,2025-11-20
+LEG_BILL_ID_396_6198,396,Hamza Chaudhry,DHA Phase 2,Kashif,46967.23,11911.78,2025-09-18
+LEG_BILL_ID_397_4068,397,Usman Butt,DHA Phase 1,Tariq,10998.81,2424.73,2025-12-15
+LEG_BILL_ID_398_8297,398,Hassan Malik,Cantt Area,Asif,3960.31,892.47,2025-04-27
+LEG_BILL_ID_399_1695,399,Bilal Butt,Cantt Area,Asif,16513.53,1393.09,2025-10-09
+LEG_BILL_ID_400_2578,400,Bilal Ahmed,Defence View,Asif,10993.85,343.43,2024-04-19
+LEG_BILL_ID_401_9598,401,Usman Farooq,Satellite Town,Asif,31319.29,30328.35,2024-02-17
+LEG_BILL_ID_402_7654,402,Ali Butt,DHA Phase 2,Kashif,35269.84,13224.21,2025-02-07
+LEG_BILL_ID_403_9446,403,Saad Shah,DHA Phase 1,Tariq,35133.1,23094.03,2024-08-02
+LEG_BILL_ID_404_2033,404,Saad Ahmed,Clifton Block 5,Imran,30454.19,15819.39,2024-05-27
+LEG_BILL_ID_405_3803,405,Hamza Chaudhry,Johar Town,Asif,21592.43,14239.46,2024-08-16
+LEG_BILL_ID_406_5242,406,Usman Malik,Model Town,Tariq,19390.57,17909.2,2024-12-16
+LEG_BILL_ID_407_9708,407,Omar Raza,Satellite Town,Asif,28645.44,20900.04,2024-03-12
+LEG_BILL_ID_408_5824,408,Omar Khan,Johar Town,Asif,9817.41,1798.85,2024-09-28
+LEG_BILL_ID_409_4626,409,Bilal Chaudhry,Bahria Town,Faisal,15698.77,15453.72,2025-02-26
+LEG_BILL_ID_410_2799,410,Saad Sheikh,Satellite Town,Asif,32757.21,8007.13,2025-03-30
+LEG_BILL_ID_411_6520,411,Zain Sheikh,Clifton Block 5,Imran,4011.39,3054.07,2025-03-27
+LEG_BILL_ID_412_9134,412,Zain Iqbal,Johar Town,Asif,42239.59,28238.74,2025-09-30
+LEG_BILL_ID_413_6145,413,Hamza Farooq,Bahria Town,Faisal,16941.29,6248.52,2025-08-08
+LEG_BILL_ID_414_2695,414,Hassan Chaudhry,Bahria Town,Faisal,47229.86,24569.22,2024-11-29
+LEG_BILL_ID_415_9462,415,Ali Khan,DHA Phase 2,Kashif,21709.84,11579.35,2025-01-06
+LEG_BILL_ID_416_9474,416,Omar Ahmed,Satellite Town,Asif,13352.45,5927.75,2024-11-20
+LEG_BILL_ID_417_4260,417,Usman Chaudhry,Cantt Area,Asif,47254.96,9079.76,2024-10-06
+LEG_BILL_ID_418_6498,418,Hassan Malik,DHA Phase 2,Kashif,32374.52,7705.28,2024-11-17
+LEG_BILL_ID_419_5932,419,Omar Sheikh,Model Town,Tariq,13777.98,9614.41,2024-11-28
+LEG_BILL_ID_420_3335,420,Omar Shah,Model Town,Tariq,3512.95,317.31,2026-02-12
+LEG_BILL_ID_421_3076,421,Hassan Raza,Bahria Town,Faisal,3935.33,2011.22,2025-08-18
+LEG_BILL_ID_422_7735,422,Usman Raza,Bahria Town,Faisal,16939.67,7969.69,2024-03-02
+LEG_BILL_ID_423_7701,423,Bilal Ahmed,Defence View,Asif,19222.02,5356.6,2024-03-04
+LEG_BILL_ID_424_3250,424,Ali Sheikh,Gulshan-e-Iqbal,Tariq,20687.63,17793.11,2025-12-06
+LEG_BILL_ID_425_3040,425,Omar Ahmed,Cantt Area,Asif,6475.77,3646.44,2024-08-30
+LEG_BILL_ID_426_8501,426,Bilal Raza,Clifton Block 5,Imran,4853.94,4590.11,2024-06-17
+LEG_BILL_ID_427_6543,427,Hamza Farooq,Cantt Area,Asif,25405.23,15134.14,2024-07-16
+LEG_BILL_ID_428_1163,428,Usman Butt,Defence View,Asif,17222.87,12065.18,2026-02-08
+LEG_BILL_ID_429_3540,429,Omar Butt,Gulshan-e-Iqbal,Tariq,9526.43,5288.91,2025-05-13
+LEG_BILL_ID_430_6472,430,Ahmed Iqbal,Clifton Block 5,Imran,25838.63,3548.36,2025-09-09
+LEG_BILL_ID_431_8215,431,Bilal Shah,DHA Phase 2,Kashif,38787.59,28710.88,2025-06-09
+LEG_BILL_ID_432_9949,432,Zain Malik,Bahria Town,Faisal,38792.75,5446.7,2024-09-12
+LEG_BILL_ID_433_3046,433,Hassan Butt,DHA Phase 2,Kashif,8210.52,7373.62,2024-11-16
+LEG_BILL_ID_434_4273,434,Ali Iqbal,Clifton Block 5,Imran,35869.38,815.07,2025-12-04
+LEG_BILL_ID_435_9592,435,Hamza Butt,Cantt Area,Asif,13102.66,7869.44,2024-03-12
+LEG_BILL_ID_436_2805,436,Hassan Shah,Model Town,Tariq,7837.76,3637.83,2024-03-15
+LEG_BILL_ID_437_8869,437,Omar Chaudhry,Model Town,Tariq,36971.32,2122.07,2025-02-12
+LEG_BILL_ID_438_1819,438,Hassan Khan,Bahria Town,Faisal,3960.17,2082.77,2025-11-28
+LEG_BILL_ID_439_3142,439,Saad Shah,Cantt Area,Asif,4776.33,2230.16,2024-03-04
+LEG_BILL_ID_440_7577,440,Ahmed Shah,Model Town,Tariq,20626.97,1032.05,2025-04-17
+LEG_BILL_ID_441_2379,441,Bilal Khan,Johar Town,Asif,9407.89,5823.18,2025-02-16
+LEG_BILL_ID_442_2311,442,Ahmed Chaudhry,Model Town,Tariq,25845.3,3300.65,2025-02-19
+LEG_BILL_ID_443_2209,443,Usman Shah,Bahria Town,Faisal,42971.99,26095.14,2024-09-05
+LEG_BILL_ID_444_4310,444,Hamza Shah,Gulshan-e-Iqbal,Tariq,22809.64,8064.29,2025-10-12
+LEG_BILL_ID_445_5310,445,Ali Raza,Bahria Town,Faisal,34256.8,11396.96,2024-04-22
+LEG_BILL_ID_446_1650,446,Zain Khan,Model Town,Tariq,41452.44,25835.16,2024-11-07
+LEG_BILL_ID_447_9924,447,Ali Sheikh,Defence View,Asif,46290.14,41059.69,2024-04-03
+LEG_BILL_ID_448_7693,448,Ali Ahmed,Bahria Town,Faisal,6969.45,4414.74,2025-10-17
+LEG_BILL_ID_449_7911,449,Bilal Raza,Defence View,Asif,7602.03,4229.66,2025-02-08
+LEG_BILL_ID_450_8365,450,Hamza Sheikh,Johar Town,Asif,6729.98,2673.55,2025-06-26
+LEG_BILL_ID_451_3544,451,Hassan Malik,Model Town,Tariq,39624.86,20430.08,2025-12-21
+LEG_BILL_ID_452_7134,452,Hamza Raza,Gulshan-e-Iqbal,Tariq,28980.91,8233.51,2025-07-08
+LEG_BILL_ID_453_3101,453,Zain Raza,Satellite Town,Asif,45573.74,25592.66,2025-11-13
+LEG_BILL_ID_454_6680,454,Zain Malik,Satellite Town,Asif,44919.07,12446.87,2025-09-08
+LEG_BILL_ID_455_9373,455,Zain Malik,Defence View,Asif,9968.36,1062.59,2024-03-16
+LEG_BILL_ID_456_6229,456,Zain Raza,DHA Phase 1,Tariq,23070.97,21479.48,2025-06-13
+LEG_BILL_ID_457_8758,457,Ayaan Ahmed,Satellite Town,Asif,7655.66,4728.84,2026-01-05
+LEG_BILL_ID_458_5801,458,Hamza Butt,Defence View,Asif,17273.52,15311.94,2025-04-30
+LEG_BILL_ID_459_8719,459,Bilal Shah,Clifton Block 5,Imran,34603.26,29410.79,2024-06-06
+LEG_BILL_ID_460_9972,460,Ali Khan,Bahria Town,Faisal,25412.93,5538.24,2025-10-14
+LEG_BILL_ID_461_3962,461,Zain Ahmed,DHA Phase 1,Tariq,1954.54,1682.88,2024-03-04
+LEG_BILL_ID_462_7829,462,Hassan Ahmed,Model Town,Tariq,1852.2,344.54,2025-11-25
+LEG_BILL_ID_463_6332,463,Zain Raza,Clifton Block 5,Imran,10345.43,9834.27,2024-06-16
+LEG_BILL_ID_464_1444,464,Hamza Farooq,Model Town,Tariq,34007.17,29581.92,2025-05-08
+LEG_BILL_ID_465_8019,465,Ahmed Farooq,DHA Phase 2,Kashif,26617.0,26264.14,2025-08-30
+LEG_BILL_ID_466_8728,466,Zain Farooq,DHA Phase 1,Tariq,29715.85,19547.9,2024-06-07
+LEG_BILL_ID_467_7799,467,Saad Ahmed,Bahria Town,Faisal,18709.5,3772.62,2024-12-17
+LEG_BILL_ID_468_2012,468,Zain Butt,Gulshan-e-Iqbal,Tariq,46033.79,34230.47,2024-09-19
+LEG_BILL_ID_469_2548,469,Omar Khan,Defence View,Asif,16788.69,7202.68,2025-11-04
+LEG_BILL_ID_470_2334,470,Zain Butt,Bahria Town,Faisal,2322.62,1373.04,2024-12-26
+LEG_BILL_ID_471_2509,471,Ali Farooq,Clifton Block 5,Imran,39966.81,4995.66,2024-12-28
+LEG_BILL_ID_472_1146,472,Saad Ahmed,Bahria Town,Faisal,27270.26,5893.73,2024-10-15
+LEG_BILL_ID_473_1923,473,Ahmed Khan,Gulshan-e-Iqbal,Tariq,3259.21,252.27,2024-02-19
+LEG_BILL_ID_474_5214,474,Usman Raza,DHA Phase 2,Kashif,48596.78,19375.45,2025-03-11
+LEG_BILL_ID_475_2113,475,Hassan Ahmed,DHA Phase 2,Kashif,44255.85,41370.03,2024-09-13
+LEG_BILL_ID_476_5816,476,Ali Chaudhry,Clifton Block 5,Imran,11201.36,8384.35,2026-01-16
+LEG_BILL_ID_477_9264,477,Usman Iqbal,Gulshan-e-Iqbal,Tariq,48046.01,42807.42,2025-02-14
+LEG_BILL_ID_478_7691,478,Ayaan Iqbal,DHA Phase 2,Kashif,21224.61,5624.66,2024-11-22
+LEG_BILL_ID_479_9686,479,Ahmed Ahmed,Clifton Block 5,Imran,42395.25,28493.21,2024-07-24
+LEG_BILL_ID_480_9596,480,Ayaan Malik,Clifton Block 5,Imran,33324.38,15479.14,2025-09-07
+LEG_BILL_ID_481_5135,481,Bilal Sheikh,Clifton Block 5,Imran,24765.58,17260.15,2024-10-10
+LEG_BILL_ID_482_5787,482,Usman Khan,Model Town,Tariq,8178.24,4703.92,2025-02-27
+LEG_BILL_ID_483_7090,483,Hamza Sheikh,DHA Phase 1,Tariq,3745.04,1635.38,2025-11-23
+LEG_BILL_ID_484_4409,484,Ahmed Iqbal,DHA Phase 2,Kashif,14691.42,7660.49,2024-06-21
+LEG_BILL_ID_485_2433,485,Usman Chaudhry,Johar Town,Asif,25032.39,19607.35,2025-11-19
+LEG_BILL_ID_486_7457,486,Saad Farooq,DHA Phase 1,Tariq,46348.55,1980.81,2025-03-28
+LEG_BILL_ID_487_6899,487,Ayaan Shah,Clifton Block 5,Imran,31566.28,16530.78,2024-11-20
+LEG_BILL_ID_488_4564,488,Usman Iqbal,Gulshan-e-Iqbal,Tariq,16947.58,14710.89,2025-06-02
+LEG_BILL_ID_489_8945,489,Hassan Butt,DHA Phase 2,Kashif,20361.15,4108.9,2025-03-14
+LEG_BILL_ID_490_8109,490,Zain Butt,Gulshan-e-Iqbal,Tariq,45493.35,26263.37,2025-11-23
+LEG_BILL_ID_491_9464,491,Omar Sheikh,Clifton Block 5,Imran,16221.11,12270.13,2025-12-15
+LEG_BILL_ID_492_8599,492,Hassan Chaudhry,DHA Phase 2,Kashif,45781.01,19104.98,2025-04-06
+LEG_BILL_ID_493_4918,493,Hamza Iqbal,Clifton Block 5,Imran,6072.25,972.33,2024-04-22
+LEG_BILL_ID_494_1954,494,Hassan Malik,DHA Phase 2,Kashif,13768.14,1684.7,2025-05-03
+LEG_BILL_ID_495_6673,495,Ahmed Chaudhry,Model Town,Tariq,8593.9,175.76,2025-06-22
+LEG_BILL_ID_496_9476,496,Ayaan Iqbal,DHA Phase 2,Kashif,39325.78,30272.62,2025-02-04
+LEG_BILL_ID_497_4616,497,Bilal Khan,DHA Phase 2,Kashif,21354.1,7717.18,2024-09-21
+LEG_BILL_ID_498_7476,498,Bilal Ahmed,Cantt Area,Asif,28305.23,24446.03,2025-07-17
+LEG_BILL_ID_499_2218,499,Ayaan Farooq,Defence View,Asif,44934.1,39379.71,2024-09-09
+LEG_BILL_ID_500_4962,500,Hassan Malik,Model Town,Tariq,49901.38,8198.49,2024-11-28
