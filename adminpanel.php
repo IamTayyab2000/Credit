@@ -166,7 +166,7 @@
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0" id='today_sales'>
-                        <thead>
+                        <thead class="bg-light">
                             <tr>
                                 <th>DSR ID</th>
                                 <th>Salesman</th>
@@ -200,12 +200,13 @@
                     <div class="card-header">Standing Credit by Salesman</div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
-                            <table class="table mb-0" id="standing_credit">
-                                <thead>
+                            <table class="table table-hover mb-0" id="standing_credit">
+                                <thead class="bg-light">
                                     <tr>
                                         <th>Salesman</th>
                                         <th>Credit</th>
                                         <th>Actions</th>
+                                        <th>Daily Report</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

@@ -8,9 +8,10 @@ var api = 'functionality/allFunctionality.php';
 const mySuperSaver = new SuperSaver(api);
 const standing_credit = $("#standing_credit").DataTable({
     columns: [
-        { data: "saleman_name" },
-        { data: "Credit" },
+        { title: "Salesman", data: "saleman_name" },
+        { title: "Credit", data: "Credit" },
         {
+            title: "Actions",
             data: null,
             orderable: false,
             searchable: false,
@@ -23,20 +24,42 @@ const standing_credit = $("#standing_credit").DataTable({
                 const name = (row && (row.saleman_name || row.salemanName || '')) || '';
                 return `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
             }
+        },
+        {
+            title: "Daily Report",
+            data: null,
+            orderable: false,
+            searchable: false,
+            defaultContent: '<button class="btn btn-sm btn-success generate-daily-report" data-saleman-id="" data-saleman-name="">Daily Sales Report</button>',
+            render: function (data, type, row) {
+                try {
+                    console.log('standing_credit row:', row);
+                } catch (e) { }
+                const id = (row && (row.saleman_id || row.salemanId || row.saleman)) || '';
+                const name = (row && (row.saleman_name || row.salemanName || '')) || '';
+                return `<button class="btn btn-sm btn-success generate-daily-report" data-saleman-id="${id}" data-saleman-name="${name}">Daily Sales Report</button>`;
+            }
         }
-    ]
-    ,
+    ],
     createdRow: function (row, data, dataIndex) {
         try {
             const id = (data && (data.saleman_id || data.salemanId || data.saleman)) || '';
             const name = (data && (data.saleman_name || data.salemanName || '')) || '';
-            const btn = `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
-            // Ensure the third cell exists (if columns are fewer, append a cell)
+            const creditBtn = `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
+            const dailyBtn = `<button class="btn btn-sm btn-success generate-daily-report" data-saleman-id="${id}" data-saleman-name="${name}">Daily Sales Report</button>`;
+            
+            // Ensure the third and fourth cells exist (if columns are fewer, append cells)
             const $cells = $('td', row);
             if ($cells.length >= 3) {
-                $cells.eq(2).html(btn);
+                $cells.eq(2).html(creditBtn);
             } else {
-                $(row).append($('<td>').html(btn));
+                $(row).append($('<td>').html(creditBtn));
+            }
+            
+            if ($cells.length >= 4) {
+                $cells.eq(3).html(dailyBtn);
+            } else {
+                $(row).append($('<td>').html(dailyBtn));
             }
         } catch (e) {
             console.error('createdRow error', e);
@@ -45,13 +68,13 @@ const standing_credit = $("#standing_credit").DataTable({
 })
 const today_sales = $('#today_sales').DataTable({
     columns: [
-        { data: "picklist_id" },
-        { data: "saleman_name" },
-        { data: "picklist_amount" },
-        { data: "picklist_credit" },
-        { data: "picklist_sceheme_amount" },
-        { data: "picklist_return" },
-        { data: "picklist_recovery" }
+        { title: "DSR ID", data: "picklist_id" },
+        { title: "Salesman", data: "saleman_name" },
+        { title: "Amount", data: "picklist_amount" },
+        { title: "Credit", data: "picklist_credit" },
+        { title: "Scheme", data: "picklist_sceheme_amount" },
+        { title: "Return", data: "picklist_return" },
+        { title: "Received", data: "picklist_recovery" }
     ],
     footerCallback: function (row, data, start, end, display) {
         var api = this.api();
@@ -90,6 +113,18 @@ $(document).on('click', '.generate-report', function (e) {
     window.open(url, '_blank');
 });
 
+// Delegate click for daily report buttons
+$(document).on('click', '.generate-daily-report', function (e) {
+    const salemanId = $(this).data('saleman-id');
+    const salemanName = $(this).data('saleman-name') || '';
+    if (!salemanId) {
+        alert('Salesman id not available');
+        return;
+    }
+    const url = `salesmanDailyReport.php?saleman_id=${encodeURIComponent(salemanId)}&saleman_name=${encodeURIComponent(salemanName)}`;
+    window.open(url, '_blank');
+});
+
 // Debug: log rows after table draw and ensure actions exist
 standing_credit.on('draw', function () {
     try {
@@ -101,13 +136,25 @@ standing_credit.on('draw', function () {
             const $cells = $('td', node);
             const id = (data && (data.saleman_id || data.salemanId || data.saleman)) || '';
             const name = (data && (data.saleman_name || data.salemanName || '')) || '';
-            const btnHtml = `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
+            const creditBtnHtml = `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
+            const dailyBtnHtml = `<button class="btn btn-sm btn-success generate-daily-report" data-saleman-id="${id}" data-saleman-name="${name}">Daily Sales Report</button>`;
+            
+            // Handle credit report button (3rd column)
             if ($cells.length >= 3) {
                 if ($cells.eq(2).text().trim() === '') {
-                    $cells.eq(2).html(btnHtml);
+                    $cells.eq(2).html(creditBtnHtml);
                 }
             } else {
-                $(node).append($('<td>').html(btnHtml));
+                $(node).append($('<td>').html(creditBtnHtml));
+            }
+            
+            // Handle daily report button (4th column)
+            if ($cells.length >= 4) {
+                if ($cells.eq(3).text().trim() === '') {
+                    $cells.eq(3).html(dailyBtnHtml);
+                }
+            } else {
+                $(node).append($('<td>').html(dailyBtnHtml));
             }
         });
     } catch (e) { console.error('draw handler error', e); }
@@ -122,11 +169,21 @@ setTimeout(() => {
             const $cells = $('td', node);
             const id = (data && (data.saleman_id || data.salemanId || data.saleman)) || '';
             const name = (data && (data.saleman_name || data.salemanName || '')) || '';
-            const btn = `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
+            const creditBtn = `<button class="btn btn-sm btn-primary generate-report" data-saleman-id="${id}" data-saleman-name="${name}">Generate Credit Report</button>`;
+            const dailyBtn = `<button class="btn btn-sm btn-success generate-daily-report" data-saleman-id="${id}" data-saleman-name="${name}">Daily Sales Report</button>`;
+            
+            // Handle credit report button (3rd column)
             if ($cells.length >= 3) {
-                if ($cells.eq(2).text().trim() === '') $cells.eq(2).html(btn);
+                if ($cells.eq(2).text().trim() === '') $cells.eq(2).html(creditBtn);
             } else {
-                $(node).append($('<td>').html(btn));
+                $(node).append($('<td>').html(creditBtn));
+            }
+            
+            // Handle daily report button (4th column)
+            if ($cells.length >= 4) {
+                if ($cells.eq(3).text().trim() === '') $cells.eq(3).html(dailyBtn);
+            } else {
+                $(node).append($('<td>').html(dailyBtn));
             }
         });
     } catch (e) { }
