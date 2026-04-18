@@ -36,8 +36,29 @@
         </nav>
     </header>
 
-    <main class="container">
-        <h2 class="page-heading">Daily Sales Report (DSR) Entry</h2>
+        <main class="container">
+                <h2 class="page-heading">Daily Sales Report (DSR) Entry</h2>
+
+                <!-- Modal for Open Credit Warning -->
+                <div class="modal fade" id="openCreditModal" tabindex="-1" aria-labelledby="openCreditModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="openCreditModalLabel">Open Credit Warning</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="openCreditModalBody"></div>
+                                <div id="openCreditBillsList"></div>
+                                <p class="mt-2">This customer has previous open credit bills. Are you sure you want to add a new credit bill for this customer?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-warning" id="proceedAddCreditBill">Proceed Anyway</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
         <div class="row">
             <!-- DSR Header Info -->
@@ -156,6 +177,7 @@
                                             <th class="text-end">Returned</th>
                                             <th class="text-end">Scheme</th>
                                             <th class="text-end">Credit</th>
+                                            <th class="text-end text-danger">Prev. Balance</th>
                                             <th class="text-center">Action</th>
                                         </tr>
                                     </thead>

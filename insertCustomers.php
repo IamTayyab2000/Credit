@@ -46,6 +46,7 @@
                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_set_sector">Set Route</button>
                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_add_sales_person">Add Sales Person</button>
                 <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal_import_from_excel">Import CSV</button>
+                <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal_import_customers">Import Customers</button>
             </div>
         </div>
 
@@ -228,6 +229,39 @@
                             <div class="input-group">
                                 <input type="file" class="form-control" id="csv_file_input" accept=".csv">
                                 <button class="btn btn-primary" id="btn_import_csv">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Import Customers -->
+        <div class="modal fade" id="modal_import_customers" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header bg-light">
+                        <h5 class="modal-title font-weight-bold">Import Customers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="customer_messageBox" class="mb-3" style="display:none;">
+                            <div class="alert d-flex justify-content-between align-items-center">
+                                <div id="customer_messageBody"></div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        </div>
+                        <div id="customer_loading_screen" style="display: none;">
+                            <div class="text-center py-5">
+                                <div class="spinner-border text-primary mb-3"></div>
+                                <p class="text-muted">Importing customers, please wait...</p>
+                            </div>
+                        </div>
+                        <div id="customer_content">
+                            <div class="alert alert-info py-2"><small>Requires: Customer ID, Name, Area, Salesman, Day</small></div>
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="customer_file_input" accept=".csv,.xlsx,.xls">
+                                <button class="btn btn-primary" id="btn_import_customers">Upload</button>
                             </div>
                         </div>
                     </div>

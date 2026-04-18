@@ -367,6 +367,114 @@ $("#btn_import_csv").click(() => {
   });
 });
 
+// Customer Import Handler
+$("#btn_import_customers").click(() => {
+  console.log("Customer import button clicked");
+  let fileInput = $("#customer_file_input")[0];
+  let customerMessageBox = $("#customer_messageBox");
+  let customerMessageBody = $("#customer_messageBody");
+  
+  // Check if a file is selected
+  if (!fileInput.files || fileInput.files.length === 0) {
+    console.log("No file selected");
+    customerMessageBody.text("Please select a file");
+    customerMessageBox.find('.alert').removeClass('alert-success').addClass('alert-danger');
+    customerMessageBox.show();
+    return;
+  }
+
+  let file = fileInput.files[0];
+  console.log("File selected:", file.name);
+
+  // Validate file size (max 5MB)
+  if (file.size > 5 * 1024 * 1024) {
+    console.log("File too large");
+    customerMessageBody.text("File size exceeds 5MB limit");
+    customerMessageBox.find('.alert').removeClass('alert-success').addClass('alert-danger');
+    customerMessageBox.show();
+    return;
+  }
+
+  // Show loading screen and hide content
+  console.log("Showing loading screen");
+  $("#customer_loading_screen").show();
+  $("#customer_content").hide();
+  customerMessageBox.hide();
+
+  // Create FormData object
+  let formData = new FormData();
+  formData.append('customer_file', file);
+
+  // Send file to server
+  $.ajax({
+    url: 'process_customer_import.php',
+    type: 'POST',
+    data: formData,
+    contentType: false,
+    processData: false,
+    dataType: 'json',
+    success: function(response) {
+      console.log("Success response:", response);
+      // Hide loading screen
+      $("#customer_loading_screen").hide();
+      $("#customer_content").show();
+
+      if (response.status === 1) {
+        let message = `<strong>Customer Import Completed Successfully!</strong><br/><br/>
+                      <strong>Records Processed:</strong><br/>
+                      Customers Inserted: ${response.inserted}<br/>
+                      Failed: ${response.failed}<br/>
+                      Total: ${response.total_processed}<br/><br/>
+                      <strong>New Entities Created:</strong><br/>
+                      Salesmen: ${response.salesmen_created}<br/>
+                      Sectors/Areas: ${response.sectors_created}<br/>
+                      Routes: ${response.routes_created}<br/>`;
+        
+        if (response.errors && response.errors.length > 0) {
+          message += '<br/><strong>⚠️ Issues:</strong><br/>' + response.errors.join('<br/>');
+        }
+        
+        customerMessageBody.html(message);
+        customerMessageBox.find('.alert').removeClass('alert-danger').addClass('alert-success');
+        customerMessageBox.show();
+        
+        // Reset file input and reload customer table
+        fileInput.value = '';
+        loadCustomerData();
+        
+        // Close modal after 3 seconds
+        setTimeout(() => {
+          let modal = bootstrap.Modal.getInstance(document.getElementById('modal_import_customers'));
+          if (modal) modal.hide();
+          customerMessageBox.hide();
+        }, 3000);
+      } else {
+        console.log("Import failed:", response.message);
+        customerMessageBody.text('Import failed: ' + response.message);
+        customerMessageBox.find('.alert').removeClass('alert-success').addClass('alert-danger');
+        customerMessageBox.show();
+      }
+    },
+    error: function(xhr, status, error) {
+      console.log("AJAX error:", error);
+      // Hide loading screen
+      $("#customer_loading_screen").hide();
+      $("#customer_content").show();
+
+      customerMessageBody.text('Error: ' + error);
+      customerMessageBox.find('.alert').removeClass('alert-success').addClass('alert-danger');
+      customerMessageBox.show();
+    }
+  });
+});
+
+// Reset customer modal content when it's hidden
+document.getElementById('modal_import_customers').addEventListener('hidden.bs.modal', function () {
+  $("#customer_loading_screen").hide();
+  $("#customer_content").show();
+  $("#customer_file_input")[0].value = '';
+});
+
 // Reset modal content when it's hidden
 document.getElementById('modal_import_from_excel').addEventListener('hidden.bs.modal', function () {
   $("#csv_loading_screen").hide();

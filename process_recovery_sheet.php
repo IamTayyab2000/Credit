@@ -135,9 +135,9 @@ if (!$result) {
                                 <thead class="bg-light">
                                     <tr>
                                         <th class="ps-3 py-2">Bill ID</th>
-                                        <th class="py-2">Date</th>
+                                        <th class="py-2" style="cursor:pointer; user-select:none;" onclick="sortTable(1, 'date')" title="Click to sort">Date &#x21D5;</th>
                                         <th class="py-2">Age</th>
-                                        <th class="py-2">Customer Shop</th>
+                                        <th class="py-2" style="cursor:pointer; user-select:none;" onclick="sortTable(3, 'string')" title="Click to sort">Customer Shop &#x21D5;</th>
                                         <th class="text-end py-2">Amount</th>
                                         <th class="text-center py-2" style="width: 110px;">Recovered</th>
                                         <th class="text-center py-2" style="width: 110px;">Returned</th>
@@ -147,14 +147,14 @@ if (!$result) {
                                 </thead>
                                 <tbody>
                                 <?php
-                                $query="SELECT a.bill_id AS 'ID', a.bill_date AS 'Date', DATEDIFF(NOW(), a.bill_date) AS 'Days', b.customer_name AS 'Shop', a.bill_amount AS 'Amount' FROM `bill` AS a JOIN `customer` AS b ON a.cutomer_id = b.customer_id WHERE a.bill_id IN (SELECT recovery_sheet_bill_id FROM recovery_sheet_detail WHERE recovery_sheet_id = {$rec_id}) ORDER BY `Days` DESC;";
+                                $query="SELECT a.bill_id AS 'ID', a.bill_date AS 'Date', IF(DATEDIFF(NOW(), a.bill_date) < 0, DATEDIFF(NOW(), STR_TO_DATE(CONCAT(YEAR(a.bill_date), '-', DAY(a.bill_date), '-', MONTH(a.bill_date)), '%Y-%m-%d')), DATEDIFF(NOW(), a.bill_date)) AS 'Days', b.customer_name AS 'Shop', a.bill_amount AS 'Amount' FROM `bill` AS a JOIN `customer` AS b ON a.cutomer_id = b.customer_id WHERE a.bill_id IN (SELECT recovery_sheet_bill_id FROM recovery_sheet_detail WHERE recovery_sheet_id = {$rec_id}) ORDER BY `Days` DESC;";
                                 $responce=mysqli_query($conn,$query);
                                 $Total=0;
                                 if($responce){
                                     while($row=mysqli_fetch_assoc($responce)){
                                         echo "<tr>
                                             <td class='ps-3 font-weight-bold'>{$row['ID']}</td>
-                                            <td class='small text-muted'>".date('d/m/y', strtotime($row['Date']))."</td>
+                                            <td class='small text-muted' data-sort='{$row['Date']}'>".date('d/m/y', strtotime($row['Date']))."</td>
                                             <td class='small'><span class='badge badge-compact bg-light text-dark'>{$row['Days']}d</span></td>
                                             <td class='font-weight-bold'>{$row['Shop']}</td>
                                             <td class='text-end' data-amount='{$row['Amount']}'>".number_format($row['Amount'])."</td>
@@ -216,6 +216,36 @@ if (!$result) {
 
     <script src="js/bootstrap.bundle.min.js"></script>
     <script type="module" src="js/process_rec_sheet.js"></script>
+    <script>
+        function sortTable(columnIndex, type) {
+            const table = document.getElementById("recovery_table");
+            const tbody = table.tBodies[0];
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+            
+            let isAscending = table.getAttribute("data-sort-dir") === "asc" && table.getAttribute("data-sort-col") == columnIndex;
+            const direction = isAscending ? -1 : 1;
+            
+            table.setAttribute("data-sort-dir", isAscending ? "desc" : "asc");
+            table.setAttribute("data-sort-col", columnIndex);
+
+            rows.sort((a, b) => {
+                let valA, valB;
+                if (type === 'date') {
+                    valA = a.cells[columnIndex].getAttribute("data-sort") || "";
+                    valB = b.cells[columnIndex].getAttribute("data-sort") || "";
+                } else {
+                    valA = a.cells[columnIndex].innerText.trim().toLowerCase();
+                    valB = b.cells[columnIndex].innerText.trim().toLowerCase();
+                }
+
+                if (valA < valB) return -1 * direction;
+                if (valA > valB) return 1 * direction;
+                return 0;
+            });
+
+            rows.forEach(row => tbody.appendChild(row));
+        }
+    </script>
 </body>
 
 </html>

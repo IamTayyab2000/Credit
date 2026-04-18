@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost","root","","credit");
+$conn = new mysqli("localhost","root","","cred-test");
 $conn->set_charset("utf8mb4");
 
 // Check connection

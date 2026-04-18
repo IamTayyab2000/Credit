@@ -195,8 +195,8 @@ switch ($function_to_call) {
         break;
     case 'Load_customer_table_by_saleman':
         $saleman_id = postData('saleman_id');
-        $query = "SELECT customer_id,customer_name from customer where customer_route in (SELECT route_id from routes)";
-        // echo $query;
+        // Only select customers whose route is assigned to the selected salesman
+        $query = "SELECT c.customer_id, c.customer_name FROM customer c JOIN routes r ON c.customer_route = r.route_id WHERE r.saleman_id = '{$saleman_id}'";
         $responce = read($query);
         echo $responce;
         break;
@@ -537,12 +537,11 @@ switch ($function_to_call) {
         break;
     case 'get_credit_by_saleman':
         // Return salesman id, name and outstanding credit (sum of remaining amounts)
-        $query = "SELECT sl.saleman_id, sl.saleman_name, IFNULL(SUM(COALESCE(bl.remaining_amount, b.bill_amount)),0) AS Credit
+        $query = "SELECT sl.saleman_id, sl.saleman_name, IFNULL(SUM(b.bill_amount),0) AS Credit
                   FROM salesman sl
                   LEFT JOIN routes r ON r.saleman_id = sl.saleman_id
                   LEFT JOIN customer c ON c.customer_route = r.route_id
-                  LEFT JOIN bill b ON b.cutomer_id = c.customer_id
-                  LEFT JOIN bill_ledger bl ON bl.bill_id = b.bill_id
+                  LEFT JOIN bill b ON b.cutomer_id = c.customer_id AND b.Bill_status IN ('INFILE', 'ISSUED')
                   GROUP BY sl.saleman_id, sl.saleman_name;";
         $responce = read($query);
         echo $responce;
@@ -553,14 +552,13 @@ switch ($function_to_call) {
             echo json_encode(['error'=>'saleman_id missing']);
             break;
         }
-        $query = "SELECT COALESCE(s.sector_name,'Unknown') AS area, c.customer_name AS shop_name, b.bill_id, b.bill_date, b.bill_amount, COALESCE(bl.remaining_amount, b.bill_amount) AS remaining_amount, DATEDIFF(CURRENT_DATE, b.bill_date) AS bill_age
+        $query = "SELECT COALESCE(s.sector_name,'Unknown') AS area, c.customer_name AS shop_name, b.bill_id, b.bill_date, b.bill_amount, b.bill_amount AS remaining_amount, IF(DATEDIFF(CURRENT_DATE, b.bill_date) < 0, DATEDIFF(CURRENT_DATE, STR_TO_DATE(CONCAT(YEAR(b.bill_date), '-', DAY(b.bill_date), '-', MONTH(b.bill_date)), '%Y-%m-%d')), DATEDIFF(CURRENT_DATE, b.bill_date)) AS bill_age
                   FROM bill b
-                  LEFT JOIN bill_ledger bl ON bl.bill_id = b.bill_id
                   LEFT JOIN customer c ON b.cutomer_id = c.customer_id
                   LEFT JOIN routes r ON c.customer_route = r.route_id
                   LEFT JOIN sector s ON r.sector_id = s.sector_id
                   LEFT JOIN picklist p ON b.picklist_id = p.picklist_id
-                  WHERE p.picklist_saleman = '{$saleman_id}'
+                  WHERE p.picklist_saleman = '{$saleman_id}' AND b.bill_amount > 0 AND b.Bill_status IN ('INFILE', 'ISSUED')
                   ORDER BY s.sector_name, c.customer_name, b.bill_date DESC;";
         $responce = read($query);
         echo $responce;
@@ -626,12 +624,12 @@ switch ($function_to_call) {
 
         // 1. Key Metrics
         // Total Outstanding
-        $q1 = "SELECT IFNULL(SUM(COALESCE(bl.remaining_amount, b.bill_amount)),0) as total FROM bill b LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id";
+        $q1 = "SELECT IFNULL(SUM(b.bill_amount),0) as total FROM bill b WHERE b.Bill_status IN ('INFILE', 'ISSUED')";
         $r1 = json_decode(read($q1), true);
         $response['outstanding'] = $r1[0]['total'] ?? 0;
 
         // Sales This Month
-        $q2 = "SELECT IFNULL(SUM(bill_amount),0) as total FROM bill WHERE bill_date >= DATE_FORMAT(NOW(), '%Y-%m-01')";
+        $q2 = "SELECT IFNULL(SUM(picklist_credit),0) as total FROM picklist WHERE picklist_date >= DATE_FORMAT(NOW(), '%Y-%m-01')";
         $r2 = json_decode(read($q2), true);
         $response['sales_month'] = $r2[0]['total'] ?? 0;
 
@@ -642,7 +640,7 @@ switch ($function_to_call) {
 
         // 2. Trends (Last 30 Days)
         // Service should merge these in PHP or JS, but sending separate arrays is easier
-        $q4 = "SELECT bill_date as date, SUM(bill_amount) as amount FROM bill WHERE bill_date >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY bill_date ORDER BY bill_date ASC";
+        $q4 = "SELECT picklist_date as date, SUM(picklist_credit) as amount FROM picklist WHERE picklist_date >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY picklist_date ORDER BY picklist_date ASC";
         $response['sales_trend'] = json_decode(read($q4), true);
 
         $q5 = "SELECT recovery_date as date, SUM(recovery_sheet_recovery) as amount FROM recovery_sheet WHERE recovery_date >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY recovery_date ORDER BY recovery_date ASC";
@@ -657,26 +655,24 @@ switch ($function_to_call) {
         $response['top_salesmen'] = json_decode(read($q6), true);
 
         // 4. Sector Performance (Dead Zones - By Outstanding)
-        $q7 = "SELECT s.sector_name, SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as outstanding
+        $q7 = "SELECT s.sector_name, SUM(b.bill_amount) as outstanding
                FROM bill b 
-               LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
                JOIN customer c ON b.cutomer_id = c.customer_id
                JOIN routes r ON c.customer_route = r.route_id
                JOIN sector s ON r.sector_id = s.sector_id
                WHERE b.Bill_status = 'INFILE'
-               GROUP BY s.sector_id
+               GROUP BY s.sector_id, s.sector_name
                ORDER BY outstanding DESC LIMIT 5";
         $response['dead_zones'] = json_decode(read($q7), true);
 
         // 5. Top Defaulters (Customers with high outstanding)
-        $q8 = "SELECT c.customer_name, SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as outstanding, s.sector_name
+        $q8 = "SELECT c.customer_name, SUM(b.bill_amount) as outstanding, s.sector_name
                FROM bill b
-               LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
                JOIN customer c ON b.cutomer_id = c.customer_id
                JOIN routes r ON c.customer_route = r.route_id
                JOIN sector s ON r.sector_id = s.sector_id
                WHERE b.Bill_status = 'INFILE'
-               GROUP BY c.customer_id
+               GROUP BY c.customer_id, c.customer_name, s.sector_name
                ORDER BY outstanding DESC LIMIT 5";
         $response['top_defaulters'] = json_decode(read($q8), true);
 
@@ -684,16 +680,14 @@ switch ($function_to_call) {
         // Note: usage of complex subqueries or separate processing might be needed for perfect accuracy, 
         // but here is a simplified approach fetching totals per salesman.
         $q9 = "SELECT s.saleman_name, 
-                      IFNULL(SUM(b.bill_amount),0) as sales,
+                      IFNULL(SUM(p.picklist_credit),0) as sales,
                       (SELECT IFNULL(SUM(rs.recovery_sheet_recovery),0) 
                        FROM recovery_sheet rs 
                        WHERE rs.recovery_sheet_saleman_id = s.saleman_id 
                        AND rs.recovery_date >= DATE_FORMAT(NOW(), '%Y-%m-01')) as recovery
                FROM salesman s
-               LEFT JOIN routes r ON r.saleman_id = s.saleman_id
-               LEFT JOIN customer c ON c.customer_route = r.route_id
-               LEFT JOIN bill b ON b.cutomer_id = c.customer_id 
-                               AND b.bill_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+               LEFT JOIN picklist p ON p.picklist_saleman = s.saleman_id 
+                               AND p.picklist_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
                GROUP BY s.saleman_id";
         $salesman_stats = json_decode(read($q9), true);
         $efficiency = [];
@@ -718,9 +712,8 @@ switch ($function_to_call) {
                         WHEN DATEDIFF(NOW(), bill_date) <= 90 THEN '61-90 Days'
                         ELSE '90+ Days'
                     END as age_bucket,
-                    SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as total_outstanding
+                    SUM(b.bill_amount) as total_outstanding
                 FROM bill b
-                LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
                 WHERE b.Bill_status = 'INFILE'
                 GROUP BY age_bucket";
         $response['aging_analysis'] = json_decode(read($q10), true);
@@ -728,13 +721,12 @@ switch ($function_to_call) {
         // 8. At-Risk Customers (Inactive > 60 days with Debt)
         // Logic: Has outstanding debt AND Max(Bill Date) < 60 days ago
         $q11 = "SELECT c.customer_name, 
-                       SUM(COALESCE(bl.remaining_amount, b.bill_amount)) as outstanding,
+                       SUM(b.bill_amount) as outstanding,
                        MAX(b.bill_date) as last_bill
                 FROM bill b
-                LEFT JOIN bill_ledger bl ON b.bill_id = bl.bill_id
                 JOIN customer c ON b.cutomer_id = c.customer_id
                 WHERE b.Bill_status = 'INFILE'
-                GROUP BY c.customer_id
+                GROUP BY c.customer_id, c.customer_name
                 HAVING last_bill < DATE_SUB(NOW(), INTERVAL 60 DAY)
                 ORDER BY outstanding DESC LIMIT 10";
         $response['at_risk_customers'] = json_decode(read($q11), true);
@@ -742,6 +734,34 @@ switch ($function_to_call) {
 
 
         echo json_encode($response);
+        break;
+        
+    case 'get_backup_settings':
+        include_once('backup_logic.php');
+        $settings = get_backup_settings();
+        echo json_encode($settings);
+        break;
+
+    case 'update_backup_settings':
+        include_once('backup_logic.php');
+        $path = postData('backup_path');
+        $auto = postData('auto_backup');
+        $frequency = postData('backup_frequency_hours');
+        
+        $result = update_backup_settings($path, $auto, $frequency);
+        echo json_encode(['success' => $result]);
+        break;
+
+    case 'execute_manual_backup':
+        include_once('backup_logic.php');
+        $result = perform_backup(true);
+        echo json_encode($result);
+        break;
+        
+    case 'check_auto_backup':
+        include_once('backup_logic.php');
+        $result = check_and_run_auto_backup();
+        echo json_encode($result);
         break;
 
     default:

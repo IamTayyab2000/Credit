@@ -75,14 +75,13 @@ if(empty($saleman_id)){
     exit;
 }
 
-$query = "SELECT COALESCE(s.sector_name,'Unknown') AS area, c.customer_name AS shop_name, b.bill_id, b.bill_date, b.bill_amount, COALESCE(bl.remaining_amount, b.bill_amount) AS remaining_amount, DATEDIFF(CURRENT_DATE, b.bill_date) AS bill_age
+$query = "SELECT COALESCE(s.sector_name,'Unknown') AS area, c.customer_name AS shop_name, b.bill_id, b.bill_date, b.bill_amount, b.bill_amount AS remaining_amount, IF(DATEDIFF(CURRENT_DATE, b.bill_date) < 0, DATEDIFF(CURRENT_DATE, STR_TO_DATE(CONCAT(YEAR(b.bill_date), '-', DAY(b.bill_date), '-', MONTH(b.bill_date)), '%Y-%m-%d')), DATEDIFF(CURRENT_DATE, b.bill_date)) AS bill_age
           FROM bill b
-          LEFT JOIN bill_ledger bl ON bl.bill_id = b.bill_id
           LEFT JOIN customer c ON b.cutomer_id = c.customer_id
           LEFT JOIN routes r ON c.customer_route = r.route_id
           LEFT JOIN sector s ON r.sector_id = s.sector_id
           LEFT JOIN picklist p ON b.picklist_id = p.picklist_id
-          WHERE p.picklist_saleman = '{$saleman_id}'
+          WHERE p.picklist_saleman = '{$saleman_id}' AND b.bill_amount > 0 AND b.Bill_status IN ('INFILE', 'ISSUED')
           ORDER BY s.sector_name, c.customer_name, b.bill_date DESC;";
 
 $res = $conn->query($query);

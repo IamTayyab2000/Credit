@@ -215,6 +215,50 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col-lg-6">
+                <div class="card h-100 border-primary">
+                    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold">Backup Settings (Google Drive Sync)</span>
+                        <button class="btn btn-sm btn-light font-weight-bold" id="btn_backup_now">Backup Now</button>
+                    </div>
+                    <div class="card-body">
+                        <form id="backupSettingsForm">
+                            <div class="mb-3">
+                                <label for="backup_path" class="form-label font-weight-bold small">Local Backup Path</label>
+                                <input type="text" class="form-control" id="backup_path" required placeholder="e.g. G:\My Drive\Backups">
+                                <small class="text-muted">Ensure this path exists. If using Google Drive for Desktop, point this to your My Drive folder to auto-sync.</small>
+                            </div>
+                            <div class="row mb-3 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch mt-2">
+                                        <input class="form-check-input" type="checkbox" id="auto_backup" style="cursor:pointer">
+                                        <label class="form-check-label font-weight-bold small" for="auto_backup" style="cursor:pointer">Enable Auto-Backup</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="backup_frequency_hours" class="form-label font-weight-bold small mb-1">Frequency (Hours)</label>
+                                    <select class="form-select" id="backup_frequency_hours">
+                                        <option value="1">Every 1 Hour</option>
+                                        <option value="6">Every 6 Hours</option>
+                                        <option value="12">Every 12 Hours</option>
+                                        <option value="24" selected>Daily (24 Hours)</option>
+                                        <option value="48">Every 2 Days (48 Hours)</option>
+                                        <option value="168">Weekly (168 Hours)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
+                                <div>
+                                    <span class="small font-weight-bold text-muted d-block">Last Backup:</span>
+                                    <span class="small text-primary" id="last_backup_time">Never</span>
+                                </div>
+                                <button type="submit" class="btn btn-success px-4" id="btn_save_backup_settings">Save Settings</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Feedback UI -->

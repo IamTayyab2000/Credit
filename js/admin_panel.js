@@ -400,4 +400,82 @@ function loadDashboardAnalytics() {
 // Load dashboard on page ready
 $(document).ready(function () {
     loadDashboardAnalytics();
+    loadBackupSettings();
+    
+    // Auto backup check silently in the background
+    $.post(api, { function_to_call: 'check_auto_backup' }, function(res){
+        try {
+            console.log("Auto Backup Check:", JSON.parse(res));
+        } catch(e) {}
+    });
+});
+
+// --- Backup Settings Feature ---
+function loadBackupSettings() {
+    $.post(api, { function_to_call: 'get_backup_settings' }, function(response) {
+        try {
+            const settings = JSON.parse(response);
+            if(settings) {
+                $('#backup_path').val(settings.backup_path);
+                $('#auto_backup').prop('checked', settings.auto_backup == 1);
+                $('#backup_frequency_hours').val(settings.backup_frequency_hours);
+                
+                if (settings.last_backup_time) {
+                    $('#last_backup_time').text(settings.last_backup_time);
+                }
+            }
+        } catch(e) {
+            console.error("Error loading backup settings", e);
+        }
+    });
+}
+
+$('#backupSettingsForm').on('submit', function(e) {
+    e.preventDefault();
+    const btn = $('#btn_save_backup_settings');
+    const originalText = btn.text();
+    btn.text('Saving...').prop('disabled', true);
+    
+    const data = {
+        function_to_call: 'update_backup_settings',
+        backup_path: $('#backup_path').val(),
+        auto_backup: $('#auto_backup').prop('checked') ? 1 : 0,
+        backup_frequency_hours: $('#backup_frequency_hours').val()
+    };
+    
+    $.post(api, data, function(response) {
+        btn.text(originalText).prop('disabled', false);
+        try {
+            const res = JSON.parse(response);
+            if(res.success) {
+                alert('Backup settings saved successfully.');
+            } else {
+                alert('Failed to save backup settings.');
+            }
+        } catch(e) {
+            alert('Error saving settings.');
+        }
+    });
+});
+
+$('#btn_backup_now').on('click', function() {
+    const btn = $(this);
+    const originalText = btn.text();
+    btn.text('Backing up...').prop('disabled', true);
+    
+    $.post(api, { function_to_call: 'execute_manual_backup' }, function(response) {
+        btn.text(originalText).prop('disabled', false);
+        try {
+            const res = JSON.parse(response);
+            if(res.status === 'success') {
+                alert(res.message);
+                loadBackupSettings(); // Refresh last backup time
+            } else {
+                alert('Error: ' + res.message);
+            }
+        } catch(e) {
+            alert('An unexpected error occurred during backup.');
+            console.error(response);
+        }
+    });
 });

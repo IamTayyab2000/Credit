@@ -96,17 +96,39 @@ if(empty($saleman_id)){
 }
 
 // Query to get daily sales data
-$query = "SELECT 
-    p.picklist_date as date,
-    DAYNAME(p.picklist_date) as day_name,
-    p.picklist_amount as dsr,
-    p.picklist_credit as credit,
-    p.picklist_recovery as recovery,
-    p.picklist_return as return_amount
-FROM picklist p
-WHERE p.picklist_saleman = '{$saleman_id}' 
-    AND DATE_FORMAT(p.picklist_date, '%Y-%m') = '{$selected_month}'
-ORDER BY p.picklist_date";
+$query = "
+SELECT 
+    d.date,
+    DAYNAME(d.date) as day_name,
+    SUM(d.dsr) as dsr,
+    SUM(d.credit) as credit,
+    SUM(d.recovery) as recovery,
+    SUM(d.return_amount) as return_amount
+FROM (
+    SELECT 
+        picklist_date as date,
+        picklist_amount as dsr,
+        picklist_credit as credit,
+        picklist_recovery as recovery,
+        picklist_return as return_amount
+    FROM picklist
+    WHERE picklist_saleman = '{$saleman_id}' 
+        AND DATE_FORMAT(picklist_date, '%Y-%m') = '{$selected_month}'
+    
+    UNION ALL
+    
+    SELECT 
+        recovery_date as date,
+        0 as dsr,
+        0 as credit,
+        recovery_sheet_recovery as recovery,
+        IFNULL(recovery_sheet_returned, 0) as return_amount
+    FROM recovery_sheet
+    WHERE recovery_sheet_saleman_id = '{$saleman_id}'
+        AND DATE_FORMAT(recovery_date, '%Y-%m') = '{$selected_month}'
+) d
+GROUP BY d.date
+ORDER BY d.date";
 
 $res = $conn->query($query);
 if(!$res){
@@ -115,6 +137,7 @@ if(!$res){
 }
 
 $daily_data = [];
+
 $month_totals = [
     'dsr' => 0,
     'credit' => 0,
@@ -123,6 +146,53 @@ $month_totals = [
     'return' => 0,
     'new_credit' => 0
 ];
+
+
+// --- Calculate Opening Credit (previous month's closing credit) ---
+$last_month = date('Y-m', strtotime($selected_month . '-01 -1 month'));
+$prev_query = "
+SELECT 
+    d.date,
+    SUM(d.dsr) as dsr,
+    SUM(d.credit) as credit,
+    SUM(d.recovery) as recovery,
+    SUM(d.return_amount) as return_amount
+FROM (
+    SELECT 
+        picklist_date as date,
+        picklist_amount as dsr,
+        picklist_credit as credit,
+        picklist_recovery as recovery,
+        picklist_return as return_amount
+    FROM picklist
+    WHERE picklist_saleman = '{$saleman_id}' 
+        AND DATE_FORMAT(picklist_date, '%Y-%m') = '{$last_month}'
+    UNION ALL
+    SELECT 
+        recovery_date as date,
+        0 as dsr,
+        0 as credit,
+        recovery_sheet_recovery as recovery,
+        IFNULL(recovery_sheet_returned, 0) as return_amount
+    FROM recovery_sheet
+    WHERE recovery_sheet_saleman_id = '{$saleman_id}'
+        AND DATE_FORMAT(recovery_date, '%Y-%m') = '{$last_month}'
+) d
+GROUP BY d.date
+ORDER BY d.date";
+
+$prev_res = $conn->query($prev_query);
+$opening_credit = 0;
+if ($prev_res) {
+    while($row = $prev_res->fetch_assoc()) {
+        $credit = floatval($row['credit']);
+        $recovery = floatval($row['recovery']);
+        $return_amt = floatval($row['return_amount']);
+        $new_credit = $credit - $recovery - $return_amt;
+        $opening_credit += $new_credit;
+    }
+}
+
 
 while($row = $res->fetch_assoc()){
     $dsr = floatval($row['dsr']);
@@ -187,6 +257,7 @@ echo "<h3>Daily Sales Report - " . htmlspecialchars($saleman_name ?: $saleman_id
 echo "<p><strong>Month: {$month_name} {$year}</strong></p>";
 echo "</div>";
 
+
 // Main Table
 echo "<div class='card shadow-sm border-0'>";
 echo "<div class='card-body p-0'>";
@@ -207,25 +278,54 @@ echo "</thead>";
 echo "<tbody>";
 
 if(empty($daily_data)){
+    // Show opening credit row even if no data
+    echo "<tr class='total-row'>";
+    echo "<td colspan='7' class='text-end'><strong>Opening Credit</strong></td>";
+    echo "<td class='text-end'><strong>" . number_format($opening_credit, 2) . "</strong></td>";
+    echo "</tr>";
     echo "<tr><td colspan='8' class='text-center py-4 text-muted'>No sales data found for this month.</td></tr>";
 } else {
+    // Opening credit row
+    echo "<tr class='total-row'>";
+    echo "<td colspan='7' class='text-end'><strong>Opening Credit</strong></td>";
+    echo "<td class='text-end'><strong>" . number_format($opening_credit, 2) . "</strong></td>";
+    echo "</tr>";
+
+    $first_row = true;
     foreach($daily_data as $day){
         $row_class = ($day['day'] == 'Sunday') ? 'day-sunday' : '';
         $date_formatted = date('m/d/Y', strtotime($day['date']));
-        
+
+        $dsr = $day['dsr'];
+        $credit = $day['credit'];
+        $supply_cash = $day['supply_cash'];
+        $recovery = $day['recovery'];
+        $return_amt = $day['return'];
+        $new_credit = $day['new_credit'];
+
+        if ($first_row) {
+            // Add opening credit to first day's credit and new_credit
+            $credit_display = $credit + $opening_credit;
+            $new_credit_display = $credit + $opening_credit - $recovery - $return_amt;
+        } else {
+            $credit_display = $credit;
+            $new_credit_display = $new_credit;
+        }
+
         echo "<tr class='{$row_class}'>";
         echo "<td>{$date_formatted}</td>";
         echo "<td>{$day['day']}</td>";
-        echo "<td class='text-end'>" . number_format($day['dsr'], 2) . "</td>";
-        echo "<td class='text-end'>" . number_format($day['credit'], 2) . "</td>";
-        echo "<td class='text-end'>" . number_format($day['supply_cash'], 2) . "</td>";
-        echo "<td class='text-end'>" . number_format($day['recovery'], 2) . "</td>";
-        echo "<td class='text-end'>" . number_format($day['return'], 2) . "</td>";
-        echo "<td class='text-end'>" . number_format($day['new_credit'], 2) . "</td>";
+        echo "<td class='text-end'>" . number_format($dsr, 2) . "</td>";
+        echo "<td class='text-end'>" . number_format($credit_display, 2) . ($first_row && $opening_credit != 0 ? "<br><span class='text-muted' style='font-size:10px'>(+Opening)</span>" : "") . "</td>";
+        echo "<td class='text-end'>" . number_format($supply_cash, 2) . "</td>";
+        echo "<td class='text-end'>" . number_format($recovery, 2) . "</td>";
+        echo "<td class='text-end'>" . number_format($return_amt, 2) . "</td>";
+        echo "<td class='text-end'>" . number_format($new_credit_display, 2) . ($first_row && $opening_credit != 0 ? "<br><span class='text-muted' style='font-size:10px'>(+Opening)</span>" : "") . "</td>";
         echo "</tr>";
+        $first_row = false;
     }
-    
     // Totals row
+    $final_credit = $opening_credit + $month_totals['new_credit'];
     echo "<tr class='total-row'>";
     echo "<td colspan='2' class='text-end'><strong>MONTH TOTAL</strong></td>";
     echo "<td class='text-end'><strong>" . number_format($month_totals['dsr'], 2) . "</strong></td>";
@@ -233,7 +333,7 @@ if(empty($daily_data)){
     echo "<td class='text-end'><strong>" . number_format($month_totals['supply_cash'], 2) . "</strong></td>";
     echo "<td class='text-end'><strong>" . number_format($month_totals['recovery'], 2) . "</strong></td>";
     echo "<td class='text-end'><strong>" . number_format($month_totals['return'], 2) . "</strong></td>";
-    echo "<td class='text-end'><strong>" . number_format($month_totals['new_credit'], 2) . "</strong></td>";
+    echo "<td class='text-end'><strong>" . number_format($final_credit, 2) . "</strong></td>";
     echo "</tr>";
 }
 

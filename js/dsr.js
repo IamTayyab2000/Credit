@@ -73,6 +73,7 @@ const creditors_table = $("#creditors_table").DataTable({
     { data: "bill_returned", title: "Returned", className: "text-end" },
     { data: "bill_scheme", title: "Scheme", className: "text-end" },
     { data: "credit_amount", title: "Credit", className: "text-end font-weight-bold" },
+    { data: "prev_balance", title: "Prev. Balance", className: "text-end text-danger" },
     {
       data: null,
       title: "Action",
@@ -85,6 +86,11 @@ const creditors_table = $("#creditors_table").DataTable({
       },
     },
   ],
+  rowCallback: function(row, data) {
+    if (data.prev_balance && parseFloat(data.prev_balance) > 0) {
+      $(row).addClass('table-danger');
+    }
+  }
 });
 
 let api = "functionality/allFunctionality.php";
@@ -136,7 +142,7 @@ $("#saleman_name_selector").on("change", () => {
 $("#customer_id").on("input", () => {
   var inputValue = $("#customer_id").val();
   var selectedCustomer = customer_list.find(function (item) {
-    return item.customer_id === inputValue.toUpperCase();
+    return item.customer_id === inputValue;
   });
 
   if (selectedCustomer) {
@@ -146,17 +152,46 @@ $("#customer_id").on("input", () => {
   }
 });
 
-$("#btn_add_creditor_to_table").click(() => {
-  let c_id = bill_customer_id.val();
-  let c_name = bill_customer_name.val();
-  let b_total = parseFloat(bill_total.val()) || 0;
-  let b_recovered = parseFloat(bill_recovered.val()) || 0;
-  let b_returned = parseFloat(bill_returned.val()) || 0;
-  let b_scheme = parseFloat(bill_scheme.val()) || 0;
-  let cr_amount = parseFloat(bill_credit_val.val()) || 0;
-  let p_id = picklist_id.val();
-  let inv_id = bill_invoice_id.val();
-  let inv_date = picklist_date.val();
+
+let pendingAddBillData = null;
+
+function getCurrentBillData() {
+  return {
+    picklist_id: picklist_id.val(),
+    invoice_date: picklist_date.val(),
+    invoice_id: bill_invoice_id.val(),
+    customer_id: bill_customer_id.val(),
+    customer_name: bill_customer_name.val(),
+    bill_total: parseFloat(bill_total.val()) || 0,
+    bill_recovered: parseFloat(bill_recovered.val()) || 0,
+    bill_returned: parseFloat(bill_returned.val()) || 0,
+    bill_scheme: parseFloat(bill_scheme.val()) || 0,
+    credit_amount: parseFloat(bill_credit_val.val()) || 0,
+  };
+}
+
+function tryAddCreditBill(billData) {
+  let c_id = billData.customer_id;
+  let c_name = billData.customer_name;
+  let b_total = billData.bill_total;
+  let b_recovered = billData.bill_recovered;
+  let b_returned = billData.bill_returned;
+  let b_scheme = billData.bill_scheme;
+  let cr_amount = billData.credit_amount;
+  let p_id = billData.picklist_id;
+  let inv_id = billData.invoice_id;
+  let inv_date = billData.invoice_date;
+
+  // Only allow adding if customer is in the filtered list
+  var selectedCustomer = customer_list.find(function (item) {
+    return item.customer_id === c_id;
+  });
+  if (!selectedCustomer) {
+    alert("Selected customer is not valid for the chosen salesman.");
+    bill_customer_id.val("");
+    bill_customer_name.val("");
+    return;
+  }
 
   if (customer_json.some((item) => item.invoice_id === inv_id)) {
     alert("Invoice ID already exists in the list.");
@@ -169,19 +204,7 @@ $("#btn_add_creditor_to_table").click(() => {
   ) {
     alert("Please fill all mandatory fields (ID, Date, Invoice, Customer, Total)");
   } else {
-    let data = {
-      picklist_id: p_id,
-      invoice_date: inv_date,
-      invoice_id: inv_id,
-      customer_id: c_id,
-      customer_name: c_name,
-      bill_total: b_total,
-      bill_recovered: b_recovered,
-      bill_returned: b_returned,
-      bill_scheme: b_scheme,
-      credit_amount: cr_amount,
-    };
-    customer_json.push(data);
+    customer_json.push(billData);
     calculatePicklistTotals();
 
     // Clear per-bill input fields
@@ -195,6 +218,34 @@ $("#btn_add_creditor_to_table").click(() => {
     bill_credit_val.val("");
 
     mySuperSaver.LoadDataTableFromJSON(creditors_table, customer_json);
+  }
+}
+
+
+$("#btn_add_creditor_to_table").click(() => {
+  let c_id = bill_customer_id.val();
+  if (!c_id) {
+    alert("Please enter/select a customer ID first.");
+    return;
+  }
+  // Check for open credit bills via AJAX
+  const billData = getCurrentBillData();
+  $.get('check_open_credit.php', { customer_id: c_id }, function(response) {
+    let prev_balance = 0;
+    if (response.has_open_credit && response.open_bills.length > 0) {
+      prev_balance = response.open_bills.reduce((sum, bill) => sum + parseFloat(bill.outstanding), 0);
+    }
+    billData.prev_balance = prev_balance > 0 ? prev_balance.toFixed(2) : '';
+    tryAddCreditBill(billData);
+  }, 'json');
+});
+
+// Modal proceed button
+$("#proceedAddCreditBill").click(function() {
+  $("#openCreditModal").modal('hide');
+  if (pendingAddBillData) {
+    tryAddCreditBill(pendingAddBillData);
+    pendingAddBillData = null;
   }
 });
 

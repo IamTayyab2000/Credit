@@ -271,53 +271,6 @@ else{
                 padding: 4px 3px;
                 font-size: 9pt;
             }
-            
-            .footer-note {
-                page-break-inside: avoid;
-                margin-top: 8px;
-                padding: 6px 8px;
-                font-size: 8pt;
-                line-height: 1.3;
-            }
-            
-            .footer-note h4 {
-                font-size: 9pt;
-                margin-bottom: 3px;
-            }
-            
-            .footer-note p {
-                margin: 2px 0;
-            }
-        }
-
-        .footer-note {
-            margin-top: 25px;
-            padding: 15px 20px;
-            background: #fff3cd;
-            border-left: 4px solid #ff9800;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .footer-note h4 {
-            margin: 0 0 10px 0;
-            color: #856404;
-            font-size: 13pt;
-            font-weight: 600;
-        }
-
-        .footer-note p {
-            margin: 8px 0;
-            color: #533f03;
-            font-size: 11pt;
-            line-height: 1.6;
-        }
-
-        .footer-note p.urdu {
-            direction: rtl;
-            text-align: right;
-            font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-            font-size: 12pt;
         }
     </style>
 </head>
@@ -343,16 +296,15 @@ else{
             <th>Bill ID</th>
             <th>DATE</th>
             <th>Days</th>
+            <th>Shop id</th>
             <th>Shop</th>
+            <th>Actual Amount</th>
             <th>Amount</th>
             <th>Recovered</th>
-            <th>Return</th>
-            <th>Remaining</th>
-            <th>BF/NILL/Return</th>
         </thead>
         <tbody>
             <?php
-            $query="SELECT a.bill_id AS 'ID', a.bill_date AS 'Date', DATEDIFF(NOW(), a.bill_date) AS 'Days', b.customer_name AS 'Shop', a.bill_amount AS 'Amount' FROM `bill` AS a JOIN `customer` AS b ON a.cutomer_id = b.customer_id WHERE a.bill_id IN (SELECT recovery_sheet_bill_id FROM recovery_sheet_detail WHERE recovery_sheet_id = {$rec_id}) ORDER BY `Days` DESC;";
+            $query="SELECT a.bill_id AS 'ID', a.bill_date AS 'Date', IF(DATEDIFF(NOW(), a.bill_date) < 0, DATEDIFF(NOW(), STR_TO_DATE(CONCAT(YEAR(a.bill_date), '-', DAY(a.bill_date), '-', MONTH(a.bill_date)), '%Y-%m-%d')), DATEDIFF(NOW(), a.bill_date)) AS 'Days', b.customer_id AS 'Shop_id', b.customer_name AS 'Shop', bl.bill_amount AS 'Actual Amount', a.bill_amount AS 'Amount' FROM `bill` AS a JOIN `customer` AS b ON a.cutomer_id = b.customer_id LEFT JOIN (SELECT bill_id, MAX(bill_amount) as bill_amount FROM `bill_ledger` GROUP BY bill_id) AS bl ON a.bill_id = bl.bill_id WHERE a.bill_id IN (SELECT recovery_sheet_bill_id FROM recovery_sheet_detail WHERE recovery_sheet_id = {$rec_id}) ORDER BY `Days` DESC;";
             //echo $query;
             //print_r($query);
             $responce=mysqli_query($conn,$query);
@@ -363,11 +315,10 @@ else{
                         <td>{$row['ID']}</td>
                         <td>{$row['Date']}</td>
                         <td>{$row['Days']}</td>
+                        <td>{$row['Shop_id']}</td>
                         <td>{$row['Shop']}</td>
+                        <td>{$row['Actual Amount']}</td>
                         <td>{$row['Amount']}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
                         <td></td>
                     <tr>";
                     $Total+=(int)$row['Amount'];
@@ -380,21 +331,14 @@ else{
                 <th></th>
                 <th></th>
                 <th></th>
+                <th></th>
                 <th>Total</th>
                 <th><?php echo $Total; ?></th>
-                <th></th>
-                <th></th>
                 <th></th>
                 <th></th>
             </tr>
         </tfoot>
     </table>
-    
-    <div class="footer-note">
-        <h4>⚠️ Important Billing Instructions / اہم بلنگ ہدایات</h4>
-        <p><strong>English:</strong> No double billing allowed. Only bill existing customers in the system. New customers must be billed in cash with their information added to the billing system immediately.</p>
-        <p class="urdu"><strong>اردو:</strong> ڈبل بلنگ کی اجازت نہیں۔ صرف سسٹم میں موجود کسٹمرز کو بل کریں۔ نئے کسٹمرز کو نقد بل کریں اور فوری طور پر ان کی معلومات بلنگ سسٹم میں شامل کریں۔</p>
-    </div>
     </div>
 </body>
 
