@@ -5,12 +5,16 @@ include_once('functionality/components/crud.php');
 // Helper to safely echo HTML
 function h($s){ return htmlspecialchars($s, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
 
-$rec_id = $_GET["rec_id"];
+$rec_id = filter_var($_GET["rec_id"] ?? null, FILTER_VALIDATE_INT);
+if (!$rec_id) {
+    http_response_code(400);
+    exit('A valid recovery sheet ID is required.');
+}
 $query="SELECT
 CASE
     WHEN sheet_status = '1' THEN TRUE
     WHEN sheet_status = '0' THEN FALSE
-END AS Processed
+END AS Processed, correction_status AS CorrectionStatus
 FROM
 recovery_sheet
 WHERE
@@ -18,12 +22,9 @@ recovery_id ={$rec_id} ";
 $responce=read($query);
 $responce=json_decode($responce,true);
 //echo ;
-if($responce[0]['Processed']){
-    echo '<script>
-    alert("Processed Recovery Sheet can not be accessed...");
-    window.close();
-    
-    </script>';
+if(empty($responce) || $responce[0]['Processed'] || $responce[0]['CorrectionStatus'] !== 'ACTIVE'){
+    http_response_code(409);
+    exit('This recovery sheet is processed, rolled back, or unavailable.');
 }
 $query = 'SELECT a.recovery_id As "ID",b.saleman_name AS "Saleman",a.recovery_date As "Date",a.recovery_sheet_amount As "Amount",a.recovery_sheet_recovery As "Recoverd",a.sheet_status As "Status" from recovery_sheet as a left join salesman as b on a.recovery_sheet_saleman_id=b.saleman_id where a.recovery_id=' . $rec_id;
 $result = mysqli_query($conn, $query);
@@ -76,26 +77,7 @@ if (!$result) {
 
 <body class="bg-light">
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm mb-3">
-            <div class="container">
-                <a class="navbar-brand font-weight-bold py-1" href="adminpanel.php">
-                    <span class="text-primary">CREDIT</span> SYSTEM
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link py-1" href="adminpanel.php">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link py-1" href="creditReport.php">Reports</a></li>
-                        <li class="nav-item"><a class="nav-link py-1 active" href="insertDSR.php">DSR Entry</a></li>
-                        <li class="nav-item"><a class="nav-link py-1" href="insertCustomers.php">Customers</a></li>
-                        <li class="nav-item"><a class="nav-link py-1" href="IssueBills.php">Issue Bills</a></li>
-                        <li class="nav-item"><a class="nav-link py-1" href="generate_recovery_sheet.php">Recovery</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <?php include('functionality/components/admin_nav.php'); ?>
     </header>
 
     <main class="container mb-4">
@@ -130,11 +112,33 @@ if (!$result) {
                         <span class="badge badge-compact bg-soft-info text-info">Pending Finalization</span>
                     </div>
                     <div class="card-body p-0">
+                        <div class="d-flex flex-wrap align-items-end gap-2 border-bottom bg-light p-2">
+                            <div class="small text-muted me-auto"><span id="selected_bill_count">0</span> bills selected</div>
+                            <div>
+                                <label class="form-label small mb-1" for="bulk_action">Bulk action</label>
+                                <select class="form-select form-select-compact" id="bulk_action">
+                                    <option value="">Choose action</option>
+                                    <option value="recover_remaining">Recover remaining</option>
+                                    <option value="return_remaining">Return remaining</option>
+                                    <option value="set_status">Set status</option>
+                                </select>
+                            </div>
+                            <div id="bulk_status_wrap" hidden>
+                                <label class="form-label small mb-1" for="bulk_status">Status</label>
+                                <select class="form-select form-select-compact" id="bulk_status">
+                                    <option value="0">Active</option>
+                                    <option value="BF">B/F (Keep)</option>
+                                    <option value="Nill">Closed (Nill)</option>
+                                    <option value="Return">Returned</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-outline-primary btn-sm" id="btn-apply-bulk" type="button">Apply</button>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-hover table-sm align-middle mb-0" id='recovery_table' style="font-size: 0.85rem;">
                                 <thead class="bg-light">
                                     <tr>
-                                        <th class="ps-3 py-2">Bill ID</th>
+                                        <th class="ps-3 py-2"><input class="form-check-input me-1" type="checkbox" id="select_all_bills" aria-label="Select all bills">Bill ID</th>
                                         <th class="py-2" style="cursor:pointer; user-select:none;" onclick="sortTable(1, 'date')" title="Click to sort">Date &#x21D5;</th>
                                         <th class="py-2">Age</th>
                                         <th class="py-2" style="cursor:pointer; user-select:none;" onclick="sortTable(3, 'string')" title="Click to sort">Customer Shop &#x21D5;</th>
@@ -153,16 +157,16 @@ if (!$result) {
                                 if($responce){
                                     while($row=mysqli_fetch_assoc($responce)){
                                         echo "<tr>
-                                            <td class='ps-3 font-weight-bold'>{$row['ID']}</td>
+                                            <td class='ps-3 font-weight-bold'><input class='form-check-input me-1 bill-select' type='checkbox' aria-label='Select bill {$row['ID']}'>{$row['ID']}</td>
                                             <td class='small text-muted' data-sort='{$row['Date']}'>".date('d/m/y', strtotime($row['Date']))."</td>
                                             <td class='small'><span class='badge badge-compact bg-light text-dark'>{$row['Days']}d</span></td>
                                             <td class='font-weight-bold'>{$row['Shop']}</td>
                                             <td class='text-end' data-amount='{$row['Amount']}'>".number_format($row['Amount'])."</td>
                                             <td>
-                                                <input type='number' class='form-control form-control-compact text-center btn-recovery' placeholder='0'>
+                                                <input type='number' min='0' step='1' class='form-control form-control-compact text-center btn-recovery' placeholder='0'>
                                             </td>
                                             <td>
-                                                <input type='number' class='form-control form-control-compact text-center btn-returned' placeholder='0'>
+                                                <input type='number' min='0' step='1' class='form-control form-control-compact text-center btn-returned' placeholder='0'>
                                             </td>
                                             <td class='text-end font-weight-bold'>
                                                 <span class='txt_remaining text-primary'>".(int)$row['Amount']."</span>

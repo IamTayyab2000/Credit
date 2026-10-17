@@ -1,4 +1,5 @@
 <?php
+include_once('functionality/components/session_chk_admin.php');
 include('functionality/components/condb.php');
 $bill_id = $_GET['bill_id'];
 $sql = "SELECT a.ledger_id, a.ref_id, a.ledger_date, b.customer_name, a.bill_id, a.bill_amount, a.recived_amount, a.return_amount, a.remaining_amount, a.bill_status FROM `bill_ledger` as a LEFT JOIN customer as b ON a.customer_id = b.customer_id where a.bill_id='$bill_id'";

@@ -1,10 +1,16 @@
-<?php include_once('functionality/components/session_chk_admin.php'); ?>
+<?php
+include_once('functionality/components/session_chk_admin.php');
+if (empty($_SESSION['dsr_edit_csrf'])) {
+    $_SESSION['dsr_edit_csrf'] = bin2hex(random_bytes(32));
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="dsr-edit-csrf" content="<?php echo htmlspecialchars($_SESSION['dsr_edit_csrf'], ENT_QUOTES, 'UTF-8'); ?>">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/cdn.datatables.net_1.13.6_css_jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -16,28 +22,44 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="adminpanel.php">Credit Management</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="adminpanel.php">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="creditReport.php">Reports</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="insertDSR.php">DSR</a></li>
-                        <li class="nav-item"><a class="nav-link" href="insertCustomers.php">Customers</a></li>
-                        <li class="nav-item"><a class="nav-link" href="IssueBills.php">Issue Bills</a></li>
-                        <li class="nav-item"><a class="nav-link" href="generate_recovery_sheet.php">Recovery</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <?php include('functionality/components/admin_nav.php'); ?>
     </header>
 
         <main class="container">
                 <h2 class="page-heading">Daily Sales Report (DSR) Entry</h2>
+
+        <section class="card shadow-sm mb-4" aria-labelledby="update-dsr-heading">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="h6 mb-0" id="update-dsr-heading">Update Existing DSR</h3>
+                    <small class="text-muted">Edit recovered, returned, and scheme amounts for bills with no later recovery activity.</small>
+                </div>
+                <button class="btn btn-outline-primary btn-sm" type="button" id="load_dsr_updates">Load DSRs</button>
+            </div>
+            <div class="card-body">
+                <div id="dsr_update_message" class="alert d-none" role="status"></div>
+                <div class="row g-2 align-items-end mb-3">
+                    <div class="col-md-8">
+                        <label for="dsr_update_picklist" class="form-label">Select DSR</label>
+                        <select id="dsr_update_picklist" class="form-select">
+                            <option value="">Load DSRs to choose a sheet</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <button type="button" class="btn btn-secondary w-100" id="show_dsr_update" disabled>Update Selected DSR</button>
+                    </div>
+                </div>
+                <div id="dsr_update_editor" class="table-responsive d-none">
+                    <table class="table table-sm table-hover align-middle mb-2">
+                        <thead class="table-light">
+                            <tr><th>Invoice</th><th>Customer Number</th><th>Customer</th><th>Total</th><th>Recovered</th><th>Returned</th><th>Scheme</th><th>Remaining</th></tr>
+                        </thead>
+                        <tbody id="dsr_update_bill_list"></tbody>
+                    </table>
+                    <button type="button" class="btn btn-success" id="save_dsr_update">Save DSR Updates</button>
+                </div>
+            </div>
+        </section>
 
                 <!-- Modal for Open Credit Warning -->
                 <div class="modal fade" id="openCreditModal" tabindex="-1" aria-labelledby="openCreditModalLabel" aria-hidden="true">
@@ -121,7 +143,18 @@
             <!-- Customer Credit Entry -->
             <div class="col-lg-12 mb-4">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-white font-weight-bold">Add Bill Details</div>
+                    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                        <span class="font-weight-bold">Add Bill Details</span>
+                        <div>
+                            <input type="file" id="dsr_import_file" accept=".csv,.xls,.xlsx" class="d-none">
+                            <button type="button" class="btn btn-outline-primary btn-sm" id="btn_import_dsr">
+                                Import CSV/Excel
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm" id="btn_download_dsr_sample">
+                                Download Sample
+                            </button>
+                        </div>
+                    </div>
                     <div class="card-body">
                         <div class="row g-3">
                             <div class="col-md-2">
@@ -165,12 +198,13 @@
                         
                         <div class="mt-4">
                             <h6 class="font-weight-bold small uppercase letter-spacing-1 mb-3">DSR Entries Summary</h6>
+                            <div class="small text-muted mb-2">For imports, use either Customer ID or Customer Name. A name must match exactly one customer assigned to the selected salesman.</div>
                             <div class="table-responsive">
                                 <table class="table table-hover table-sm" id="creditors_table">
                                     <thead class="bg-light">
                                         <tr>
                                             <th>Inv ID</th>
-                                            <th>ID</th>
+                                            <th>Customer Number</th>
                                             <th>Customer Name</th>
                                             <th class="text-end">Total</th>
                                             <th class="text-end">Recovered</th>
@@ -195,6 +229,47 @@
             </div>
         </div>
 
+        <div class="modal fade" id="dsrImportModal" tabindex="-1" aria-labelledby="dsrImportModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="dsrImportModalLabel">DSR Preview/Edit</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="dsrImportSheetStage">
+                            <label for="dsrImportSheet" class="form-label">Select worksheet</label>
+                            <div class="input-group">
+                                <select class="form-select" id="dsrImportSheet"></select>
+                                <button type="button" class="btn btn-primary" id="dsrImportChooseSheet">Continue</button>
+                            </div>
+                        </div>
+                        <div id="dsrImportMappingStage" class="d-none">
+                            <p class="mb-2">Map each Excel column to a DSR field, or choose Do Not Import.</p>
+                            <div id="dsrImportMappingMessage" class="mb-3" aria-live="polite"></div>
+                            <div class="table-responsive"><table class="table table-sm" id="dsrImportMappingTable"></table></div>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" class="btn btn-outline-secondary" id="dsrImportBackToSheets">Back</button>
+                                <button type="button" class="btn btn-primary" id="dsrImportShowPreview">Preview data</button>
+                            </div>
+                        </div>
+                        <div id="dsrImportPreviewStage" class="d-none">
+                            <div id="dsrImportValidation" class="mb-3" aria-live="polite"></div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span id="dsrImportPreviewStatus" class="small text-muted"></span>
+                                <button type="button" class="btn btn-outline-primary btn-sm" id="dsrImportAddRow">Add row</button>
+                            </div>
+                            <div class="table-responsive"><table class="table table-sm table-bordered align-middle" id="dsrImportPreviewTable"></table></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" id="dsrImportConfirm">Confirm Import</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Feedback UI -->
         <div id="messageBox" class="mt-4" style="display:none;">
             <div class="alert alert-danger d-flex justify-content-between align-items-center">
@@ -205,6 +280,7 @@
     </main>
 
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script type="Module" src="js/dsr.js"></script>
 </body>
 

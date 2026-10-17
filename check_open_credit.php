@@ -1,4 +1,6 @@
 <?php
+include_once(__DIR__ . '/functionality/components/session.php');
+requireAdminSession(true);
 // check_open_credit.php
 include_once('functionality/components/condb.php');
 header('Content-Type: application/json');

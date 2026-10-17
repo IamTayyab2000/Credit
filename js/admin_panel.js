@@ -203,14 +203,16 @@ function loadDashboardAnalytics() {
             $('#dash_sales').text(formatCurrency(data.sales_month));
             $('#dash_recovery').text(formatCurrency(data.recovery_month));
 
-            // 2. Render Chart (Sales vs Recovery)
+            // 2. Render Sales, Recovery, and Returns chart
             const salesTrend = data.sales_trend || [];
             const recoveryTrend = data.recovery_trend || [];
+            const returnTrend = data.return_trend || [];
 
             // Merge dates to create a unified timeline
             const allDates = new Set([
                 ...salesTrend.map(i => i.date),
-                ...recoveryTrend.map(i => i.date)
+                ...recoveryTrend.map(i => i.date),
+                ...returnTrend.map(i => i.date)
             ]);
             const sortedDates = Array.from(allDates).sort();
 
@@ -221,6 +223,10 @@ function loadDashboardAnalytics() {
             });
             const recoveryData = sortedDates.map(date => {
                 const found = recoveryTrend.find(i => i.date === date);
+                return found ? found.amount : 0;
+            });
+            const returnData = sortedDates.map(date => {
+                const found = returnTrend.find(i => i.date === date);
                 return found ? found.amount : 0;
             });
 
@@ -243,6 +249,14 @@ function loadDashboardAnalytics() {
                             data: recoveryData,
                             borderColor: 'rgba(75, 192, 192, 1)',
                             backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Returns',
+                            data: returnData,
+                            borderColor: 'rgba(255, 159, 64, 1)',
+                            backgroundColor: 'rgba(255, 159, 64, 0.2)',
                             tension: 0.4,
                             fill: true
                         }
@@ -380,6 +394,7 @@ function loadDashboardAnalytics() {
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <div>
                                     <strong>${cust.customer_name}</strong><br>
+                                    <small class="text-muted">Salesman: ${cust.salesman_name}</small><br>
                                     <small class="text-muted">Last Bill: ${cust.last_bill}</small>
                                 </div>
                                 <span class="badge bg-danger rounded-pill">${formatCurrency(cust.outstanding)}</span>

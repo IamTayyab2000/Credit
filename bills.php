@@ -1,4 +1,3 @@
-<?php include_once('functionality/components/session_chk_admin.php') ?>
 <?php include_once('functionality/components/session_chk_admin.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/cdn.datatables.net_1.13.6_css_jquery.dataTables.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery.js"></script>
     <script src="js/cdn.datatables.net_1.13.6_js_jquery.dataTables.min.js"></script>
     <title>Welcome Admin</title>
@@ -15,31 +16,7 @@
 
 <body>
     <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Credit</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="adminpanel.php">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="creditReport.php">Credit Reports</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="insertDSR.php">Enter DSR</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="insertCustomers.php">Enter Customer</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+    <?php include('functionality/components/admin_nav.php'); ?>
     </header>
     <main>
         <!-- Debugging -->

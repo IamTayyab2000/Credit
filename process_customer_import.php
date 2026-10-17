@@ -1,4 +1,6 @@
 <?php
+include_once(__DIR__ . '/functionality/components/session.php');
+requireAdminSession(true);
 // Customer Import Logic
 // This file handles importing customer data with 5 columns: Customer ID, Name, Area, Salesman, Day
 
@@ -100,6 +102,7 @@ if (preg_match('/\.csv$/i', $filename)) {
 // Validate required columns
 $required_columns = ['customer id', 'name', 'area', 'salesman', 'day'];
 $headers_lower = array_map('strtolower', array_map('trim', $headers));
+$phone_header_index = array_search('phone', $headers_lower);
 
 $column_indices = [];
 foreach ($required_columns as $column) {
@@ -131,6 +134,7 @@ foreach ($data as $row_index => $row) {
     // Extract values based on column indices
     $customer_id = isset($row[$column_indices['customer id']]) ? trim($row[$column_indices['customer id']]) : '';
     $customer_name = isset($row[$column_indices['name']]) ? trim($row[$column_indices['name']]) : '';
+    $customer_phone = ($phone_header_index !== false && isset($row[$phone_header_index])) ? trim($row[$phone_header_index]) : '';
     $area_name = isset($row[$column_indices['area']]) ? trim($row[$column_indices['area']]) : '';
     $salesman_name = isset($row[$column_indices['salesman']]) ? trim($row[$column_indices['salesman']]) : '';
     $day = isset($row[$column_indices['day']]) ? trim($row[$column_indices['day']]) : '';
@@ -190,6 +194,7 @@ foreach ($data as $row_index => $row) {
     $customer_data[] = [
         'customer_id' => $customer_id,
         'customer_name' => $customer_name,
+        'phone' => $customer_phone,
         'area_name' => $area_name,
         'salesman_name' => $salesman_name,
         'day' => $day_normalized // Use normalized day for consistency
@@ -205,6 +210,8 @@ foreach ($data as $row_index => $row) {
         ];
     }
 }
+
+beginDatabaseRequestTransaction($conn, 'customer_import');
 
 // Step 1: Insert Salesmen
 $salesman_mapping = [];
@@ -311,14 +318,15 @@ foreach ($routes_to_create as $route_key => $route_info) {
         continue; // Skip if mapping failed
     }
     
-    // Check if route exists
-    $check_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} AND `saleman_id` = {$salesman_id}";
+    // Check if route exists for this area, salesman, and day
+    $day_escaped = mysqli_real_escape_string($GLOBALS['conn'], $day);
+    $check_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} AND `saleman_id` = {$salesman_id} AND `day` = '{$day_escaped}'";
     logSqlCommand($check_query);
     $result = json_decode(read($check_query));
     
     if (empty($result) || !isset($result[0]->route_id)) {
         // Insert new route
-        $insert_query = "INSERT INTO `routes` (`sector_id`, `saleman_id`) VALUES ({$sector_id}, {$salesman_id})";
+        $insert_query = "INSERT INTO `routes` (`sector_id`, `saleman_id`, `day`) VALUES ({$sector_id}, {$salesman_id}, '{$day_escaped}')";
         logSqlCommand($insert_query);
         $res = create_update_delete($insert_query);
         if ($res) {
@@ -329,7 +337,7 @@ foreach ($routes_to_create as $route_key => $route_info) {
                 logCustomerImport("Failed to create route for area: $area_name, salesman: $salesman_name - MySQL Error: " . $mysql_error);
             } else {
                 logSqlCommand($insert_query, true);
-                $id_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} AND `saleman_id` = {$salesman_id} LIMIT 1";
+                $id_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} AND `saleman_id` = {$salesman_id} AND `day` = '{$day_escaped}' LIMIT 1";
                 logSqlCommand($id_query);
                 $id_result = json_decode(read($id_query));
                 if (!empty($id_result) && isset($id_result[0]->route_id)) {
@@ -357,6 +365,7 @@ $failed_count = 0;
 foreach ($customer_data as $idx => $customer) {
     $cust_id = mysqli_real_escape_string($GLOBALS['conn'], $customer['customer_id']);
     $cust_name = mysqli_real_escape_string($GLOBALS['conn'], $customer['customer_name']);
+    $cust_phone = mysqli_real_escape_string($GLOBALS['conn'], $customer['phone']);
     $area_name = $customer['area_name'];
     $salesman_name = $customer['salesman_name'];
     $day_normalized = $customer['day']; // Already normalized from earlier processing
@@ -382,7 +391,7 @@ foreach ($customer_data as $idx => $customer) {
 
     // Insert customer if not exists
     if (!$customer_exists) {
-        $insert_cust = "INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_route`) VALUES ('{$cust_id}', '{$cust_name}', {$route_id})";
+        $insert_cust = "INSERT INTO `customer` (`customer_id`, `customer_name`, `phone`, `customer_route`) VALUES ('{$cust_id}', '{$cust_name}', '{$cust_phone}', {$route_id})";
         logSqlCommand($insert_cust);
         $cust_res = create_update_delete($insert_cust);
         if ($cust_res) {
@@ -407,6 +416,10 @@ foreach ($customer_data as $idx => $customer) {
         }
     } else {
         // Customer already exists, count as skipped
+        if ($cust_phone !== '') {
+            $update_phone = "UPDATE `customer` SET `phone` = '{$cust_phone}' WHERE `customer_id` = '{$cust_id}'";
+            create_update_delete($update_phone);
+        }
         logCustomerImport("Customer ID already exists: $cust_id - $cust_name");
         $errors[] = "Row " . ($idx + 2) . ": Customer ID '{$cust_id}' already exists";
     }
@@ -414,7 +427,8 @@ foreach ($customer_data as $idx => $customer) {
 
 // Return response
 $response = [
-    'status' => 1,
+    'status' => empty($errors) && $failed_count === 0 ? 1 : 0,
+    'message' => !empty($errors) ? $errors[0] : ($failed_count > 0 ? 'One or more rows could not be imported. No changes were saved.' : ''),
     'inserted' => $inserted_count,
     'failed' => $failed_count,
     'total_processed' => $inserted_count + $failed_count,

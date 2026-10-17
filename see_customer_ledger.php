@@ -4,6 +4,7 @@
 // Minimal page to view ledger entries for a customer.
 // Usage: see_customer_ledger.php?cust_id=CUSTOMER_ID  (also accepts ?customer_id=... for backwards compatibility)
 
+include_once('functionality/components/session_chk_admin.php');
 include('functionality/components/condb.php');
 
 $customer_id = '';
@@ -20,7 +21,7 @@ function h($s){ return htmlspecialchars($s, ENT_QUOTES|ENT_SUBSTITUTE, 'UTF-8');
 function getBillSummaries($conn, $customer_id) {
     // Read events from the derived view `vw_customer_bill_ledger`.
     // We now select chronological events instead of grouping by bill_id
-    $query = "SELECT 
+    $query = "SELECT
                     bill_id,
                     event_date AS ledger_date,
                     ref_id,
@@ -31,10 +32,23 @@ function getBillSummaries($conn, $customer_id) {
                     source_type
                 FROM vw_customer_bill_ledger
                 WHERE customer_id = ?
-                ORDER BY event_date ASC, bill_id ASC, source_type ASC";
+                UNION ALL
+                SELECT d.recovery_sheet_bill_id AS bill_id,
+                       DATE(c.created_at) AS ledger_date,
+                       c.recovery_sheet_id AS ref_id,
+                       0 AS bill_amount,
+                       0 AS recived_amount,
+                       0 AS return_amount,
+                       'ROLLED_BACK' AS bill_status,
+                       'rollback' AS source_type
+                FROM recovery_sheet_correction c
+                JOIN recovery_sheet_detail d ON d.recovery_sheet_id = c.recovery_sheet_id
+                JOIN bill b ON b.bill_id = d.recovery_sheet_bill_id
+                WHERE b.cutomer_id = ? AND c.action_type = 'ROLLBACK_SHEET'
+                ORDER BY ledger_date ASC, bill_id ASC, source_type ASC";
 
     if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param('s', $customer_id);
+            $stmt->bind_param('ss', $customer_id, $customer_id);
         $stmt->execute();
         $res = $stmt->get_result();
         $rows = $res->fetch_all(MYSQLI_ASSOC);
@@ -189,6 +203,7 @@ if (empty($ledger_rows)) {
     }
 
     foreach ($ledger_rows as $row) {
+        $isRollback = ($row['source_type'] ?? '') === 'rollback';
         $debit = (float)$row['bill_amount'];
         $credit = (float)$row['recived_amount'];
         $return = (float)($row['return_amount'] ?? 0);
@@ -199,15 +214,15 @@ if (empty($ledger_rows)) {
 
         $running += ($debit - $credit - $return);
 
-        echo '<tr>';
+        echo $isRollback ? '<tr style="background:#fff0f0">' : '<tr>';
         echo '<td><a href="ledger.php?bill_id=' . urlencode($row['bill_id']) . '">' . h($row['bill_id']) . '</a></td>';
-        echo '<td>' . h($row['ref_id']) . '</td>';
+        echo '<td>' . h($row['ref_id']) . ($isRollback ? ' (Rollback)' : '') . '</td>';
         echo '<td>' . h($row['ledger_date']) . '</td>';
         echo '<td style="text-align:right">' . ($debit > 0 ? number_format($debit,2) : '-') . '</td>';
         echo '<td style="text-align:right">' . ($credit > 0 ? number_format($credit,2) : '-') . '</td>';
         echo '<td style="text-align:right">' . ($return > 0 ? number_format($return,2) : '-') . '</td>';
         echo '<td style="text-align:right">' . number_format($running,2) . '</td>';
-        echo '<td>' . h($row['bill_status']) . '</td>';
+        echo '<td>' . h($isRollback ? 'ROLLED BACK' : $row['bill_status']) . '</td>';
         echo '</tr>';
     }
 

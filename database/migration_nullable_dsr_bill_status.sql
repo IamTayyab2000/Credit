@@ -1,0 +1,5 @@
+ALTER TABLE `bill`
+    MODIFY COLUMN `Bill_status` ENUM('NILL', 'ISSUED', 'INFILE') NULL DEFAULT 'INFILE';
+
+ALTER TABLE `bill_ledger`
+    MODIFY COLUMN `bill_status` ENUM('NILL', 'BF', 'INFILE') NULL DEFAULT 'INFILE';

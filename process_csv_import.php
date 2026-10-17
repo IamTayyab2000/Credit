@@ -1,4 +1,6 @@
 <?php
+include_once(__DIR__ . '/functionality/components/session.php');
+requireAdminSession(true);
 // Recovery Sheet Migration Logic
 // This file handles importing legacy recovery sheet data and populating all related tables
 
@@ -60,9 +62,15 @@ if (empty($csv_data)) {
 // Extract header (first row)
 $headers = array_shift($csv_data);
 
+// Remove a UTF-8 BOM that Excel may add before the first header
+if (isset($headers[0])) {
+    $headers[0] = preg_replace('/^\xEF\xBB\xBF/', '', $headers[0]);
+}
+
 // Validate required columns
 $required_columns = ['bill_id', 'customer_id', 'customer_name', 'area_address', 'salesman_name', 'bill_amount', 'remaining_credit', 'bill_date'];
 $headers_lower = array_map('strtolower', array_map('trim', $headers));
+$phone_header_index = array_search('phone', $headers_lower);
 
 $column_indices = [];
 foreach ($required_columns as $column) {
@@ -94,10 +102,11 @@ foreach ($csv_data as $row_index => $row) {
     $legacy_bill_id = isset($row[$column_indices['bill_id']]) ? trim($row[$column_indices['bill_id']]) : '';
     $customer_id = isset($row[$column_indices['customer_id']]) ? trim($row[$column_indices['customer_id']]) : '';
     $customer_name = isset($row[$column_indices['customer_name']]) ? trim($row[$column_indices['customer_name']]) : '';
+    $customer_phone = ($phone_header_index !== false && isset($row[$phone_header_index])) ? trim($row[$phone_header_index]) : '';
     $area_address = isset($row[$column_indices['area_address']]) ? trim($row[$column_indices['area_address']]) : '';
     $salesman_name = isset($row[$column_indices['salesman_name']]) ? trim($row[$column_indices['salesman_name']]) : '';
-    $bill_amount = isset($row[$column_indices['bill_amount']]) ? (int)trim($row[$column_indices['bill_amount']]) : 0;
-    $remaining_credit = isset($row[$column_indices['remaining_credit']]) ? (int)trim($row[$column_indices['remaining_credit']]) : 0;
+    $bill_amount = isset($row[$column_indices['bill_amount']]) ? (int)str_replace(',', '', trim($row[$column_indices['bill_amount']])) : 0;
+    $remaining_credit = isset($row[$column_indices['remaining_credit']]) ? (int)str_replace(',', '', trim($row[$column_indices['remaining_credit']])) : 0;
     $bill_date = isset($row[$column_indices['bill_date']]) ? trim($row[$column_indices['bill_date']]) : '';
 
     // Validate data
@@ -121,6 +130,7 @@ foreach ($csv_data as $row_index => $row) {
         'customer_id' => $customer_id,
         'bill_id' => $legacy_bill_id,
         'customer_name' => $customer_name,
+        'phone' => $customer_phone,
         'area_address' => $area_address,
         'salesman_name' => $salesman_name,
         'bill_amount' => $bill_amount,
@@ -128,6 +138,8 @@ foreach ($csv_data as $row_index => $row) {
         'bill_date' => $bill_date
     ];
 }
+
+beginDatabaseRequestTransaction($conn, 'recovery_csv_import');
 
 // Step 1: Insert Salesman
 $salesman_mapping = [];
@@ -188,21 +200,24 @@ foreach ($customer_data as $customer) {
     
     if ($sector_id == 0 || $salesman_id == 0) continue; // Skip if mapping failed
     
-    $route_key = $sector_id . '_' . $salesman_id;
+    // A sector identifies a route in this database.
+    $route_key = (string)$sector_id;
     
     if (!array_key_exists($route_key, $route_mapping)) {
-        // Check if route exists
-        $check_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} AND `saleman_id` = {$salesman_id}";
+        // Reuse the existing route for this sector before creating one.
+        $check_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} LIMIT 1";
         $result = json_decode(read($check_query));
         
         if (empty($result) || !isset($result[0]->route_id)) {
-            // Insert new route
+            // No route exists for this sector, so create it.
             $insert_query = "INSERT INTO `routes` (`sector_id`, `saleman_id`) VALUES ({$sector_id}, {$salesman_id})";
             $res = create_update_delete($insert_query);
             if ($res) {
-                $id_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} AND `saleman_id` = {$salesman_id} LIMIT 1";
+                $id_query = "SELECT route_id FROM `routes` WHERE `sector_id` = {$sector_id} LIMIT 1";
                 $id_result = json_decode(read($id_query));
-                $route_mapping[$route_key] = $id_result[0]->route_id;
+                if (!empty($id_result) && isset($id_result[0]->route_id)) {
+                    $route_mapping[$route_key] = $id_result[0]->route_id;
+                }
             }
         } else {
             $route_mapping[$route_key] = $result[0]->route_id;
@@ -247,6 +262,7 @@ $failed_count = 0;
 foreach ($customer_data as $idx => $customer) {
     $cust_id = mysqli_real_escape_string($GLOBALS['conn'], $customer['customer_id']);
     $cust_name = mysqli_real_escape_string($GLOBALS['conn'], $customer['customer_name']);
+    $cust_phone = mysqli_real_escape_string($GLOBALS['conn'], $customer['phone']);
     $area = $customer['area_address'];
     $salesman = $customer['salesman_name'];
     $bill_amount = $customer['bill_amount'];
@@ -254,7 +270,7 @@ foreach ($customer_data as $idx => $customer) {
     
     $sector_id = isset($sector_mapping[$area]) ? $sector_mapping[$area] : 0;
     $salesman_id = isset($salesman_mapping[$salesman]) ? $salesman_mapping[$salesman] : 0;
-    $route_key = $sector_id . '_' . $salesman_id;
+    $route_key = (string)$sector_id;
     $route_id = isset($route_mapping[$route_key]) ? $route_mapping[$route_key] : 0;
     
     if ($route_id == 0) {
@@ -271,7 +287,7 @@ foreach ($customer_data as $idx => $customer) {
 
     // Insert customer if not exists
     if (!$customer_exists) {
-        $insert_cust = "INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_route`) VALUES ('{$cust_id}', '{$cust_name}', {$route_id})";
+        $insert_cust = "INSERT INTO `customer` (`customer_id`, `customer_name`, `phone`, `customer_route`) VALUES ('{$cust_id}', '{$cust_name}', '{$cust_phone}', {$route_id})";
         $cust_res = create_update_delete($insert_cust);
         if (!$cust_res) {
             $failed_count++;
@@ -280,8 +296,19 @@ foreach ($customer_data as $idx => $customer) {
         }
     }
 
-    // Use legacy bill_id from CSV
+    if ($customer_exists && $cust_phone !== '') {
+        $update_phone = "UPDATE `customer` SET `phone` = '{$cust_phone}' WHERE `customer_id` = '{$cust_id}'";
+        create_update_delete($update_phone);
+    }
+
+    // Use legacy bill_id from CSV and do not create a duplicate bill on re-import.
     $bill_id = mysqli_real_escape_string($GLOBALS['conn'], $customer['bill_id']);
+
+    $bill_check_query = "SELECT bill_id FROM `bill` WHERE `bill_id` = '{$bill_id}' LIMIT 1";
+    $bill_check_result = json_decode(read($bill_check_query));
+    if (!empty($bill_check_result) && isset($bill_check_result[0]->bill_id)) {
+        continue;
+    }
     
     $picklist_for_customer = isset($picklist_mapping[$salesman_id]) ? mysqli_real_escape_string($GLOBALS['conn'], $picklist_mapping[$salesman_id]) : '';
     $mysql_bill_date = formatDateForMySQL($customer['bill_date']);
@@ -291,8 +318,9 @@ foreach ($customer_data as $idx => $customer) {
     // If we put the full original amount here, the system thinks the customer owes the full amount.
     // However, we want to preserve the original history in the ledger.
     $current_outstanding_balance = (int)$remaining_credit;
+    $bill_status = $current_outstanding_balance > 0 ? 'INFILE' : 'NILL';
     
-    $insert_bill = "INSERT INTO `bill` (`bill_id`, `cutomer_id`, `picklist_id`, `bill_amount`, `bill_date`, `Bill_status`) VALUES ('{$bill_id}', '{$cust_id}', '{$picklist_for_customer}', {$current_outstanding_balance}, '{$bill_date_esc}', 'INFILE')";
+    $insert_bill = "INSERT INTO `bill` (`bill_id`, `cutomer_id`, `picklist_id`, `bill_amount`, `bill_date`, `Bill_status`) VALUES ('{$bill_id}', '{$cust_id}', '{$picklist_for_customer}', {$current_outstanding_balance}, '{$bill_date_esc}', '{$bill_status}')";
 
     if (create_update_delete($insert_bill)) {
         // Insert bill ledger entry
@@ -304,7 +332,7 @@ foreach ($customer_data as $idx => $customer) {
         $remaining_amount = (int)$remaining_credit;
         
         // Ledger query uses original amounts for record keeping
-        $ledger_query = "INSERT INTO `bill_ledger` (`ledger_date`, `customer_id`, `bill_id`, `bill_amount`, `recived_amount`, `remaining_amount`) VALUES ('{$bill_date_esc}', '{$cust_id}', '{$bill_id}', {$original_bill_amount}, {$recived_amount}, {$remaining_amount})";
+        $ledger_query = "INSERT INTO `bill_ledger` (`ledger_date`, `customer_id`, `bill_id`, `bill_amount`, `recived_amount`, `remaining_amount`, `bill_status`) VALUES ('{$bill_date_esc}', '{$cust_id}', '{$bill_id}', {$original_bill_amount}, {$recived_amount}, {$remaining_amount}, '{$bill_status}')";
 
         if (create_update_delete($ledger_query)) {
             $inserted_count++;
@@ -320,7 +348,8 @@ foreach ($customer_data as $idx => $customer) {
 
 // Return response
 $response = [
-    'status' => 1,
+    'status' => empty($errors) && $failed_count === 0 ? 1 : 0,
+    'message' => !empty($errors) ? $errors[0] : ($failed_count > 0 ? 'One or more rows could not be migrated. No changes were saved.' : ''),
     'inserted' => $inserted_count,
     'failed' => $failed_count,
     'total_processed' => $inserted_count + $failed_count,

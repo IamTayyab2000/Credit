@@ -1,8 +1,5 @@
 <?php
-  session_start();
-  if(isset($_SESSION['admin'])){
-  }
-  else{
-   header('location:index.php');
-  }
+require_once(__DIR__ . '/session.php');
+requireAdminSession();
+include_once(__DIR__ . '/task_activity_logger.php');
 ?>

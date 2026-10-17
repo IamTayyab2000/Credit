@@ -15,7 +15,21 @@ class SuperSaver {
                     resolve(response); // Resolve the promise with the response data
                 },
                 error: (xhr, status, error) => {
-                    reject(error); // Reject the promise with the error
+                    let response = xhr.responseJSON;
+                    if (!response && xhr.responseText) {
+                        try {
+                            response = JSON.parse(xhr.responseText);
+                        } catch {
+                            response = null;
+                        }
+                    }
+
+                    const message = response?.message || response?.error ||
+                        xhr.responseText?.trim() || error || xhr.statusText || status || 'Request failed';
+                    const requestError = new Error(message);
+                    requestError.status = xhr.status;
+                    requestError.response = response;
+                    reject(requestError);
                 }
             });
         });

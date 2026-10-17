@@ -1,3 +1,4 @@
+<?php include_once('functionality/components/session_chk_admin.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,24 +16,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="adminpanel.php">Credit Management</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="adminpanel.php">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="creditReport.php">Reports</a></li>
-                        <li class="nav-item"><a class="nav-link" href="insertDSR.php">DSR</a></li>
-                        <li class="nav-item"><a class="nav-link" href="insertCustomers.php">Customers</a></li>
-                        <li class="nav-item"><a class="nav-link" href="IssueBills.php">Issue Bills</a></li>
-                        <li class="nav-item"><a class="nav-link" href="generate_recovery_sheet.php">Recovery</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <?php include('functionality/components/admin_nav.php'); ?>
     </header>
 
     <main class="container">
@@ -53,9 +37,15 @@
                             <tr>
                                 <th>Picklist ID</th>
                                 <th>Salesman</th>
-                                <th>Date</th>
-                                <th class="text-end">Total Amount</th>
-                                <th class="text-end">Recovered</th>
+                                <th>DSR Date</th>
+                                <th>Processed Date</th>
+                                <th class="text-end">Gross Amount</th>
+                                <th class="text-end">Recovered at DSR</th>
+                                <th class="text-end">Returned at DSR</th>
+                                <th class="text-end">Scheme / Discount</th>
+                                <th class="text-end">Credit at DSR</th>
+                                <th class="text-end">Recovery Since DSR</th>
+                                <th class="text-end">Return Since DSR</th>
                                 <th class="text-end">Remaining</th>
                                 <th class="text-center">Recovery %</th>
                                 <th class="text-center">Action</th>

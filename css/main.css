@@ -157,6 +157,34 @@ body {
     margin-bottom: 1rem;
 }
 
+.recovery-management {
+    font-size: 0.8rem;
+}
+
+.recovery-management .page-heading {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.recovery-management .table {
+    font-size: 0.75rem;
+}
+
+.recovery-management .table th,
+.recovery-management .table td {
+    padding: 0.4rem;
+}
+
+.recovery-management .recovery-action-btn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+.recovery-management td:last-child {
+    white-space: nowrap;
+}
+
 .bg-gradient-primary {
     background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
     background-size: cover;

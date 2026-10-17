@@ -4,6 +4,8 @@ function btn_edit_customer(customerId) {
   // Rest of your code here
 }
 var selectedBills = [];
+let recoveryCreationPending = false;
+let pendingRecoveryRequest = null;
 // Needed Code Dont Delete
 let messageBox = $("#messageBox");
 let messageBody = $("#messageBody");
@@ -190,27 +192,7 @@ $(document).ready(function () {
     }
   });
 
-  $("#btn_generate_recovery_sheet").click(() => {
-    if (selectedBills.length === 0) {
-      alert('Please select bills first');
-      return;
-    }
-    let recovery_sheet_id = $("#mergeto_recovery_sheet_id").val();
-    if ($("#check_if_merge").prop("checked")) {
-      if (recovery_sheet_id == "") {
-        alert('Enter Recovery Sheet Id you want to merge with or \nUncheck the checkbox on top right');
-      }
-      else {
-        save_rec_detail_w_merger(recovery_sheet_id);
-      }
-    } else {
-      save_rec_sheet_wo_merger().then((response) => {
-        if (response) {
-          save_rec_detail_wo_merger(response);
-        }
-      });
-    }
-  });
+  $("#btn_generate_recovery_sheet").on("click", createOrAddRecoverySheet);
 
   // PREVIEW RECOVERY SHEET
   $('#btn_preview_recovery_sheet').click(function () {
@@ -261,23 +243,7 @@ $(document).ready(function () {
   });
 
   // CONFIRM GENERATE FROM PREVIEW
-  $('#btn_confirm_generate').click(function () {
-    let recovery_sheet_id = $("#mergeto_recovery_sheet_id").val();
-    if ($("#check_if_merge").prop("checked")) {
-      if (recovery_sheet_id == "") {
-        alert('Enter Recovery Sheet Id you want to merge with or \nUncheck the checkbox on top right');
-      }
-      else {
-        save_rec_detail_w_merger(recovery_sheet_id);
-      }
-    } else {
-      save_rec_sheet_wo_merger().then((response) => {
-        if (response) {
-          save_rec_detail_wo_merger(response);
-        }
-      });
-    }
-  });
+  $('#btn_confirm_generate').on("click", createOrAddRecoverySheet);
 
 }); // End of $(document).ready()
 
@@ -291,49 +257,72 @@ function updateRecoveryFooter() {
   bill_amount.text(amount.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }));
 }
 
-function save_rec_sheet_wo_merger() {
-  let saleman_id = $("#select_recovery_saleman").val();
-  if (!saleman_id) {
-    alert("Please select a salesman for the recovery sheet.");
-    return Promise.reject("No salesman selected");
+async function createOrAddRecoverySheet() {
+  if (recoveryCreationPending) return;
+  if (selectedBills.length === 0) {
+    alert('Please select bills first');
+    return;
   }
-  let data = {
-    data: {
-      function_to_call: 'store_recovery_sheet',
-      saleman: saleman_id,
-    },
-  };
 
-  // Return the Promise to be resolved later
-  return mySuperSaver.performAjaxRequest(data).catch((error) => {
-    console.error('Store Recovery Sheet: ', error);
-  });
-}
-function save_rec_detail_wo_merger(res_id) {
-  selectedBills.forEach((item) => {
-    item.recovery_sheet_id = res_id;
-  });
-  const recovery_sheet_detail = selectedBills;
-  let data = {
-    data: {
-      function_to_call: 'save_rec_details',
-      recovery_sheet_detail: encodeURIComponent(JSON.stringify(recovery_sheet_detail))
-    },
-    contentType: 'application/x-www-form-urlencoded'
-  };
-  mySuperSaver.performAjaxRequest(data).then((success) => {
-    if (success == 1 || success === true) {
-      alert('Recovery Sheet Created Successfully: ID ' + res_id);
-      window.location.reload();
+  const mergeEnabled = $("#check_if_merge").prop("checked");
+  const recoverySheetId = $("#mergeto_recovery_sheet_id").val();
+  const salesmanId = $("#select_recovery_saleman").val();
+  if (mergeEnabled && !recoverySheetId) {
+    alert('Enter Recovery Sheet Id you want to merge with or \nUncheck the checkbox on top right');
+    return;
+  }
+  if (!mergeEnabled && !salesmanId) {
+    alert("Please select a salesman for the recovery sheet.");
+    return;
+  }
+
+  const billIds = selectedBills.map((bill) => String(bill.bill_id)).sort();
+  const requestSignature = JSON.stringify({ salesmanId, billIds });
+  if (!mergeEnabled && pendingRecoveryRequest?.signature !== requestSignature) {
+    const randomBytes = new Uint8Array(16);
+    window.crypto.getRandomValues(randomBytes);
+    pendingRecoveryRequest = {
+      signature: requestSignature,
+      key: Array.from(randomBytes, (byte) => byte.toString(16).padStart(2, "0")).join(""),
+    };
+  }
+
+  recoveryCreationPending = true;
+  const $buttons = $("#btn_generate_recovery_sheet, #btn_confirm_generate");
+  const originalButtonHtml = $buttons.map(function () { return $(this).html(); }).get();
+  $buttons.prop("disabled", true).attr("aria-busy", "true").text("Creating sheet...");
+
+  try {
+    if (mergeEnabled) {
+      await save_rec_detail_w_merger(recoverySheetId);
+      alert("Bills added to Recovery Sheet: " + recoverySheetId);
+    } else {
+      const response = await mySuperSaver.performAjaxRequest({
+        data: {
+          function_to_call: "store_recovery_sheet",
+          saleman: salesmanId,
+          request_key: pendingRecoveryRequest.key,
+          bills: JSON.stringify(billIds),
+        },
+        contentType: "application/x-www-form-urlencoded",
+      });
+      if (!response?.success || !response.recovery_sheet_id) {
+        throw new Error(response?.message || "The recovery sheet could not be created.");
+      }
+      pendingRecoveryRequest = null;
+      alert("Recovery Sheet Created Successfully: ID " + response.recovery_sheet_id);
     }
-    else {
-      console.error(response);
-      alert('Error creating recovery details');
-    }
-  }).catch((error) => {
-    console.error('Store Recovery Details: ', error);
-  });
+    window.location.reload();
+  } catch (error) {
+    reportRecoverySheetError("Generate recovery sheet", error);
+  } finally {
+    recoveryCreationPending = false;
+    $buttons.each(function (index) {
+      $(this).html(originalButtonHtml[index]).prop("disabled", false).removeAttr("aria-busy");
+    });
+  }
 }
+
 function save_rec_detail_w_merger(recovery_sheet_id) {
   selectedBills.forEach((item) => {
     item.recovery_sheet_id = recovery_sheet_id;
@@ -342,23 +331,23 @@ function save_rec_detail_w_merger(recovery_sheet_id) {
   let data = {
     data: {
       function_to_call: 'save_rec_details',
-      recovery_sheet_detail: encodeURIComponent(JSON.stringify(recovery_sheet_detail))
+      recovery_sheet_detail: JSON.stringify(recovery_sheet_detail)
     },
     contentType: 'application/x-www-form-urlencoded'
   };
-  mySuperSaver.performAjaxRequest(data).then((response) => {
-    if (response == 1) {
-      alert('Recovery Sheet Created');
-      window.location.reload();
+  return mySuperSaver.performAjaxRequest(data).then((response) => {
+    if (response !== 1 && response !== true) {
+      throw new Error(response?.message || JSON.stringify(response));
     }
-    else {
-      console.error(response);
-    }
-  }).catch((error) => {
-    console.error('Store Recovery Details: ', error);
   });
 }
+
+function reportRecoverySheetError(stage, error) {
+  const message = error?.message || String(error);
+  console.error(`${stage}: ${message}`, error);
+  alert(message);
+}
+
 function create_bill_ledger(recovery_sheet_id) {
 
 }
-

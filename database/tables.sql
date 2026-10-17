@@ -17,6 +17,7 @@ create table routes(
 create table customer(
      customer_id int PRIMARY key NOT null,
      customer_name text,
+     phone varchar(30) DEFAULT NULL,
      customer_route int not null
 );
 CREATE TABLE bill(
@@ -79,4 +80,4 @@ ALTER TABLE `bill_ledger` CHANGE `customer_id` `customer_id` TEXT NOT NULL;
 ALTER TABLE `bill_ledger` CHANGE `bill_id` `bill_id` TEXT NOT NULL;
 ALTER TABLE `bill_ledger` ADD `bill_amount` BIGINT(20) NOT NULL AFTER `bill_id`;
 ALTER TABLE `bill_ledger` ADD `ledger_date` DATE NOT NULL AFTER `ledger_id`;
-ALTER TABLE `bill` CHANGE `Bill_status` `Bill_status` ENUM('NILL','ISSUED','INFILE') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL;
+ALTER TABLE `bill` CHANGE `Bill_status` `Bill_status` ENUM('NILL','ISSUED','INFILE') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT 'INFILE';

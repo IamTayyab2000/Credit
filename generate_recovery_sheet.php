@@ -1,9 +1,16 @@
+<?php
+include_once('functionality/components/session_chk_admin.php');
+if (empty($_SESSION['recovery_correction_csrf'])) {
+    $_SESSION['recovery_correction_csrf'] = bin2hex(random_bytes(32));
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="recovery-correction-csrf" content="<?php echo htmlspecialchars($_SESSION['recovery_correction_csrf'], ENT_QUOTES, 'UTF-8'); ?>">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/cdn.datatables.net_1.13.6_css_jquery.dataTables.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,27 +22,10 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="adminpanel.php">Credit Management</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="adminpanel.php">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="creditReport.php">Reports</a></li>
-                        <li class="nav-item"><a class="nav-link" href="insertDSR.php">DSR</a></li>
-                        <li class="nav-item"><a class="nav-link" href="insertCustomers.php">Customers</a></li>
-                        <li class="nav-item"><a class="nav-link" href="IssueBills.php">Issue Bills</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="generate_recovery_sheet.php">Recovery</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <?php include('functionality/components/admin_nav.php'); ?>
     </header>
 
-    <main class="container">
+    <main class="container recovery-management">
         <h2 class="page-heading">Recovery Sheet Management</h2>
 
         <!-- Recovery Sheet Table Card -->
@@ -75,10 +65,33 @@
                 <button type="button" class="btn-close" id="close_messageBox"></button>
             </div>
         </div>
+
+        <section id="recovery-update-panel" class="card border-0 shadow-sm mt-4 d-none" aria-labelledby="recovery-update-heading">
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                <div>
+                    <h3 class="h6 mb-0" id="recovery-update-heading">Update Processed Recovery Sheet</h3>
+                    <span class="small text-muted" id="recovery-update-sheet-label"></span>
+                </div>
+                <button class="btn-close" type="button" id="close-recovery-update" aria-label="Close editor"></button>
+            </div>
+            <div class="card-body border-bottom">
+                <div class="row g-2">
+                    <div class="col-md-4"><label for="recovery-correction-password" class="form-label">Correction password</label><input type="password" class="form-control" id="recovery-correction-password" autocomplete="off"></div>
+                    <div class="col-md-8"><label for="recovery-correction-reason" class="form-label">Reason (required)</label><input type="text" class="form-control" id="recovery-correction-reason" maxlength="500" placeholder="At least 8 characters"></div>
+                </div>
+                <div id="recovery-update-message" class="alert d-none mt-3 mb-0" role="status"></div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-sm table-hover align-middle mb-0">
+                    <thead class="table-light"><tr><th>Bill</th><th>Shop</th><th>Original</th><th>Recovered</th><th>Returned</th><th>Remaining</th><th>Status</th><th>Action</th></tr></thead>
+                    <tbody id="recovery-update-bills"><tr><td colspan="8" class="text-muted text-center py-4">Select Update on a processed sheet.</td></tr></tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script type="module" src="js/generate_rec_sheet.js"></script>
+    <script type="module" src="js/generate_rec_sheet.js?v=<?php echo filemtime(__DIR__ . '/js/generate_rec_sheet.js'); ?>"></script>
 </body>
 
 </html>
