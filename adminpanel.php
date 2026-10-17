@@ -28,7 +28,7 @@
             <div class="col-md-4">
                 <div class="card border-0 border-start border-danger border-5">
                     <div class="card-body">
-                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Outstanding</div>
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Total Outstanding (Open Bills)</div>
                         <div class="h2 mb-0 font-weight-bold" id="dash_outstanding">...</div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
             <div class="col-md-4">
                 <div class="card border-0 border-start border-success border-5">
                     <div class="card-body">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Monthly Recovery</div>
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Recovery This Month (MTD)</div>
                         <div class="h2 mb-0 font-weight-bold" id="dash_recovery">...</div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
             <div class="col-md-4">
                 <div class="card border-0 border-start border-primary border-5">
                     <div class="card-body">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Monthly Sales</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Credit Sales This Month (MTD)</div>
                         <div class="h2 mb-0 font-weight-bold" id="dash_sales">...</div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
         <div class="row mb-4">
             <div class="col-lg-8">
                 <div class="card h-100">
-                    <div class="card-header">Sales, Recovery &amp; Returns (Last 30 Days)</div>
+                    <div class="card-header">Credit Sales, Recovery &amp; Returns (Last 30 Days)</div>
                     <div class="card-body">
                         <canvas id="salesRecoveryChart"></canvas>
                     </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="card h-100">
-                    <div class="card-header">Top 5 Collectors</div>
+                    <div class="card-header">Top 5 Collectors This Month</div>
                     <div class="card-body p-0">
                         <ul class="list-group list-group-flush" id="top_salesmen_list">
                             <li class="list-group-item text-center">Loading...</li>
@@ -75,15 +75,15 @@
         <div class="row mb-4">
             <div class="col-lg-6">
                 <div class="card h-100">
-                    <div class="card-header">Salesman Efficiency (Recovery %)</div>
+                    <div class="card-header">Monthly Credit Sales &amp; Recovery by Salesman (MTD)</div>
                     <div class="card-body">
-                        <canvas id="salesmanEfficiencyChart"></canvas>
+                        <canvas id="salesmanMonthlyTotalsChart"></canvas>
                     </div>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="card h-100">
-                    <div class="card-header">Debt Aging</div>
+                    <div class="card-header">Debt Aging (INFILE + ISSUED)</div>
                     <div class="card-body">
                         <canvas id="agingChart"></canvas>
                     </div>
@@ -91,7 +91,7 @@
             </div>
             <div class="col-lg-3">
                 <div class="card h-100">
-                    <div class="card-header text-danger">At-Risk Customers</div>
+                    <div class="card-header text-danger">At-Risk: Last Open Bill 60+ Days</div>
                     <div class="card-body p-0" style="max-height: 300px; overflow-y: auto;">
                         <ul class="list-group list-group-flush" id="at_risk_list">
                             <li class="list-group-item text-center">Loading...</li>
@@ -104,7 +104,7 @@
         <div class="row mb-4">
             <div class="col-lg-6">
                 <div class="card shadow h-100">
-                    <div class="card-header font-weight-bold">Dead Zones (High Debt Sectors)</div>
+                    <div class="card-header font-weight-bold">Highest-Debt Sectors (INFILE + ISSUED)</div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table mb-0">
@@ -124,7 +124,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="card shadow h-100">
-                    <div class="card-header font-weight-bold">Top Defaulters</div>
+                    <div class="card-header font-weight-bold">Top Defaulters (Oldest Open Bill First)</div>
                     <div class="card-body p-0">
                         <div class="table-responsive">
                             <table class="table mb-0">
@@ -132,11 +132,12 @@
                                     <tr>
                                         <th>Customer</th>
                                         <th>Sector</th>
+                                        <th>Oldest Open Bill</th>
                                         <th class="text-end">Outstanding</th>
                                     </tr>
                                 </thead>
                                 <tbody id="top_defaulters_table">
-                                    <tr><td colspan="3" class="text-center">Loading...</td></tr>
+                                    <tr><td colspan="4" class="text-center">Loading...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -146,7 +147,7 @@
         </div>
 
         <div class="card mt-4">
-            <div class="card-header">Today's Sales Summary</div>
+            <div class="card-header">Today's DSR Summary (Processed Today)</div>
             <div class="card-body p-0">
                 <div class="table-responsive">
                     <table class="table table-hover mb-0" id='today_sales'>

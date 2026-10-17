@@ -1,16 +1,18 @@
 <?php
 include_once(__DIR__ . '/components/condb.php');
 
-// Define database credentials (matching condb.php)
-define('DB_HOST', 'localhost');
-define('DB_USER', 'root');
-define('DB_PASS', '');
-define('DB_NAME', 'credit');
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_USER')) define('DB_USER', 'root');
+if (!defined('DB_PASS')) define('DB_PASS', 'Dashbord200*');
+if (!defined('DB_NAME')) define('DB_NAME', 'cred-bi');
 
 function get_backup_settings() {
     global $conn;
     $query = "SELECT * FROM backup_settings WHERE id = 1";
     $result = mysqli_query($conn, $query);
+    if ($result === false && function_exists('markDatabaseRequestFailed')) {
+        markDatabaseRequestFailed('get_backup_settings', mysqli_error($conn));
+    }
     if ($result && mysqli_num_rows($result) > 0) {
         return mysqli_fetch_assoc($result);
     }
@@ -23,8 +25,17 @@ function update_backup_settings($path, $auto_backup, $frequency) {
     $auto_backup = (int)$auto_backup;
     $frequency = (int)$frequency;
     
-    $query = "UPDATE backup_settings SET backup_path = '$path', auto_backup = $auto_backup, backup_frequency_hours = $frequency WHERE id = 1";
-    return mysqli_query($conn, $query);
+    $query = "INSERT INTO backup_settings (id, backup_path, auto_backup, backup_frequency_hours)
+              VALUES (1, '$path', $auto_backup, $frequency)
+              ON DUPLICATE KEY UPDATE
+                  backup_path = VALUES(backup_path),
+                  auto_backup = VALUES(auto_backup),
+                  backup_frequency_hours = VALUES(backup_frequency_hours)";
+    $result = mysqli_query($conn, $query);
+    if ($result === false && function_exists('markDatabaseRequestFailed')) {
+        markDatabaseRequestFailed('update_backup_settings', mysqli_error($conn));
+    }
+    return $result;
 }
 
 function perform_backup($manual = true) {
@@ -68,7 +79,12 @@ function perform_backup($manual = true) {
     if ($return_var === 0) {
         // Success: update last run time
         $currentTime = date('Y-m-d H:i:s');
-        mysqli_query($conn, "UPDATE backup_settings SET last_backup_time = '$currentTime' WHERE id = 1");
+        if (!mysqli_query($conn, "UPDATE backup_settings SET last_backup_time = '$currentTime' WHERE id = 1")) {
+            if (function_exists('markDatabaseRequestFailed')) {
+                markDatabaseRequestFailed('record_backup_time', mysqli_error($conn));
+            }
+            return ['status' => 'error', 'message' => 'The backup was created, but its completion time could not be saved.'];
+        }
         
         $type = $manual ? 'Manual' : 'Automated';
         return ['status' => 'success', 'message' => "$type backup successfully created at $fullPath"];

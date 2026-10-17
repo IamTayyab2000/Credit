@@ -1,0 +1,7 @@
+{"timestamp":"2026-10-11T08:40:20+02:00","operation":"write","message":"Duplicate entry 'N00000275471' for key 'PRIMARY'"}
+{"timestamp":"2026-10-11T08:42:10+02:00","operation":"write","message":"Duplicate entry 'N00000275517 ' for key 'PRIMARY'"}
+{"timestamp":"2026-10-11T08:42:10+02:00","operation":"write","message":"Duplicate entry 'N00000275517 ' for key 'PRIMARY'"}
+{"timestamp":"2026-10-11T11:51:40+02:00","operation":"process_dsr","message":"Bill amounts must be non-negative whole numbers."}
+{"timestamp":"2026-10-11T12:06:05+02:00","operation":"process_dsr","message":"Bill amounts must be non-negative whole numbers."}
+{"timestamp":"2026-10-11T12:06:11+02:00","operation":"process_dsr","message":"Bill amounts must be non-negative whole numbers."}
+{"timestamp":"2026-10-12T09:00:49+02:00","operation":"process_dsr","message":"Bill amounts must be non-negative whole numbers."}

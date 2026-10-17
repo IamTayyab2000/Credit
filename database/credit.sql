@@ -45,7 +45,7 @@ CREATE TABLE `bill` (
   `picklist_id` varchar(11) NOT NULL,
   `bill_amount` bigint(20) NOT NULL,
   `bill_date` date NOT NULL,
-  `Bill_status` enum('NILL','ISSUED','INFILE') NOT NULL
+  `Bill_status` enum('NILL','ISSUED','INFILE') DEFAULT 'INFILE'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -73,6 +73,7 @@ CREATE TABLE `bill_ledger` (
 CREATE TABLE `customer` (
   `customer_id` varchar(12) NOT NULL,
   `customer_name` text DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
   `customer_route` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -52,7 +52,7 @@ CREATE TABLE `bill` (
   `picklist_id` varchar(33) NOT NULL,
   `bill_amount` bigint(20) NOT NULL,
   `bill_date` date NOT NULL,
-  `Bill_status` enum('NILL','ISSUED','INFILE') NOT NULL DEFAULT 'INFILE'
+  `Bill_status` enum('NILL','ISSUED','INFILE') DEFAULT 'INFILE'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -594,7 +594,7 @@ CREATE TABLE `bill_ledger` (
   `recived_amount` bigint(20) NOT NULL,
   `return_amount` bigint(20) NOT NULL DEFAULT 0,
   `remaining_amount` bigint(20) NOT NULL,
-  `bill_status` enum('NILL','BF','INFILE') NOT NULL DEFAULT 'INFILE'
+  `bill_status` enum('NILL','BF','INFILE') DEFAULT 'INFILE'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1316,6 +1316,7 @@ INSERT INTO `bill_return` (`return_id`, `bill_id`, `ref_id`, `return_amount`, `r
 CREATE TABLE `customer` (
   `customer_id` varchar(12) NOT NULL,
   `customer_name` text DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
   `customer_route` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -1889,7 +1890,13 @@ CREATE TABLE `recovery_sheet` (
   `recovery_sheet_amount` decimal(10,2) DEFAULT NULL,
   `recovery_sheet_recovery` decimal(10,2) DEFAULT NULL,
   `recovery_sheet_returned` decimal(10,2) DEFAULT 0.00,
-  `sheet_status` enum('0','1') NOT NULL
+  `sheet_status` enum('0','1') NOT NULL,
+  `recovery_sheet_source_id` int(11) DEFAULT NULL,
+  `correction_status` enum('ACTIVE','ROLLED_BACK') NOT NULL DEFAULT 'ACTIVE',
+  `creation_request_key` char(32) DEFAULT NULL,
+  `creation_payload_hash` char(64) DEFAULT NULL,
+  KEY `idx_recovery_sheet_source_id` (`recovery_sheet_source_id`),
+  KEY `idx_recovery_sheet_correction_status` (`correction_status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -1917,6 +1924,33 @@ CREATE TABLE `recovery_sheet_detail` (
   `recovery_sheet_bill_recovered` decimal(10,2) NOT NULL,
   `recovery_sheet_bill_returned` decimal(10,2) DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+CREATE TABLE `recovery_sheet_correction` (
+  `correction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `recovery_sheet_id` int(11) NOT NULL,
+  `bill_id` varchar(100) DEFAULT NULL,
+  `action_type` enum('ROLLBACK_SHEET','EDIT_BILL') NOT NULL,
+  `admin_user` varchar(255) NOT NULL,
+  `reason` varchar(500) NOT NULL,
+  `before_state` longtext NOT NULL,
+  `after_state` longtext NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`correction_id`),
+  KEY `idx_recovery_correction_sheet` (`recovery_sheet_id`),
+  KEY `idx_recovery_correction_bill` (`bill_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `recovery_correction_auth` (
+  `auth_id` tinyint(3) unsigned NOT NULL,
+  `password_hash` varchar(255) NOT NULL,
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`auth_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+INSERT INTO `recovery_correction_auth` (`auth_id`, `password_hash`) VALUES
+(1, '$2y$10$LDxT/6vFA9tS02v6cDCYNuoYWvvWJsPBY4FDG39.OIH7Cxx/yRZ0K');
 
 --
 -- Dumping data for table `recovery_sheet_detail`
@@ -2250,7 +2284,8 @@ ALTER TABLE `picklist`
 -- Indexes for table `recovery_sheet`
 --
 ALTER TABLE `recovery_sheet`
-  ADD PRIMARY KEY (`recovery_id`);
+  ADD PRIMARY KEY (`recovery_id`),
+  ADD UNIQUE KEY `uq_recovery_sheet_creation_request_key` (`creation_request_key`);
 
 --
 -- Indexes for table `recovery_sheet_detail`

@@ -237,7 +237,7 @@ function loadDashboardAnalytics() {
                     labels: sortedDates,
                     datasets: [
                         {
-                            label: 'Sales',
+                            label: 'Credit Sales',
                             data: salesData,
                             borderColor: 'rgba(54, 162, 235, 1)',
                             backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -310,26 +310,33 @@ function loadDashboardAnalytics() {
             defaulterTable.empty();
             if (data.top_defaulters && data.top_defaulters.length > 0) {
                 data.top_defaulters.forEach(defaulter => {
-                    const row = `<tr><td>${defaulter.customer_name}</td><td>${defaulter.sector_name}</td><td class="text-end text-danger font-weight-bold">${formatCurrency(defaulter.outstanding)}</td></tr>`;
+                    const row = `<tr><td>${defaulter.customer_name}</td><td>${defaulter.sector_name}</td><td>${defaulter.oldest_bill}</td><td class="text-end text-danger font-weight-bold">${formatCurrency(defaulter.outstanding)}</td></tr>`;
                     defaulterTable.append(row);
                 });
             } else {
-                defaulterTable.append('<tr><td colspan="3" class="text-center">No defaulters found</td></tr>');
+                defaulterTable.append('<tr><td colspan="4" class="text-center">No defaulters found</td></tr>');
             }
 
-            // 6. Salesman Efficiency Chart
-            if (data.salesman_efficiency && data.salesman_efficiency.length > 0) {
-                const ctxEff = document.getElementById('salesmanEfficiencyChart').getContext('2d');
+            // 6. Compare monthly credit sales and recovery without combining them into a score.
+            if (data.salesman_monthly_totals && data.salesman_monthly_totals.length > 0) {
+                const ctxEff = document.getElementById('salesmanMonthlyTotalsChart').getContext('2d');
                 new Chart(ctxEff, {
                     type: 'bar',
                     data: {
-                        labels: data.salesman_efficiency.map(s => s.name),
+                        labels: data.salesman_monthly_totals.map(s => s.name),
                         datasets: [
                             {
-                                label: 'Efficiency (%)',
-                                data: data.salesman_efficiency.map(s => s.efficiency),
-                                backgroundColor: 'rgba(255, 159, 64, 0.6)',
-                                borderColor: 'rgba(255, 159, 64, 1)',
+                                label: 'Credit Sales',
+                                data: data.salesman_monthly_totals.map(s => s.sales),
+                                backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: 'Recovery',
+                                data: data.salesman_monthly_totals.map(s => s.recovery),
+                                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
                                 borderWidth: 1
                             }
                         ]
@@ -337,20 +344,13 @@ function loadDashboardAnalytics() {
                     options: {
                         responsive: true,
                         scales: {
-                            y: { beginAtZero: true, max: 100 }
+                            y: { beginAtZero: true }
                         },
                         plugins: {
                             tooltip: {
                                 callbacks: {
                                     label: function (context) {
-                                        let label = context.dataset.label || '';
-                                        if (label) {
-                                            label += ': ';
-                                        }
-                                        if (context.parsed.y !== null) {
-                                            label += context.parsed.y + '%';
-                                        }
-                                        return label;
+                                        return `${context.dataset.label || ''}: ${formatCurrency(context.parsed.y || 0)}`;
                                     }
                                 }
                             }

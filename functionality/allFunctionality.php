@@ -1846,43 +1846,47 @@ switch ($function_to_call) {
         $response['outstanding'] = $r1[0]['total'] ?? 0;
 
         // Sales This Month
-        $q2 = "SELECT IFNULL(SUM(picklist_credit),0) as total FROM picklist WHERE picklist_date >= DATE_FORMAT(NOW(), '%Y-%m-01')";
+        $q2 = "SELECT IFNULL(SUM(picklist_credit),0) as total FROM picklist WHERE picklist_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') AND picklist_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)";
         $r2 = json_decode(read($q2), true);
         $response['sales_month'] = $r2[0]['total'] ?? 0;
 
         // Recovery This Month (Using recovery_sheet for actual collections)
-        $q3 = "SELECT IFNULL(SUM(recovery_sheet_recovery),0) as total FROM recovery_sheet WHERE recovery_date >= DATE_FORMAT(NOW(), '%Y-%m-01')";
+        $q3 = "SELECT IFNULL(SUM(recovery_sheet_recovery),0) as total FROM recovery_sheet WHERE recovery_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01') AND recovery_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)";
         $r3 = json_decode(read($q3), true);
         $response['recovery_month'] = $r3[0]['total'] ?? 0;
 
         // 2. Trends (Last 30 Days)
         // Service should merge these in PHP or JS, but sending separate arrays is easier
-        $q4 = "SELECT picklist_date as date, SUM(picklist_credit) as amount FROM picklist WHERE picklist_date >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY picklist_date ORDER BY picklist_date ASC";
+        $q4 = "SELECT picklist_date as date, SUM(picklist_credit) as amount FROM picklist WHERE picklist_date >= DATE_SUB(CURRENT_DATE, INTERVAL 29 DAY) AND picklist_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY) GROUP BY picklist_date ORDER BY picklist_date ASC";
         $response['sales_trend'] = json_decode(read($q4), true);
 
-        $q5 = "SELECT recovery_date as date, SUM(recovery_sheet_recovery) as amount FROM recovery_sheet WHERE recovery_date >= DATE_SUB(NOW(), INTERVAL 30 DAY) GROUP BY recovery_date ORDER BY recovery_date ASC";
+        $q5 = "SELECT recovery_date as date, SUM(recovery_sheet_recovery) as amount FROM recovery_sheet WHERE recovery_date >= DATE_SUB(CURRENT_DATE, INTERVAL 29 DAY) AND recovery_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY) GROUP BY recovery_date ORDER BY recovery_date ASC";
         $response['recovery_trend'] = json_decode(read($q5), true);
 
         $q6 = "SELECT return_events.date, SUM(return_events.amount) AS amount
                FROM (
                    SELECT picklist_date AS date, SUM(picklist_return) AS amount
                    FROM picklist
-                   WHERE picklist_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+                   WHERE picklist_date >= DATE_SUB(CURRENT_DATE, INTERVAL 29 DAY)
+                     AND picklist_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)
                    GROUP BY picklist_date
                    UNION ALL
                    SELECT recovery_date AS date, SUM(recovery_sheet_returned) AS amount
                    FROM recovery_sheet
-                   WHERE recovery_date >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+                   WHERE recovery_date >= DATE_SUB(CURRENT_DATE, INTERVAL 29 DAY)
+                     AND recovery_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)
                    GROUP BY recovery_date
                ) AS return_events
                GROUP BY return_events.date
                ORDER BY return_events.date ASC";
         $response['return_trend'] = json_decode(read($q6), true);
 
-        // 3. Top 5 Salesmen (By Recovery)
+        // 3. Top 5 Salesmen by recovery this month
         $q6 = "SELECT s.saleman_name as name, SUM(rs.recovery_sheet_recovery) as total 
                FROM recovery_sheet rs 
                JOIN salesman s ON rs.recovery_sheet_saleman_id = s.saleman_id 
+               WHERE rs.recovery_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                 AND rs.recovery_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)
                GROUP BY rs.recovery_sheet_saleman_id 
                ORDER BY total DESC LIMIT 5";
         $response['top_salesmen'] = json_decode(read($q6), true);
@@ -1893,49 +1897,45 @@ switch ($function_to_call) {
                JOIN customer c ON b.cutomer_id = c.customer_id
                JOIN routes r ON c.customer_route = r.route_id
                JOIN sector s ON r.sector_id = s.sector_id
-               WHERE b.Bill_status = 'INFILE'
+               WHERE b.Bill_status IN ('INFILE', 'ISSUED')
                GROUP BY s.sector_id, s.sector_name
                ORDER BY outstanding DESC LIMIT 5";
         $response['dead_zones'] = json_decode(read($q7), true);
 
-        // 5. Top Defaulters (Customers with high outstanding)
-        $q8 = "SELECT c.customer_name, SUM(b.bill_amount) as outstanding, s.sector_name
+        // 5. Top Defaulters: oldest outstanding bill first, then highest balance
+        $q8 = "SELECT c.customer_name, SUM(b.bill_amount) as outstanding, s.sector_name, MIN(b.bill_date) as oldest_bill
                FROM bill b
                JOIN customer c ON b.cutomer_id = c.customer_id
                JOIN routes r ON c.customer_route = r.route_id
                JOIN sector s ON r.sector_id = s.sector_id
-               WHERE b.Bill_status = 'INFILE'
+               WHERE b.Bill_status IN ('INFILE', 'ISSUED')
                GROUP BY c.customer_id, c.customer_name, s.sector_name
-               ORDER BY outstanding DESC LIMIT 5";
+               ORDER BY oldest_bill IS NULL ASC, oldest_bill ASC, outstanding DESC LIMIT 5";
         $response['top_defaulters'] = json_decode(read($q8), true);
 
-        // 6. Salesman Efficiency (Recovery / Sales * 100 for this month)
-        // Note: usage of complex subqueries or separate processing might be needed for perfect accuracy, 
-        // but here is a simplified approach fetching totals per salesman.
+        // 6. Separate monthly credit sales and recovery totals by salesman
         $q9 = "SELECT s.saleman_name, 
                       IFNULL(SUM(p.picklist_credit),0) as sales,
                       (SELECT IFNULL(SUM(rs.recovery_sheet_recovery),0) 
                        FROM recovery_sheet rs 
                        WHERE rs.recovery_sheet_saleman_id = s.saleman_id 
-                       AND rs.recovery_date >= DATE_FORMAT(NOW(), '%Y-%m-01')) as recovery
+                       AND rs.recovery_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                       AND rs.recovery_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)) as recovery
                FROM salesman s
                LEFT JOIN picklist p ON p.picklist_saleman = s.saleman_id 
-                               AND p.picklist_date >= DATE_FORMAT(NOW(), '%Y-%m-01')
+                               AND p.picklist_date >= DATE_FORMAT(CURRENT_DATE, '%Y-%m-01')
+                               AND p.picklist_date < DATE_ADD(CURRENT_DATE, INTERVAL 1 DAY)
                GROUP BY s.saleman_id";
         $salesman_stats = json_decode(read($q9), true);
-        $efficiency = [];
+        $salesman_monthly_totals = [];
         foreach($salesman_stats as $stat) {
-            $sales = (float)$stat['sales'];
-            $recovery = (float)$stat['recovery'];
-            $eff = ($sales > 0) ? round(($recovery / $sales) * 100, 1) : 0;
-            $efficiency[] = [
+            $salesman_monthly_totals[] = [
                 'name' => $stat['saleman_name'],
-                'efficiency' => $eff,
-                'sales' => $sales,
-                'recovery' => $recovery
+                'sales' => (float) $stat['sales'],
+                'recovery' => (float) $stat['recovery'],
             ];
         }
-        $response['salesman_efficiency'] = $efficiency;
+        $response['salesman_monthly_totals'] = $salesman_monthly_totals;
 
         // 7. Debt Aging Analysis
         $q10 = "SELECT 
@@ -1947,12 +1947,11 @@ switch ($function_to_call) {
                     END as age_bucket,
                     SUM(b.bill_amount) as total_outstanding
                 FROM bill b
-                WHERE b.Bill_status = 'INFILE'
+                WHERE b.Bill_status IN ('INFILE', 'ISSUED')
                 GROUP BY age_bucket";
         $response['aging_analysis'] = json_decode(read($q10), true);
 
-        // 8. At-Risk Customers (Inactive > 60 days with Debt)
-        // Logic: Has outstanding debt AND Max(Bill Date) < 60 days ago
+        // 8. At-Risk Customers: last outstanding bill is older than 60 days
         $q11 = "SELECT c.customer_name,
                    COALESCE(s.saleman_name, 'Unassigned') as salesman_name,
                        SUM(b.bill_amount) as outstanding,
@@ -1961,7 +1960,7 @@ switch ($function_to_call) {
                 JOIN customer c ON b.cutomer_id = c.customer_id
             LEFT JOIN routes r ON c.customer_route = r.route_id
             LEFT JOIN salesman s ON r.saleman_id = s.saleman_id
-                WHERE b.Bill_status = 'INFILE'
+                WHERE b.Bill_status IN ('INFILE', 'ISSUED')
             GROUP BY c.customer_id, c.customer_name, s.saleman_name
                 HAVING last_bill < DATE_SUB(NOW(), INTERVAL 60 DAY)
                 ORDER BY outstanding DESC LIMIT 10";
