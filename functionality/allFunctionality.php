@@ -1286,7 +1286,7 @@ switch ($function_to_call) {
             }
             $sheet_stmt->close();
 
-            $bill_stmt = $conn->prepare("SELECT d.recovery_sheet_bill_amount, b.bill_amount, b.cutomer_id FROM recovery_sheet_detail d JOIN bill b ON b.bill_id=d.recovery_sheet_bill_id WHERE d.recovery_sheet_id=? AND d.recovery_sheet_bill_id=? AND b.Bill_status='ISSUED' FOR UPDATE");
+            $bill_stmt = $conn->prepare("SELECT d.recovery_sheet_bill_amount, b.bill_amount, b.cutomer_id, b.bill_id, b.Bill_status FROM recovery_sheet_detail d LEFT JOIN bill b ON b.bill_id=d.recovery_sheet_bill_id WHERE d.recovery_sheet_id=? AND d.recovery_sheet_bill_id=? FOR UPDATE");
             $bill_update_stmt = $conn->prepare("UPDATE bill SET bill_amount=?, Bill_status=? WHERE bill_id=? AND Bill_status='ISSUED'");
             $detail_update_stmt = $conn->prepare("UPDATE recovery_sheet_detail SET recovery_sheet_bill_recovered=?, recovery_sheet_bill_returned=? WHERE recovery_sheet_id=? AND recovery_sheet_bill_id=?");
             $return_stmt = $conn->prepare("INSERT INTO bill_return (bill_id, ref_id, return_amount, return_date) VALUES (?, ?, ?, CURRENT_DATE)");
@@ -1325,13 +1325,21 @@ switch ($function_to_call) {
                 $returned = (float) $returned;
 
                 $bill_stmt->bind_param('is', $rec_id, $bill_id);
-                $bill_stmt->execute();
-                $bill_stmt->bind_result($sheet_amount, $current_amount, $customer_id);
+                if (!$bill_stmt->execute()) {
+                    throw new RuntimeException('A bill could not be checked against this recovery sheet.');
+                }
+                $bill_stmt->bind_result($sheet_amount, $current_amount, $customer_id, $matched_bill_id, $current_bill_status);
                 if (!$bill_stmt->fetch()) {
                     $bill_stmt->free_result();
-                    throw new RuntimeException('A bill does not belong to this recovery sheet.');
+                    throw new RuntimeException("Bill {$bill_id} is not listed on this recovery sheet. Reload the sheet and try again.");
                 }
                 $bill_stmt->free_result();
+                if ($matched_bill_id === null) {
+                    throw new RuntimeException("Bill {$bill_id} is listed on this recovery sheet, but no matching bill record exists.");
+                }
+                if ($current_bill_status !== 'ISSUED') {
+                    throw new RuntimeException("Bill {$bill_id} is listed on this recovery sheet but has status {$current_bill_status}; expected ISSUED.");
+                }
                 $sheet_amount = (float) $sheet_amount;
                 $current_amount = (float) $current_amount;
                 if ($sheet_amount !== $current_amount || $recovered + $returned > $current_amount) {

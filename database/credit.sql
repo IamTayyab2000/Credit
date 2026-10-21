@@ -132,7 +132,7 @@ CREATE TABLE `recovery_sheet` (
 CREATE TABLE `recovery_sheet_detail` (
   `recovery_detail_id` int(11) NOT NULL,
   `recovery_sheet_id` int(11) NOT NULL,
-  `recovery_sheet_bill_id` int(11) NOT NULL,
+  `recovery_sheet_bill_id` varchar(100) NOT NULL,
   `recovery_sheet_bill_amount` decimal(10,2) NOT NULL,
   `recovery_sheet_bill_recovered` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

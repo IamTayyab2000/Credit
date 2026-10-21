@@ -66,7 +66,7 @@ create table recovery_sheet(
 CREATE TABLE recovery_sheet_detail (
     recovery_detail_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     recovery_sheet_id INT NOT NULL,
-    recovery_sheet_bill_id INT NOT NULL,
+    recovery_sheet_bill_id VARCHAR(100) NOT NULL,
     recovery_sheet_bill_amount DECIMAL(10, 2) NOT NULL,
     recovery_sheet_bill_recovered DECIMAL(10, 2) NOT NULL
 );
